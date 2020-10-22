@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodRecipes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="768" Width="1366">
+    <Canvas>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="searchKeyWordTextBox" Width="610" Height="30" Padding="5" TextChanged="searchKeyWord_TextChanged"></TextBox>
+            <Label>Test Search đê</Label>
+        </StackPanel>
+
+        <ListView Name="recipesListView" Grid.ColumnSpan="2" Canvas.Top="36">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="NAME" Width="120" DisplayMemberBinding="{Binding NAME}"/>
+                    <GridViewColumn Header="TIME" Width="120" DisplayMemberBinding="{Binding TIME}"/>
+                    <GridViewColumn Header="FOOD_GROUP" Width="120" DisplayMemberBinding="{Binding FOOD_GROUP}"/>
+                    <GridViewColumn Header="FOOD_LEVEL" Width="120" DisplayMemberBinding="{Binding FOOD_LEVEL}"/>
+                    <GridViewColumn Header="FAVORITE_FLAG" Width="120" DisplayMemberBinding="{Binding FAVORITE_FLAG}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Width="100" Height="40" Click="Load_Recipes_Click" Canvas.Top="285" Canvas.Left="256">
+            Load Database
+        </Button>
+    </Canvas>
 </Window>

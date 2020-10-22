@@ -263,5 +263,21 @@ namespace FoodRecipes
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TurnShoppingFlagOn", id_recipeParameter);
         }
+    
+        [DbFunction("FoodRecipeEntities", "GetAllRecipeSummary")]
+        public virtual IQueryable<GetAllRecipeSummary_Result> GetAllRecipeSummary()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetAllRecipeSummary_Result>("[FoodRecipeEntities].[GetAllRecipeSummary]()");
+        }
+    
+        [DbFunction("FoodRecipeEntities", "GetRecipeById")]
+        public virtual IQueryable<GetRecipeById_Result> GetRecipeById(Nullable<int> id_recipe)
+        {
+            var id_recipeParameter = id_recipe.HasValue ?
+                new ObjectParameter("id_recipe", id_recipe) :
+                new ObjectParameter("id_recipe", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetRecipeById_Result>("[FoodRecipeEntities].[GetRecipeById](@id_recipe)", id_recipeParameter);
+        }
     }
 }
