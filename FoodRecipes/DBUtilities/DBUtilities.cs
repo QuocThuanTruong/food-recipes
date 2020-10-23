@@ -189,6 +189,7 @@ namespace FoodRecipes.DBUtilities
                 else if (operators.Count > 0)
                 {
                     HashSet<int> tempIDsResult = new HashSet<int>();
+                    HashSet<int> deathID = new HashSet<int>();
 
                     int count = 1;
 
@@ -210,6 +211,21 @@ namespace FoodRecipes.DBUtilities
 
                         foreach (var param1 in params1)
                         {
+                            if (operatorStr == "and not") {
+                                string deathSearchText = param1 + " " + "and" + " " + param2;
+
+                                var tempRecipesSearchResultDeath = SearchByName(deathSearchText);
+
+                                foreach (var tempRecipeSearchResultDeath in tempRecipesSearchResultDeath)
+                                {
+                                    var recipe = from r in recipesSummary
+                                                 where r.ID_RECIPE == tempRecipeSearchResultDeath.ID_RECIPE
+                                                 select r;
+
+                                    deathID.Add(recipe.FirstOrDefault().ID_RECIPE);
+                                }
+                            }
+
                             string tempSearchText = param1 + " " + operatorStr + " " + param2;
 
                             var tempRecipesSearchResult = SearchByName(tempSearchText);
@@ -245,11 +261,18 @@ namespace FoodRecipes.DBUtilities
 
                         tempIDsResult.Remove(tempID);
 
-                        var recipe = from r in recipesSummary
-                                     where r.ID_RECIPE == tempID
-                                     select r;
+                        if (!deathID.Contains(tempID))
+                        {
+                            var recipe = from r in recipesSummary
+                                         where r.ID_RECIPE == tempID
+                                         select r;
 
-                        result.Add(recipe.FirstOrDefault());
+                            result.Add(recipe.FirstOrDefault());
+                        }
+                        else { 
+                            //Do Nothing
+                        }
+
                     }
 
                 }
