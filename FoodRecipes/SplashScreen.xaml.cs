@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,11 +20,17 @@ namespace FoodRecipes
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class SplashScreen : Window
 	{
-		public MainWindow()
+		public SplashScreen()
 		{
 			InitializeComponent();
+			DataContext = this;
+		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
