@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace FoodRecipes.DBUtilities
 {
@@ -23,6 +24,16 @@ namespace FoodRecipes.DBUtilities
             }
 
             return _dbInstance;
+        }
+
+        public int GetMaxIDRecipe()
+        {
+           var result = _dbFoodRecipe
+                .Database
+                .SqlQuery<int>("select [dbo].[GetMaxIDRecipe]()")
+                .Single();
+
+            return result;
         }
 
         public IQueryable<GetRecipeById_Result> GetRecipeById(Nullable<int> id_recipe) {
@@ -159,27 +170,188 @@ namespace FoodRecipes.DBUtilities
         }
 
         public List<GetAllRecipeSummary_Result> GetRecipesSearchResult(string search_text) {
-            var recipesSummary = GetAllRecipeSummary();
-
-            var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
-
             List<GetAllRecipeSummary_Result> result = new List<GetAllRecipeSummary_Result>();
 
-            if (recipesSearchResult.Any()) {
-                foreach (var recipeSearchResult in recipesSearchResult)
+            try
+            {
+                string[] OPERATOR = { "and", "or", "and not" };
+
+                search_text = GetStandardString(search_text);
+                Stack<string> keywords = GetListKeyWords(search_text);
+                Queue<int> operators = GetListOperator(search_text);
+
+                var recipesSummary = GetAllRecipeSummary();
+
+                if (keywords.Count < 0)
                 {
-                    var recipe = from r in recipesSummary
-                                 where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
-                                 select r;
-
-                    result.Add(recipe.FirstOrDefault());
+                    search_text = search_text.Replace("\"", "#");
                 }
-            } else {
+                else if (operators.Count > 0)
+                {
+                    HashSet<int> tempIDsResult = new HashSet<int>();
 
-                //Do Nothing 
+                    int count = 1;
 
+                    while (operators.Count > 0)
+                    {
+                        var operatorStr = OPERATOR[operators.Dequeue() - 1];
+
+                        List<string> params1 = new List<string>();
+
+                        while (count > 0)
+                        {
+                            params1.Add(keywords.Pop());
+                            --count;
+                        }
+
+                        string param2 = keywords.Pop();
+
+                        HashSet<string> tempKeyWords = new HashSet<string>();
+
+                        foreach (var param1 in params1)
+                        {
+                            string tempSearchText = param1 + " " + operatorStr + " " + param2;
+
+                            var tempRecipesSearchResult = SearchByName(tempSearchText);
+
+                            count += tempRecipesSearchResult.Count();
+
+                            foreach (var tempRecipeSearchResult in tempRecipesSearchResult)
+                            {
+                                var recipe = from r in recipesSummary
+                                             where r.ID_RECIPE == tempRecipeSearchResult.ID_RECIPE
+                                             select r;
+
+                                if (operators.Count == 0)
+                                {
+                                    tempIDsResult.Add(recipe.FirstOrDefault().ID_RECIPE);
+                                }
+                                else {
+                                    tempKeyWords.Add("\"" + recipe.FirstOrDefault().NAME + "\"");
+                                }
+                              
+                            }
+
+                            while (tempKeyWords.Count > 0) {
+                                keywords.Push(tempKeyWords.First());
+
+                                tempKeyWords.Remove(tempKeyWords.First());
+                            }
+                        }
+                    }
+
+                    while (tempIDsResult.Count > 0) {
+                        int tempID = tempIDsResult.First();
+
+                        tempIDsResult.Remove(tempID);
+
+                        var recipe = from r in recipesSummary
+                                     where r.ID_RECIPE == tempID
+                                     select r;
+
+                        result.Add(recipe.FirstOrDefault());
+                    }
+
+                }
+                else {
+                    var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
+
+                    foreach (var recipeSearchResult in recipesSearchResult)
+                    {
+                        var recipe = from r in recipesSummary
+                                     where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
+                                     select r;
+
+                        result.Add(recipe.FirstOrDefault());
+                    }
+                } 
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex.InnerException);
+            }
+           
+
+            return result;
+        }
+
+        private string GetStandardString(string srcString)
+        {
+            string result = srcString;
+
+            result = result.Trim();
+
+            while (result.IndexOf("  ") != -1)
+            {
+                result = result.Replace("  ", " ");
             }
 
+            result = result.ToLower();
+
+            return result;
+        }
+
+        private Stack<string> GetListKeyWords(string search_text) {
+            Stack<string> result = new Stack<string>();
+            Stack<string> temp = new Stack<string>();
+
+            List<int> indexQuotes = new List<int>();
+
+            for (int i = 0; i < search_text.Length; ++i)
+            {
+                if (search_text[i] == '"')
+                {
+                    indexQuotes.Add(i);
+                }
+                else
+                {
+                    //Do Nothing
+                }
+            }
+
+            if (indexQuotes.Count % 2 == 0) {
+                for (int i = 0; i < indexQuotes.Count - 1; i += 2)
+                {
+                    string tempString = "";
+
+                    for (int j = indexQuotes[i]; j <= indexQuotes[i + 1]; ++j) {
+                        tempString += search_text[j];
+                    }
+
+                    //"abc" and "123"
+                    if (tempString.Length > 2) {
+                        temp.Push(tempString);
+                    }
+                }
+            }
+
+            while (temp.Count > 0) {
+                result.Push(temp.Pop());
+            }
+
+            return result;
+        }
+
+        private Queue<int> GetListOperator(string search_text) {
+            Queue<int> result = new Queue<int>();
+
+            var tokens = search_text.Split(' ');
+
+            for (int i = 0; i < tokens.Length; ++i) {
+                if (tokens[i] == "and")
+                {
+                    if (i + 1 < tokens.Length && tokens[i + 1] == "not")
+                    {
+                        result.Enqueue(3);
+                    }
+                    else
+                    {
+                        result.Enqueue(1);
+                    }
+                }
+                else if (tokens[i] == "or") {
+                    result.Enqueue(2);
+                }
+            }
             return result;
         }
     }

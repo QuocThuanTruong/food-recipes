@@ -23,8 +23,72 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Width="100" Height="40" Click="Load_Recipes_Click" Canvas.Top="285" Canvas.Left="256">
+        <Button Width="100" Height="40" Click="Load_Recipes_Click" Canvas.Top="520" Canvas.Left="237">
             Load Database
         </Button>
+
+        <StackPanel Canvas.Left="700">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="nameRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Name</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="descriptionRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Description</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="linkVideoRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Link Video</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="avatarRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Avtar...Link</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="timeRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Time</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="groupRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Group</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="levelRecipeTextBox" Width="500" Height="30" Padding="5"></TextBox>
+                <Label>Level</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="igredientNameRecipeTextBox" Width="250" Height="60" Padding="5" TextWrapping="Wrap"
+  AcceptsReturn="True"
+  VerticalScrollBarVisibility="Visible"></TextBox>
+                <TextBox Name="igredientQuatityRecipeTextBox" Width="250" Height="60" Padding="5" TextWrapping="Wrap"
+  AcceptsReturn="True"
+  VerticalScrollBarVisibility="Visible"></TextBox>
+                <Label>Igredient</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="step1RecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
+                <TextBox Name="stepImage1" Width="250" Height="60" Padding="5"></TextBox>
+                <Label>step1</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="step2RecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
+                <TextBox Name="stepImage2" Width="250" Height="60" Padding="5"></TextBox>
+                <Label>step2</Label>
+            </StackPanel>
+
+            <Button Content="Save" Height="30" Click="SaveRecipe_Click"/>
+
+        </StackPanel>
+
+
     </Canvas>
 </Window>
