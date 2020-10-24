@@ -172,45 +172,91 @@ namespace FoodRecipes.DBUtilities
         public List<GetAllRecipeSummary_Result> GetRecipesSearchResult(string search_text) {
             List<GetAllRecipeSummary_Result> result = new List<GetAllRecipeSummary_Result>();
 
+            //Nhìn ở trên app thì cũng ngon đấy. Chứ đâu ai biết ở dưới app gồng mình catch exception
             try
             {
                 string[] OPERATOR = { "and", "or", "and not" };
 
+                //Chuẩn hóa hết mấy cái khoảng trắng thừa.
+                //đưa hết mấy cái operator về and, or, and not. không để AND....
                 search_text = GetStandardString(search_text);
+
+                //Lấy hết mấy cái "abcd" vô cái stack để hồi pop ra.
                 Stack<string> keywords = GetListKeyWords(search_text);
+
+                //:V lấy hết and, or, and not đẩy vô queue.
                 Queue<int> operators = GetListOperator(search_text);
 
+                //Lấy hết cái danh sách ra.
                 var recipesSummary = GetAllRecipeSummary();
 
-                if (keywords.Count < 0)
+                //Nếu số ngoặc kép " là lẻ thì để khỏi crash. thay " thành # :). Best sửa.
+                //Tại sao lại là keywords.Count. Vì lúc lấy cái keywords ra thì chỉ có kết quả khi số " là chẵn. còn nếu " lẻ thì keywords sẽ k có phần tử nào.
+                if (keywords.Count == 0)
                 {
                     search_text = search_text.Replace("\"", "#");
+
+                    //Thay xong rồi thì tìm bình thường thôi
+                    var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
+
+                    foreach (var recipeSearchResult in recipesSearchResult)
+                    {
+                        var recipe = from r in recipesSummary
+                                     where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
+                                     select r;
+
+                        result.Add(recipe.FirstOrDefault());
+                    }
+
                 }
+                //Điều kiện này tại có nhiều khi nguòi ta chỉ nhập "ab" mà không có toán tử and, or, and not á. thì cũng tìm bình thường á.
                 else if (operators.Count > 0)
                 {
+                    /*
+                        Những cái mà dùng HashSet là để khỏi loại những kết quả trùng nhau thui. như kiểu để select distinct
+                    */
+
+                    //Cái này để hồi lấy kết quả sau khi thực hiện hết các phép toán tìm kiếm
                     HashSet<int> tempIDsResult = new HashSet<int>();
+
+                    //Cái deathID này là lúc dùng and not á.
+                    //Ví dụ "a" and not "b" là coi như thằng nào có "a b" là lấy id bỏ vô cái deadthID này
+                    //Đến hồi xét mà có thằng nào nằm trong này là loại luôn
                     HashSet<int> deathID = new HashSet<int>();
 
+                    //Bắt đầu với toán tử đầu tiên
                     int count = 1;
 
+                    //Thực hiện đến khi nào hết toán tử
                     while (operators.Count > 0)
                     {
+                        //Toán tử tìm kiếm đẩy vô queue từ trái sang phải. kiểu thực hiện từ trái sáng phải á.
                         var operatorStr = OPERATOR[operators.Dequeue() - 1];
 
+                        //params1 là list các param1 :V 
+                        //Lợi hại khi bắt đầu kết hợp nếu có từ 2 toán tử tìm kiếm trong search_text
                         List<string> params1 = new List<string>();
 
+                        //Cái chỗ này là á. 
+                        //Khi thực hiện "abc" opr "def" nó sẽ ra 1 list kết quả hoặc thậm chí là k có kết quả nào.
+                        //Cần đếm số kết quả đó khi push vô stack để hồi pop ra cho đủ nên mới tồn tại cái count này.
+                        //pop ra đủ thì mới thực hiện tiếp mấy cái toán tử sau cho nó chuẩn được
                         while (count > 0)
                         {
                             params1.Add(keywords.Pop());
                             --count;
                         }
-
+                        
+                        //param2 thì chỉ có 1 thâu.
                         string param2 = keywords.Pop();
 
+                        //Cái này để tránh bị trùng á
                         HashSet<string> tempKeyWords = new HashSet<string>();
 
+                        //Bắt đầu quá trình thực hiện phép toán tìm kiếm
                         foreach (var param1 in params1)
                         {
+                            //Tìm DeathID
                             if (operatorStr == "and not") {
                                 string deathSearchText = param1 + " " + "and" + " " + param2;
 
@@ -226,10 +272,11 @@ namespace FoodRecipes.DBUtilities
                                 }
                             }
 
+                            //Thực hiện tìm lần lượt nào
                             string tempSearchText = param1 + " " + operatorStr + " " + param2;
 
                             var tempRecipesSearchResult = SearchByName(tempSearchText);
-
+                            
                             count += tempRecipesSearchResult.Count();
 
                             foreach (var tempRecipeSearchResult in tempRecipesSearchResult)
@@ -243,6 +290,7 @@ namespace FoodRecipes.DBUtilities
                                     tempIDsResult.Add(recipe.FirstOrDefault().ID_RECIPE);
                                 }
                                 else {
+                                    //Add cái tên mới tìm ra để tí kết vào tìm theo operator sau tiếp
                                     tempKeyWords.Add("\"" + recipe.FirstOrDefault().NAME + "\"");
                                 }
                               
@@ -256,6 +304,7 @@ namespace FoodRecipes.DBUtilities
                         }
                     }
 
+                    //Lấy kểt quả cuối
                     while (tempIDsResult.Count > 0) {
                         int tempID = tempIDsResult.First();
 
@@ -276,6 +325,7 @@ namespace FoodRecipes.DBUtilities
                     }
 
                 }
+
                 else {
                     var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
 
@@ -293,10 +343,10 @@ namespace FoodRecipes.DBUtilities
                 Debug.WriteLine(ex.InnerException);
             }
            
-
             return result;
         }
 
+        //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
         private string GetStandardString(string srcString)
         {
             string result = srcString;
@@ -313,6 +363,7 @@ namespace FoodRecipes.DBUtilities
             return result;
         }
 
+        //Lấy cái list KeyWord để search nè.
         private Stack<string> GetListKeyWords(string search_text) {
             Stack<string> result = new Stack<string>();
             Stack<string> temp = new Stack<string>();
@@ -354,6 +405,7 @@ namespace FoodRecipes.DBUtilities
             return result;
         }
 
+        //Lấy cái list toán tử nè 
         private Queue<int> GetListOperator(string search_text) {
             Queue<int> result = new Queue<int>();
 
