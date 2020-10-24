@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodRecipes"
         xmlns:custom="clr-namespace:FoodRecipes.CustomView"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Background="{DynamicResource MyYellow}"
-        Title="MainWindow" Height="520" Width="900" ResizeMode="CanMinimize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" >
+        Title="MainWindow" Height="520" Width="900" ResizeMode="CanMinimize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" Closing="Window_Closing">
     <!-- Window resouce -->
     <Window.Resources>
        
@@ -52,10 +53,10 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="8.4*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Name="infoContainer"
@@ -176,7 +177,7 @@
                        Width="{Binding ActualWidth, ElementName=imgContainer}"
                        Margin="0, -22, 0, 0"
                        Panel.ZIndex="3">
-                    
+
                     <Image Name="tapeImage"
                        Source="Assets/tape.png"
                        Opacity="0.6"
@@ -186,14 +187,23 @@
             </Canvas>
 
             <Grid Name="checkboxContainer"
+                  VerticalAlignment="Center"
                   Grid.Column="1"
                   Grid.Row="2"
                   Grid.ColumnSpan="3">
-                
-                
-            </Grid>
 
+                <CheckBox Name="turnOffSplashCheckBox"
+                          IsChecked="False"
+                          Unchecked="turnOffSplashCheckBox_Unchecked"
+                          Checked="turnOffSplashCheckBox_Checked"
+                          materialDesign:CheckBoxAssist.CheckBoxSize="18">
+
+                    <TextBlock Name="contentSplashCheckBox"
+                               Margin="0, 0, 0, 2"
+                               Style="{StaticResource SmallText}"
+                               Text="{x:Static local:StringValue.message_not_show_splash}"/>
+                </CheckBox>
+            </Grid>
         </Grid>
     </Canvas>
-
 </Window>
