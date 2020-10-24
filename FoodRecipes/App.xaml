@@ -8,54 +8,13 @@
              StartupUri="SplashScreen.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <local_converter:AbsolutePathConverter x:Key="PathConverter"/>
-            
-            <!-- Define Color -->
-            <SolidColorBrush x:Key="MyRed" Color="#d92027"/>
-            <SolidColorBrush x:Key="MyOrange" Color="#fe9e0c"/>
-            <SolidColorBrush x:Key="MyYellow" Color="#ffcd3c"/>
-            <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
-            <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
-
-            <!-- Define Text Appearance-->
-            <Style TargetType="local_custom:OutlineTextControl"
-               x:Key="LargeText">
-                <Setter Property="FontSize" Value="48"/>
-                <Setter Property="Font" Value="Oswald Bold"/>
-            </Style>
-
-            <Style TargetType="TextBlock"
-               x:Key="HeaderText">
-                <Setter Property="FontSize" Value="28"/>
-                <Setter Property="FontFamily" Value="Oswald Medium"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-            </Style>
-
-            <Style TargetType="TextBlock"
-                   x:Key="MediumText">
-                <Setter Property="FontSize" Value="13.5"/>
-                <Setter Property="FontFamily" Value="SVN-Gilroy Regular"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="TextAlignment" Value="Justify"/>
-                <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-            </Style>
-
-            <Style TargetType="TextBlock"
-                   x:Key="SmallText">
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="FontFamily" Value="SVN-Gilroy Regular"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="TextAlignment" Value="Justify"/>
-                <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
-            </Style>
-
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="Yellow" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="Theme/MaterialDesignThemes.Overrides.xaml"/>
-                
+                <ResourceDictionary Source="Themes/MaterialDesignThemes.Overrides.xaml"/>
+                <ResourceDictionary Source="Themes/CustomAppThemes.xaml"/>
+                <ResourceDictionary Source="Themes/CustomAppThemes.ImageResource.xaml"/>
+                <ResourceDictionary Source="Themes/CustomAppThemes.Fonts.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -55,19 +55,20 @@ namespace FoodRecipes
 			}
 			else
 			{
-				showHomeScreen();
+				showMainScreen();
 			}
 		}
 
 		/// <summary>
 		/// Show home screen and close splash screen
 		/// </summary>
-		private void showHomeScreen()
+		private void showMainScreen()
 		{
-			var homeScreen = new HomeScreen();
+			var homeScreen = new MainScreen();
 
+			this.Hide();
+			homeScreen.Show();
 			this.Close();
-			homeScreen.Show();	
 		}
 
 		private void LoadingTmer_Elapsed(object sender, ElapsedEventArgs e)
@@ -79,7 +80,7 @@ namespace FoodRecipes
 				if (_timeCounter == TOTAL_TIME_LOAD_IN_SECOND)
 				{
 					_loadingTmer.Stop();
-					showHomeScreen();
+					showMainScreen();
 				}
 
 				Debug.WriteLine(_timeCounter);
