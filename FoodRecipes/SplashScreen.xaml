@@ -8,12 +8,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Background="{DynamicResource MyYellow}"
-        Title="MainWindow" Height="520" Width="900" ResizeMode="CanMinimize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" Closing="Window_Closing">
-    <!-- Window resouce -->
-    <Window.Resources>
-       
-    </Window.Resources>
-
+        Title="MainWindow" Height="520" Width="900" ResizeMode="CanMinimize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
+    <!-- Main container -->
     <Canvas Name="mainContainer"
             Width="900"
             Height="520">
@@ -116,7 +113,6 @@
                             Fill="{x:Null}"
                             Stroke="{DynamicResource MyRed}"
                             StrokeThickness="2"/>
-
                     </StackPanel>
                 </Grid>
 
