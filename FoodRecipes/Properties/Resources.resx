@@ -132,6 +132,9 @@
   <data name="help_page_name" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="hint_text_search" xml:space="preserve">
+    <value>Search your recipe here..</value>
+  </data>
   <data name="home_page_name" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -144,14 +147,47 @@
   <data name="shopping_page_name" xml:space="preserve">
     <value>Shopping</value>
   </data>
-  <data name="tesst" xml:space="preserve">
-    <value />
-  </data>
   <data name="test_description" xml:space="preserve">
     <value>Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu là món salad vừa thơm ngon lại rất bổ dưỡng. Một món ăn chứa đầy đủ chất dinh dưỡng từ các loại rau xanh, dưa hấu, nho khô, thịt gà ăn kèm cùng với sốt giấm đặc biệt sẽ khiến cho bạn càng ăn càng mê. Bạn hãy lưu lại ngay công thức bên dưới để làm món salad này nhé.</value>
   </data>
   <data name="test_name_recipe" xml:space="preserve">
     <value>GÀ LĂN HỒ ĐÀO MỸ CHIÊN GIÒN VỚI SALAD NHO KHÔ DƯA HẤU</value>
+  </data>
+  <data name="text_breakfast_group" xml:space="preserve">
+    <value>Ăn sáng</value>
+  </data>
+  <data name="text_drink_group" xml:space="preserve">
+    <value>Thức uống</value>
+  </data>
+  <data name="text_fastfood_group" xml:space="preserve">
+    <value>Ăn vặt</value>
+  </data>
+  <data name="text_healthy_group" xml:space="preserve">
+    <value>Healthy</value>
+  </data>
+  <data name="text_item_sort_asc" xml:space="preserve">
+    <value>A-Z</value>
+  </data>
+  <data name="text_item_sort_date" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="text_item_sort_desc" xml:space="preserve">
+    <value>Z-A</value>
+  </data>
+  <data name="text_item_sort_group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="text_item_sort_level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="text_item_sort_time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="text_maindish_group" xml:space="preserve">
+    <value>Món chính</value>
+  </data>
+  <data name="text_vegetarian_group" xml:space="preserve">
+    <value>Món chay</value>
   </data>
   <data name="tip_app_logo" xml:space="preserve">
     <value>Let's explore and create your food recipes.</value>
@@ -167,5 +203,8 @@
   </data>
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
+  </data>
+  <data name="title_sort_box" xml:space="preserve">
+    <value>Sort by:</value>
   </data>
 </root>

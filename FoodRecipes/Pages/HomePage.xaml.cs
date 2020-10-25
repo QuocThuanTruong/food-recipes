@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,32 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class HomePage : Page
 	{
+		public string[] SortTypes
+		{
+			get => new string[] {
+				Properties.Resources.text_item_sort_date,
+				Properties.Resources.text_item_sort_asc,
+				Properties.Resources.text_item_sort_desc,
+				Properties.Resources.text_item_sort_group,
+				Properties.Resources.text_item_sort_level,
+				Properties.Resources.text_item_sort_time
+			};
+		}
+
+
 		public HomePage()
 		{
 			InitializeComponent();
+		}
+
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			DataContext = this;
+		}
+
+		private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }

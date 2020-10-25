@@ -8,6 +8,8 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ValidationErrorTemplate.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Menu.xaml" />
 
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -22,15 +24,6 @@
     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#8fa2e2"/>
     <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#172975"/>
     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#8fa2e2"/>
-
-    <!-- MaterialDesignFloatingActionButton -->
-    <!--<Style x:Key="WindowOptionsButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}">
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
-    </Style>-->
 
     <!-- MaterialDesignFlatButton -->
     <Style x:Key="WindowOptionsButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFlatButton}">
@@ -98,42 +91,148 @@
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="19" />
     </Style>
 
-    <Style x:Key="DrawerListBoxItem" TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0"/>
-        
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="true"/>
-                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-                        </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        
+    <Style x:Key="SearchTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility" Value="Hidden"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True"/>
+    </Style>
+    
+    
+    
+
+
+    <ControlTemplate x:Key="MyMaterialDesignComboBoxItemTemplate" TargetType="{x:Type ComboBoxItem}">
+        <Grid x:Name="GridWrapper">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition GeneratedDuration="0:0:0.3" To="Normal">
+                            <VisualTransition.GeneratedEasingFunction>
+                                <CircleEase EasingMode="EaseOut" />
+                            </VisualTransition.GeneratedEasingFunction>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+                    <VisualState Name="Normal" />
+                    <VisualState Name="MouseOver">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0"
+                                             Storyboard.TargetName="MouseOverBorder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1" />
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+                <VisualStateGroup Name="SelectionStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition GeneratedDuration="0:0:0.3" />
+                    </VisualStateGroup.Transitions>
+                    <VisualState Name="Selected">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0"
+                                             Storyboard.TargetName="SelectedBorder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0.5" />
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState Name="Unselected" />
+                </VisualStateGroup>
+                <VisualStateGroup Name="FocusStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition GeneratedDuration="0:0:0.3" To="Unfocused" />
+                    </VisualStateGroup.Transitions>
+                    <VisualState Name="Focused">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0"
+                                             Storyboard.TargetName="MouseOverBorder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1" />
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState Name="Unfocused" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border x:Name="BackBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="True" />
+
+            <Border x:Name="MouseOverBorder"
+                    Background="{TemplateBinding Foreground,
+                                                 Converter={StaticResource BrushRoundConverter}}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Opacity="1"
+                    SnapsToDevicePixels="True" />
+            <Border x:Name="SelectedBorder"
+                    Background="{TemplateBinding Foreground,
+                                                 Converter={StaticResource BrushRoundConverter}}"
+                    Opacity="1"
+                    RenderTransformOrigin="0.5,0.5" />
+            <materialDesign:Ripple HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                        Feedback="{TemplateBinding Foreground,
+                                                   Converter={StaticResource BrushRoundConverter}}"
+                        Focusable="False"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                        RecognizesAccessKey="False" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="GridWrapper" Property="Opacity" Value="0.56" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Tag" Value="{StaticResource AllowCollapse}" />
+                    <Condition Property="IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Height" Value="0"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+
+    
+
+    <Style x:Key="MyMaterialDesignComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="16 8" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="BorderBrush" Value="red" />
+        <Setter Property="BorderThickness" Value="5" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Template" Value="{StaticResource MyMaterialDesignComboBoxItemTemplate}" />
+    </Style>
+
+    
+
+    <Style x:Key="MyMaterialDesignComboBoxItemSelectedCollapsedStyle"
+           BasedOn="{StaticResource MyMaterialDesignComboBoxItemStyle}"
+           TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Tag" Value="{StaticResource AllowCollapse}" />
+    </Style>
+
+    <Style x:Key="SearchBoxComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource MyMaterialDesignComboBoxItemSelectedCollapsedStyle}"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
     </Style>
 
 </ResourceDictionary>

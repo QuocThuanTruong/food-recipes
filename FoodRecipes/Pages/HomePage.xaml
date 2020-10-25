@@ -8,11 +8,166 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="728" d:DesignWidth="1126"
+      d:DesignHeight="728" d:DesignWidth="1126" Loaded="Page_Loaded"
       Title="HomePage">
-    <Grid>
+    <!-- change background to transparent after completing code -->
+    
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="1034*"/>
+            <ColumnDefinition Width="46*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="550*"/>
+            <RowDefinition Height="58*"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="this is home page"/>
+        <Grid Name="searchContainer"
+              Grid.Column="1"
+              Grid.Row="0">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="744*"/>
+                <ColumnDefinition Width="165*"/>
+                <ColumnDefinition Width="125*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Search box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}">
+                
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="searchBoxContainer"
+                                 Width="720"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid Name="searchContentCard">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="624*"/>
+                            <ColumnDefinition Width="46*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="searchButton"
+                                materialDesign:ButtonAssist.CornerRadius="20"
+                                Background="Transparent"
+                                Padding="0"
+                                BorderThickness="0"
+                                materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
+                                Width="40"
+                                Height="40">
+
+                            <Image Name="iconSearch"
+                                   HorizontalAlignment="Center"
+                               Width="23"
+                               Height="22"
+                               Source="{StaticResource IconSearch}"/>
+
+                        </Button>
+                        
+
+                        <!-- Search text box -->
+                        <TextBox Name="searchTextBox"
+                                 Margin="0, 8, 10, 0"
+                                 Style="{StaticResource SearchTextBox}"
+                                 materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_text_search}"
+                                 Grid.Column="1"/>
+
+                        <materialDesign:ColorZone Mode="Custom"
+                                                  Grid.Column="2"
+                                      Height="{Binding ActualHeight, ElementName=searchBoxContainer}">
+                            
+                            <materialDesign:ColorZone.Effect>
+                                <DropShadowEffect BlurRadius="10" 
+                                                  ShadowDepth="1" 
+                                                  Color="Yellow" 
+                                                  Opacity="0.5" 
+                                                  RenderingBias="Performance" />
+                            </materialDesign:ColorZone.Effect>
+
+                            <Button Name="filterButton"
+                                    materialDesign:ButtonAssist.CornerRadius="20"
+                                    Background="{DynamicResource MyYellow}"
+                                    Padding="0"
+                                    BorderThickness="0"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                    materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
+                                    Width="40"
+                                    Height="40">
+
+                                <Image Name="iconFilter"
+                                   HorizontalAlignment="Center"
+                                   Width="18"
+                                   Height="20"
+                                   Source="{StaticResource IconFilter}"/>
+                            </Button>
+                        </materialDesign:ColorZone>
+
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+            <!-- Sort combo box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="sortBoxContainer"
+                                 Width="155"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <StackPanel Name="sortContentCard"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        
+                        <TextBlock Name="titleSortTextBlock"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource MediumText}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="{x:Static loc:Resources.title_sort_box}"/>
+
+                        <ComboBox Name="sortTypeComboBox"
+                                  ItemsSource="{Binding SortTypes}"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  materialDesign:RippleAssist.IsDisabled="True"
+                                  materialDesign:ComboBoxAssist.ClassicMode="True"
+                                  BorderThickness="0"
+                                  SelectedIndex="0"
+                                  FocusVisualStyle="{x:Null}"
+                                  Margin="4, 2, 0, 0"
+                                  Width="68">
+                        </ComboBox>
+                    </StackPanel>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+        </Grid>
+        
+        
     </Grid>
 </Page>

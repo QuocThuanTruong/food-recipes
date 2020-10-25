@@ -106,6 +106,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search your recipe here...
+        /// </summary>
+        public static string hint_text_search {
+            get {
+                return ResourceManager.GetString("hint_text_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string home_page_name {
@@ -142,15 +151,6 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string tesst {
-            get {
-                return ResourceManager.GetString("tesst", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu là món salad vừa thơm ngon lại rất bổ dưỡng. Một món ăn chứa đầy đủ chất dinh dưỡng từ các loại rau xanh, dưa hấu, nho khô, thịt gà ăn kèm cùng với sốt giấm đặc biệt sẽ khiến cho bạn càng ăn càng mê. Bạn hãy lưu lại ngay công thức bên dưới để làm món salad này nhé..
         /// </summary>
         public static string test_description {
@@ -165,6 +165,114 @@ namespace FoodRecipes.Properties {
         public static string test_name_recipe {
             get {
                 return ResourceManager.GetString("test_name_recipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ăn sáng.
+        /// </summary>
+        public static string text_breakfast_group {
+            get {
+                return ResourceManager.GetString("text_breakfast_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thức uống.
+        /// </summary>
+        public static string text_drink_group {
+            get {
+                return ResourceManager.GetString("text_drink_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ăn vặt.
+        /// </summary>
+        public static string text_fastfood_group {
+            get {
+                return ResourceManager.GetString("text_fastfood_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Healthy.
+        /// </summary>
+        public static string text_healthy_group {
+            get {
+                return ResourceManager.GetString("text_healthy_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A-Z.
+        /// </summary>
+        public static string text_item_sort_asc {
+            get {
+                return ResourceManager.GetString("text_item_sort_asc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Newest.
+        /// </summary>
+        public static string text_item_sort_date {
+            get {
+                return ResourceManager.GetString("text_item_sort_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-A.
+        /// </summary>
+        public static string text_item_sort_desc {
+            get {
+                return ResourceManager.GetString("text_item_sort_desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string text_item_sort_group {
+            get {
+                return ResourceManager.GetString("text_item_sort_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string text_item_sort_level {
+            get {
+                return ResourceManager.GetString("text_item_sort_level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string text_item_sort_time {
+            get {
+                return ResourceManager.GetString("text_item_sort_time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Món chính.
+        /// </summary>
+        public static string text_maindish_group {
+            get {
+                return ResourceManager.GetString("text_maindish_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Món chay.
+        /// </summary>
+        public static string text_vegetarian_group {
+            get {
+                return ResourceManager.GetString("text_vegetarian_group", resourceCulture);
             }
         }
         
@@ -210,6 +318,15 @@ namespace FoodRecipes.Properties {
         public static string tip_restore_window_button {
             get {
                 return ResourceManager.GetString("tip_restore_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by:.
+        /// </summary>
+        public static string title_sort_box {
+            get {
+                return ResourceManager.GetString("title_sort_box", resourceCulture);
             }
         }
     }
