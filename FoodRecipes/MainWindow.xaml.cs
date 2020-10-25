@@ -34,17 +34,14 @@ namespace FoodRecipes
 		public void Init() {
 			_dbUtilitiesInstance = DBUtilities.DBUtilities.GetDBInstance();
 
-			var recipes = _dbUtilitiesInstance.GetAllRecipeSummary();
+			var recipes = _dbUtilitiesInstance.GetAllFromRecipe();
 
 			recipesListView.ItemsSource = recipes;
-
-
-
 		}
 
 		private void Load_Recipes_Click(object sender, RoutedEventArgs e)
 		{
-			var recipes = _dbUtilitiesInstance.GetAllRecipeSummary();
+			var recipes = _dbUtilitiesInstance.GetAllFromRecipe();
 
 			recipesListView.ItemsSource = recipes;
 		}
@@ -65,7 +62,7 @@ namespace FoodRecipes
 				}
 
 			} else {
-				var recipes = _dbUtilitiesInstance.GetAllRecipeSummary();
+				var recipes = _dbUtilitiesInstance.GetAllFromRecipe();
 
 				recipesListView.ItemsSource = recipes;
 			}
@@ -81,7 +78,7 @@ namespace FoodRecipes
 			string food_group = groupRecipeTextBox.Text;
 			string food_level = levelRecipeTextBox.Text;
 
-			int id = _dbUtilitiesInstance.GetAllRecipeSummary().Count() + 1;
+			int id = _dbUtilitiesInstance.GetAllFromRecipe().Count() + 1;
 
 			int result = _dbUtilitiesInstance.InsertRecipe(id, name, description, link_video, link_avatar, time, food_group, food_level, false, false);
 
@@ -94,21 +91,16 @@ namespace FoodRecipes
 			for (int i = 0; i < igredientNames.Length; ++i) {
 				_dbUtilitiesInstance.InsertIgredient(id, igredientNames[i], igredientQuatities[i]);
 			}
-
-			string step1 = step1RecipeTextBox.Text;
-			string stepImg1 = stepImage1.Text;
-
-			string step2 = step2RecipeTextBox.Text;
-			string stepImg2 = stepImage2.Text;
-
-			_dbUtilitiesInstance.InsertStep(id, 1, step1);
-			_dbUtilitiesInstance.InsertStepImages(id, 1, stepImg1);
-
-			_dbUtilitiesInstance.InsertStep(id, 2, step2);
-			_dbUtilitiesInstance.InsertStepImages(id, 2, stepImg2);
-
-
-
 		}
+
+        private void AddIgredient_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddStep_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

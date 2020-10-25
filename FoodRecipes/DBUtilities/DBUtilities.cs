@@ -42,12 +42,6 @@ namespace FoodRecipes.DBUtilities
             return result;
         }
 
-        public IQueryable<GetAllRecipeSummary_Result> GetAllRecipeSummary() {
-            var result = _dbFoodRecipe.GetAllRecipeSummary();
-
-            return result;
-        }
-
         public IQueryable<GetAllFromRecipe_Result> GetAllFromRecipe() {
             var result = _dbFoodRecipe.GetAllFromRecipe();
 
@@ -169,8 +163,8 @@ namespace FoodRecipes.DBUtilities
             return result;
         }
 
-        public List<GetAllRecipeSummary_Result> GetRecipesSearchResult(string search_text) {
-            List<GetAllRecipeSummary_Result> result = new List<GetAllRecipeSummary_Result>();
+        public List<GetAllFromRecipe_Result> GetRecipesSearchResult(string search_text) {
+            List<GetAllFromRecipe_Result> result = new List<GetAllFromRecipe_Result>();
 
             //Nhìn ở trên app thì cũng ngon đấy. Chứ đâu ai biết ở dưới app gồng mình catch exception
             try
@@ -188,7 +182,7 @@ namespace FoodRecipes.DBUtilities
                 Queue<int> operators = GetListOperator(search_text);
 
                 //Lấy hết cái danh sách ra.
-                var recipesSummary = GetAllRecipeSummary();
+                var recipes = GetAllFromRecipe();
 
                 //Nếu số ngoặc kép " là lẻ thì để khỏi crash. thay " thành # :). Best sửa.
                 //Tại sao lại là keywords.Count. Vì lúc lấy cái keywords ra thì chỉ có kết quả khi số " là chẵn. còn nếu " lẻ thì keywords sẽ k có phần tử nào.
@@ -201,7 +195,7 @@ namespace FoodRecipes.DBUtilities
 
                     foreach (var recipeSearchResult in recipesSearchResult)
                     {
-                        var recipe = from r in recipesSummary
+                        var recipe = from r in recipes
                                      where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
                                      select r;
 
@@ -264,7 +258,7 @@ namespace FoodRecipes.DBUtilities
 
                                 foreach (var tempRecipeSearchResultDeath in tempRecipesSearchResultDeath)
                                 {
-                                    var recipe = from r in recipesSummary
+                                    var recipe = from r in recipes
                                                  where r.ID_RECIPE == tempRecipeSearchResultDeath.ID_RECIPE
                                                  select r;
 
@@ -281,7 +275,7 @@ namespace FoodRecipes.DBUtilities
 
                             foreach (var tempRecipeSearchResult in tempRecipesSearchResult)
                             {
-                                var recipe = from r in recipesSummary
+                                var recipe = from r in recipes
                                              where r.ID_RECIPE == tempRecipeSearchResult.ID_RECIPE
                                              select r;
 
@@ -312,7 +306,7 @@ namespace FoodRecipes.DBUtilities
 
                         if (!deathID.Contains(tempID))
                         {
-                            var recipe = from r in recipesSummary
+                            var recipe = from r in recipes
                                          where r.ID_RECIPE == tempID
                                          select r;
 
@@ -331,7 +325,7 @@ namespace FoodRecipes.DBUtilities
 
                     foreach (var recipeSearchResult in recipesSearchResult)
                     {
-                        var recipe = from r in recipesSummary
+                        var recipe = from r in recipes
                                      where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
                                      select r;
 

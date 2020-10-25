@@ -104,20 +104,6 @@
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="GetAllRecipeSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
-                <Property Name="NAME" Type="nvarchar" MaxLength="200" />
-                <Property Name="TIME" Type="nvarchar" MaxLength="20" />
-                <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
-                <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
-                <Property Name="FAVORITE_FLAG" Type="bit" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
         <Function Name="GetIDRecipeByFavoriteFlag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="favorite_flag" Type="bit" Mode="In" />
           <ReturnType>
@@ -671,18 +657,6 @@
           <FunctionImportMapping FunctionImportName="TurnFavoriteFlagOn" FunctionName="FoodRecipeModel.Store.TurnFavoriteFlagOn" />
           <FunctionImportMapping FunctionImportName="TurnShoppingFlagOff" FunctionName="FoodRecipeModel.Store.TurnShoppingFlagOff" />
           <FunctionImportMapping FunctionImportName="TurnShoppingFlagOn" FunctionName="FoodRecipeModel.Store.TurnShoppingFlagOn" />
-          <FunctionImportMapping FunctionImportName="GetAllRecipeSummary" FunctionName="FoodRecipeModel.Store.GetAllRecipeSummary">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FoodRecipeModel.GetAllRecipeSummary_Result">
-                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="TIME" ColumnName="TIME" />
-                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
-                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
-                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetRecipeById" FunctionName="FoodRecipeModel.Store.GetRecipeById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FoodRecipeModel.GetRecipeById_Result">

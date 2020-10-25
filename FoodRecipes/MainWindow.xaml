@@ -64,25 +64,27 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="igredientNameRecipeTextBox" Width="250" Height="60" Padding="5" TextWrapping="Wrap"
-  AcceptsReturn="True"
-  VerticalScrollBarVisibility="Visible"></TextBox>
-                <TextBox Name="igredientQuatityRecipeTextBox" Width="250" Height="60" Padding="5" TextWrapping="Wrap"
-  AcceptsReturn="True"
-  VerticalScrollBarVisibility="Visible"></TextBox>
-                <Label>Igredient</Label>
+                <TextBox Name="igredientNameRecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
+                <TextBox Name="igredientQuatityRecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
+                <Button Click="AddIgredient_Click">Add</Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="step1RecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
-                <TextBox Name="stepImage1" Width="250" Height="60" Padding="5"></TextBox>
-                <Label>step1</Label>
+                <TextBlock Name="viewIgredientNameRecipeTextBox" Width="250" Height="60" Padding="5"></TextBlock>
+                <TextBlock Name="viewIgredientQuatityRecipeTextBox" Width="250" Height="60" Padding="5"></TextBlock>
+                <Label>View Igredient</Label>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="step2RecipeTextBox" Width="250" Height="60" Padding="5"></TextBox>
-                <TextBox Name="stepImage2" Width="250" Height="60" Padding="5"></TextBox>
-                <Label>step2</Label>
+                <TextBox Name="stepDetailTextbox" Width="250" Height="60" Padding="5"></TextBox>
+                <TextBox Name="stepImageTextbox" Width="250" Height="60" Padding="5"></TextBox>
+                <Button Click="AddStep_Click">Add</Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="viewStepDetailRecipeTextBox" Width="250" Height="60" Padding="5"></TextBlock>
+                <TextBlock Name="viewStepImageRecipeTextBox" Width="250" Height="60" Padding="5"></TextBlock>
+                <Label>View Igredient</Label>
             </StackPanel>
 
             <Button Content="Save" Height="30" Click="SaveRecipe_Click"/>
