@@ -26,12 +26,14 @@
     <ImageSource x:Key="IconLast">pack://application:,,,/Assets/icon_last.png</ImageSource>
     <ImageSource x:Key="IconMaindish">pack://application:,,,/Assets/icon_maindish.png</ImageSource>
     <ImageSource x:Key="IconMinimize">pack://application:,,,/Assets/icon_minimize.png</ImageSource>
+    <ImageSource x:Key="IconMaximize">pack://application:,,,/Assets/icon_maximize.png</ImageSource>
     <ImageSource x:Key="IconNext">pack://application:,,,/Assets/icon_next.png</ImageSource>
     <ImageSource x:Key="IconOrangeClock">pack://application:,,,/Assets/icon_orange_clock.png</ImageSource>
     <ImageSource x:Key="IconOrangeGroup">pack://application:,,,/Assets/icon_orange_group.png</ImageSource>
     <ImageSource x:Key="IconOrangeLevel">pack://application:,,,/Assets/icon_orange_level.png</ImageSource>
     <ImageSource x:Key="IconPassiveFav">pack://application:,,,/Assets/icon_passive_fav.png</ImageSource>
     <ImageSource x:Key="IconPrevious">pack://application:,,,/Assets/icon_previous.png</ImageSource>
+    <ImageSource x:Key="IconRestoreDown">pack://application:,,,/Assets/icon_restore_down.png</ImageSource>
     <ImageSource x:Key="IconSearch">pack://application:,,,/Assets/icon_search.png</ImageSource>
     <ImageSource x:Key="IconShopping">pack://application:,,,/Assets/icon_shopping.png</ImageSource>
     <ImageSource x:Key="IconVegetarian">pack://application:,,,/Assets/icon_vegetarian.png</ImageSource>

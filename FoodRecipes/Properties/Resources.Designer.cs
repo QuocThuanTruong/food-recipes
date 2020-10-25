@@ -187,11 +187,29 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximize.
+        /// </summary>
+        public static string tip_maximize_window_button {
+            get {
+                return ResourceManager.GetString("tip_maximize_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Minimize.
         /// </summary>
         public static string tip_minimize_window_button {
             get {
                 return ResourceManager.GetString("tip_minimize_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore down.
+        /// </summary>
+        public static string tip_restore_window_button {
+            get {
+                return ResourceManager.GetString("tip_restore_window_button", resourceCulture);
             }
         }
     }
