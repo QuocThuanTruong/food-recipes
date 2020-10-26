@@ -205,38 +205,38 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A-Z.
+        ///   Looks up a localized string similar to 2 x 3.
         /// </summary>
-        public static string text_item_sort_asc {
+        public static string text_item_grid_23 {
             get {
-                return ResourceManager.GetString("text_item_sort_asc", resourceCulture);
+                return ResourceManager.GetString("text_item_grid_23", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Newest.
+        ///   Looks up a localized string similar to 3 x 4.
+        /// </summary>
+        public static string text_item_grid_34 {
+            get {
+                return ResourceManager.GetString("text_item_grid_34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A-Z.
+        /// </summary>
+        public static string text_item_sort_az {
+            get {
+                return ResourceManager.GetString("text_item_sort_az", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string text_item_sort_date {
             get {
                 return ResourceManager.GetString("text_item_sort_date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Z-A.
-        /// </summary>
-        public static string text_item_sort_desc {
-            get {
-                return ResourceManager.GetString("text_item_sort_desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group.
-        /// </summary>
-        public static string text_item_sort_group {
-            get {
-                return ResourceManager.GetString("text_item_sort_group", resourceCulture);
             }
         }
         
@@ -255,6 +255,15 @@ namespace FoodRecipes.Properties {
         public static string text_item_sort_time {
             get {
                 return ResourceManager.GetString("text_item_sort_time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-A.
+        /// </summary>
+        public static string text_item_sort_za {
+            get {
+                return ResourceManager.GetString("text_item_sort_za", resourceCulture);
             }
         }
         
@@ -295,6 +304,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Eraser all selected filter.
+        /// </summary>
+        public static string tip_eraser_all_filter {
+            get {
+                return ResourceManager.GetString("tip_eraser_all_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximize.
         /// </summary>
         public static string tip_maximize_window_button {
@@ -318,6 +336,15 @@ namespace FoodRecipes.Properties {
         public static string tip_restore_window_button {
             get {
                 return ResourceManager.GetString("tip_restore_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grid:.
+        /// </summary>
+        public static string title_grid_box {
+            get {
+                return ResourceManager.GetString("title_grid_box", resourceCulture);
             }
         }
         

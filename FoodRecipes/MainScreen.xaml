@@ -82,14 +82,23 @@
                            Fill="{DynamicResource MyOrange}"
                            VerticalAlignment="Bottom"/>
 
-                <StackPanel Name="pageButtonContainer"
-                            Margin="0, 30, 0, 20"
+                <ListBox Name="pageButtonContainer"
+                         ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Margin="0, 30, 0, 0"
                             Grid.Column="0"
                             Grid.Row="2">
 
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+
                     <!-- Home page button-->
-                    <Grid Name="homePageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="homePageBtnContainer">
 
                         <!-- Shadow -->
                         <Border Width="165"
@@ -141,8 +150,7 @@
                     </Grid>
 
                     <!-- Fav page button-->
-                    <Grid Name="favPageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="favPageBtnContainer">
                         <!-- Shadow -->
                         <Border Width="165"
                                 Height="38"
@@ -191,8 +199,7 @@
                     </Grid>
 
                     <!-- Add Recipe button-->
-                    <Grid Name="addRecipePageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="addRecipePageBtnContainer">
                         <!-- Shadow -->
                         <Border Width="165"
                                 Height="38"
@@ -241,8 +248,7 @@
                     </Grid>
 
                     <!-- Shopping button-->
-                    <Grid Name="shoppingPageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="shoppingPageBtnContainer">
                         <!-- Shadow -->
                         <Border Width="165"
                                 Height="38"
@@ -291,8 +297,7 @@
                     </Grid>
 
                     <!-- Help button-->
-                    <Grid Name="helpPageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="helpPageBtnContainer">
                         <!-- Shadow -->
                         <Border Width="165"
                                 Height="38"
@@ -341,8 +346,7 @@
                     </Grid>
 
                     <!-- About button-->
-                    <Grid Name="aboutPageBtnContainer"
-                          Margin="0, 8, 0, 8">
+                    <Grid Name="aboutPageBtnContainer">
                         <!-- Shadow -->
                         <Border Width="165"
                                 Height="38"
@@ -389,7 +393,7 @@
                             </Grid>
                         </Button>
                     </Grid>
-                </StackPanel>
+                </ListBox>
             </Grid>
           
         </Grid>

@@ -8,10 +8,13 @@
     <ImageSource x:Key="GridBackground">pack://application:,,,/Assets/grid_background.png</ImageSource>
     <ImageSource x:Key="IconAbout">pack://application:,,,/Assets/icon_about.png</ImageSource>
     <ImageSource x:Key="IconActiveFav">pack://application:,,,/Assets/icon_active_fav.png</ImageSource>
+    <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/icon_asc.png</ImageSource>
     <ImageSource x:Key="IconBlueAdd">pack://application:,,,/Assets/icon_blue_add.png</ImageSource>
     <ImageSource x:Key="IconBlueClose">pack://application:,,,/Assets/icon_blue_close.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
+    <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
     <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>
+    <ImageSource x:Key="IconEraser">pack://application:,,,/Assets/icon_eraser.png</ImageSource>
     <ImageSource x:Key="IconFastfood">pack://application:,,,/Assets/icon_fastfood.png</ImageSource>
     <ImageSource x:Key="IconFavorite">pack://application:,,,/Assets/icon_favorite.png</ImageSource>
     <ImageSource x:Key="IconFilter">pack://application:,,,/Assets/icon_filter.png</ImageSource>

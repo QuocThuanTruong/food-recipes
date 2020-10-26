@@ -38,7 +38,7 @@
             <!-- Search box-->
             <materialDesign:ColorZone Mode="Custom"
                                       Height="{Binding ActualHeight, ElementName=searchContainer}">
-                
+
                 <materialDesign:ColorZone.Effect>
                     <DropShadowEffect BlurRadius="10" 
                                       ShadowDepth="1" 
@@ -50,6 +50,7 @@
                 <materialDesign:Card Name="searchBoxContainer"
                                  Width="720"
                                  Height="45"
+                                 Style="{StaticResource CardScaleHover}"
                                  UniformCornerRadius="23"
                                  materialDesign:ShadowAssist.ShadowDepth="Depth0"
                                  Grid.Column="0">
@@ -77,7 +78,7 @@
                                Source="{StaticResource IconSearch}"/>
 
                         </Button>
-                        
+
 
                         <!-- Search text box -->
                         <TextBox Name="searchTextBox"
@@ -89,7 +90,7 @@
                         <materialDesign:ColorZone Mode="Custom"
                                                   Grid.Column="2"
                                       Height="{Binding ActualHeight, ElementName=searchBoxContainer}">
-                            
+
                             <materialDesign:ColorZone.Effect>
                                 <DropShadowEffect BlurRadius="10" 
                                                   ShadowDepth="1" 
@@ -99,6 +100,7 @@
                             </materialDesign:ColorZone.Effect>
 
                             <Button Name="filterButton"
+                                    Click="filterButton_Click"
                                     materialDesign:ButtonAssist.CornerRadius="20"
                                     Background="{DynamicResource MyYellow}"
                                     Padding="0"
@@ -122,6 +124,7 @@
 
             <!-- Sort combo box-->
             <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 4, 0"
                                       Height="{Binding ActualHeight, ElementName=searchContainer}"
                                       Grid.Column="1">
 
@@ -134,6 +137,7 @@
                 </materialDesign:ColorZone.Effect>
 
                 <materialDesign:Card Name="sortBoxContainer"
+                                      Style="{StaticResource CardScaleHover}"
                                  Width="155"
                                  Height="45"
                                  UniformCornerRadius="23"
@@ -144,7 +148,7 @@
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                        
+
                         <TextBlock Name="titleSortTextBlock"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource MediumText}"
@@ -152,22 +156,517 @@
                                    Text="{x:Static loc:Resources.title_sort_box}"/>
 
                         <ComboBox Name="sortTypeComboBox"
-                                  ItemsSource="{Binding SortTypes}"
                                   Style="{StaticResource SearchBoxComboBox}"
-                                  materialDesign:RippleAssist.IsDisabled="True"
-                                  materialDesign:ComboBoxAssist.ClassicMode="True"
-                                  BorderThickness="0"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
                                   SelectedIndex="0"
-                                  FocusVisualStyle="{x:Null}"
-                                  Margin="4, 2, 0, 0"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="4, 1, 0, 0"
+                                  OverridesDefaultStyle="True"
                                   Width="68">
+
+                            <!-- Date -->
+                            <ComboBoxItem Name="sortByDescDate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+                                    
+                                    <TextBlock Name="titleDesDate"
+                                               Text="{x:Static loc:Resources.text_item_sort_date}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByAscDate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleAscDate"
+                                               Text="{x:Static loc:Resources.text_item_sort_date}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <!-- A-Z -->
+                            <ComboBoxItem Name="sortByAZ">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleAZ"
+                                               Text="{x:Static loc:Resources.text_item_sort_az}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByZA">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleZA"
+                                               Text="{x:Static loc:Resources.text_item_sort_za}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+                            
+                            <!-- Time -->
+                            <ComboBoxItem Name="sortByDescTime">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleDescTime"
+                                               Text="{x:Static loc:Resources.text_item_sort_time}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+                            
+                            <ComboBoxItem Name="sortByAscTime">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleAscTime"
+                                               Text="{x:Static loc:Resources.text_item_sort_time}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <!-- Level -->
+                            <ComboBoxItem Name="sortByDescLevel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleDescLevel"
+                                               Text="{x:Static loc:Resources.text_item_sort_level}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+                            
+                            <ComboBoxItem Name="sortByAscLevel">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleAscLevel"
+                                               Text="{x:Static loc:Resources.text_item_sort_level}"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
                         </ComboBox>
                     </StackPanel>
                 </materialDesign:Card>
             </materialDesign:ColorZone>
 
+            <!-- Grid view combo box -->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="2">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="gridBoxContainer"
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="114"
+                                 Height="45"
+                                 Margin="0, 0, 4, 0"
+                                 HorizontalAlignment="Right"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <StackPanel Name="gridContentCard"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                        <TextBlock Name="titleGridTextBlock"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource MediumText}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="{x:Static loc:Resources.title_grid_box}"/>
+
+                        <ComboBox Name="gridTypeComboBox"
+                                  ItemsSource="{Binding GridTypes}"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
+                                  SelectedIndex="0"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="4, 1, 0, 0"
+                                  OverridesDefaultStyle="True"
+                                  Width="45">
+
+                            <ComboBoxItem Name="grid34">
+                                <TextBlock Name="titleGrid34"
+                                           Text="{x:Static loc:Resources.text_item_grid_34}"/>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="grid23">
+                                <TextBlock Name="titleGrid23"
+                                           Text="{x:Static loc:Resources.text_item_grid_23}"/>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
         </Grid>
         
-        
+        <ListBox Name="foodGroupListBox"
+                 SelectionChanged="foodGroupListBox_SelectionChanged"
+                 ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                 SelectionMode="Multiple"
+                 Foreground="{DynamicResource MyLightGray}"
+                 Grid.Column="1"
+                 Grid.Row="1">
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <Button Name="breakfastGroupButton"
+                    Click="groupButton_Click"
+                    Tag="0"
+                    Background="{Binding Foreground, ElementName=foodGroupListBox}"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="breakfastGroupImage"
+                           Width="24"
+                           Height="20"
+                           Source="{StaticResource IconBreakfast}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleBreakfastTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_breakfast_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="fastfoodGroupButton"
+                    Click="groupButton_Click"
+                    Tag="1"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="fastfoodGroupImage"
+                           Width="23"
+                           Height="23"
+                           Source="{StaticResource IconFastfood}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleFastfoodTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_fastfood_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="healthyGroupButton"
+                    Click="groupButton_Click"
+                    Tag="2"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="healthyGroupImage"
+                           Width="23"
+                           Height="22"
+                           Source="{StaticResource IconHealthy}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleHealthyTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_healthy_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="maindishGroupButton"
+                    Click="groupButton_Click"
+                    Tag="3"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="maindishGroupImage"
+                           Width="23"
+                           Height="20"
+                           Source="{StaticResource IconMaindish}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleMaindishTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_maindish_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="vegetarianGroupButton"
+                    Click="groupButton_Click"
+                    Tag="4"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="vegetarianGroupImage"
+                           Width="23"
+                           Height="23"
+                           Source="{StaticResource IconVegetarian}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleVegetarianTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_vegetarian_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="drinkGroupButton"
+                    Click="groupButton_Click"
+                    Tag="5"
+                    Style="{StaticResource GroupButton}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="36"
+                            Height="36"
+                            Margin="3.5"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource GroupButton}"
+                            Foreground="{StaticResource MyOrange}"
+                            Background="White"
+                            Grid.Column="0">
+
+                        <Image Name="drinkGroupImage"
+                           Width="23"
+                           Height="23"
+                           Source="{StaticResource IconDrink}"/>
+
+                    </Button>
+
+                    <TextBlock Name="titleDrinkTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 16, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="{x:Static loc:Resources.text_drink_group}"/>
+                </Grid>
+            </Button>
+
+            <Button Name="eraserAllFilterButton"
+                    Click="eraserAllFilterButton_Click"
+                    Width="42"
+                    ToolTip="{x:Static loc:Resources.tip_eraser_all_filter}"
+                    Style="{StaticResource GroupButton}">
+
+                <Image Name="eraserAllFilterImage"
+                       Width="20"
+                       Height="18"
+                       Source="{StaticResource IconEraser}"/>
+            </Button>
+        </ListBox>
+
     </Grid>
 </Page>

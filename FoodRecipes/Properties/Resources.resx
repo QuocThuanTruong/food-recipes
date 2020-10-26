@@ -165,23 +165,26 @@
   <data name="text_healthy_group" xml:space="preserve">
     <value>Healthy</value>
   </data>
-  <data name="text_item_sort_asc" xml:space="preserve">
+  <data name="text_item_grid_23" xml:space="preserve">
+    <value>2 x 3</value>
+  </data>
+  <data name="text_item_grid_34" xml:space="preserve">
+    <value>3 x 4</value>
+  </data>
+  <data name="text_item_sort_az" xml:space="preserve">
     <value>A-Z</value>
   </data>
   <data name="text_item_sort_date" xml:space="preserve">
-    <value>Newest</value>
-  </data>
-  <data name="text_item_sort_desc" xml:space="preserve">
-    <value>Z-A</value>
-  </data>
-  <data name="text_item_sort_group" xml:space="preserve">
-    <value>Group</value>
+    <value>Date</value>
   </data>
   <data name="text_item_sort_level" xml:space="preserve">
     <value>Level</value>
   </data>
   <data name="text_item_sort_time" xml:space="preserve">
     <value>Time</value>
+  </data>
+  <data name="text_item_sort_za" xml:space="preserve">
+    <value>Z-A</value>
   </data>
   <data name="text_maindish_group" xml:space="preserve">
     <value>Món chính</value>
@@ -195,6 +198,9 @@
   <data name="tip_close_window_button" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="tip_eraser_all_filter" xml:space="preserve">
+    <value>Eraser all selected filter</value>
+  </data>
   <data name="tip_maximize_window_button" xml:space="preserve">
     <value>Maximize</value>
   </data>
@@ -203,6 +209,9 @@
   </data>
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
+  </data>
+  <data name="title_grid_box" xml:space="preserve">
+    <value>Grid:</value>
   </data>
   <data name="title_sort_box" xml:space="preserve">
     <value>Sort by:</value>
