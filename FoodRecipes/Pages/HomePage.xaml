@@ -805,8 +805,8 @@
                                     <TextBlock Name="recipeNameTextBlock"
                                        Style="{StaticResource RegularText}"
                                        Foreground="White"
-                                       FontSize="16"
-                                       Text="Gà lăn hồ đào..."/>
+                                       FontSize="15"
+                                       Text="Lẩu kim chi hải sả.."/>
 
                                     <Grid Name="timeLevelContainer"
                                           Margin="0, 4, 0, 8">
@@ -814,7 +814,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="8*"/>
-                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="10*"/>
                                         </Grid.ColumnDefinitions>
@@ -839,7 +839,7 @@
 
                                         <Image Name="iconGroup"
                                                Grid.Column="3"
-                                               VerticalAlignment="Center"
+                                               VerticalAlignment="Center"                                              
                                                Width="10"
                                                Height="10"
                                                Source="{StaticResource IconGrayGroup}"
