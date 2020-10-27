@@ -1,0 +1,457 @@
+﻿  <Window x:Class="FoodRecipes.MainScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:FoodRecipes.Properties"
+        mc:Ignorable="d"
+        Title="HomeScreen" Height="768" Width="1366" WindowStyle="None" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+      
+    <!-- Main container--> 
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="navigationDrawer" Width="240*"/>
+            <ColumnDefinition Name="pageContent" Width="1126*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Name="windowOptions" Height="40*"/>
+            <RowDefinition Height="728*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="navDrawerContainer"
+              Grid.Column="0"
+              Grid.RowSpan="2">
+
+            <Grid Name="drawerBackground">
+                <Border Name="drawerShadow"
+                        BorderThickness="2"
+                        Margin="0, 0, 3, 0"
+                        CornerRadius="0, 40, 40, 0"
+                        BorderBrush="Red">
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="{DynamicResource YellowShadow}" 
+                                          Direction="0"
+                                          Opacity="1"
+                                          BlurRadius="15"/>
+                    </Border.Effect>
+                    
+                </Border>
+                
+                <Border Name="drawerShape"
+                        CornerRadius="0, 40, 40, 0"
+                        Background="{DynamicResource MyYellow}"/>
+            </Grid>
+
+            <Grid Name="contentDrawerContainer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="380*"/>
+                    <RowDefinition Height="288*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Name="appLogoContainer"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Grid.Column="0"
+                    Grid.RowSpan="2">
+
+                    <Image Name="appLogoImage"
+                           ToolTip="{x:Static loc:Resources.tip_app_logo}"
+                           Width="38"
+                           Height="41"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{DynamicResource FoodRecipeLogo}">
+                    </Image>
+
+                    <TextBlock Name="appTitleTextBox"
+                               Margin="10, 10, 0, 0"
+                               Text="{x:Static loc:Resources.app_name}"
+                               Height="30"
+                               Style="{StaticResource LargeTitleText}"/>
+                </StackPanel>
+
+                <Rectangle Name="separateLine"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           Width="168"
+                           Height="2"
+                           Fill="{DynamicResource MyOrange}"
+                           VerticalAlignment="Bottom"/>
+
+                <ListBox Name="pageButtonContainer"
+                         ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Margin="0, 30, 0, 0"
+                            Grid.Column="0"
+                            Grid.Row="2">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+
+                    <!-- Home page button-->
+                    <Grid Name="homePageBtnContainer">
+
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <!-- Active Background="White"
+                                BorderThickness="0" -->
+                        <Button Name="homePageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="homePageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconHomePage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconHome}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="homePageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.home_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- Fav page button-->
+                    <Grid Name="favPageBtnContainer">
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <Button Name="favPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="favPageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconFavPage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconFavorite}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="favPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.fav_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- Add Recipe button-->
+                    <Grid Name="addRecipePageBtnContainer">
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <Button Name="addRecipePageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="addRecipePageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconAddRecipePage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconBlueAdd}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="addRecipePageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.add_recipe_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- Shopping button-->
+                    <Grid Name="shoppingPageBtnContainer">
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <Button Name="shoppingPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="shoppingPageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconShoppingPage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconShopping}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="shoppingPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.shopping_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- Help button-->
+                    <Grid Name="helpPageBtnContainer">
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <Button Name="helpPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="helpPageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconHelpPage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconHelp}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="helpPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.help_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+
+                    <!-- About button-->
+                    <Grid Name="aboutPageBtnContainer">
+                        <!-- Shadow -->
+                        <Border Width="165"
+                                Height="38"
+                                BorderThickness="1"
+                                CornerRadius="19"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyYellow}">
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Click -->
+                        <Button Name="aboutPageButton"
+                                Click="DrawerButton_Click"
+                                Style="{StaticResource DrawerButton}">
+
+                            <Grid Name="aboutPageContent" 
+                              Width="{Binding ActualWidth, ElementName=homePageButton}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.2*"/>
+                                    <ColumnDefinition Width="7*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Name="iconAboutPage"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="{DynamicResource IconAbout}"
+                                   Width="16"
+                                   Height="16"/>
+
+                                <TextBlock Name="aboutPageName"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.about_us_page_name}"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </ListBox>
+            </Grid>
+          
+        </Grid>
+
+        <StackPanel Name="windowOptionsContainer"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft"
+                    Grid.Column="1"
+                    Grid.Row="0">
+
+            <Button Name="closeWindowButton"
+                    Click="closeWindowButton_Click"
+                    Margin="5, 5, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Style="{StaticResource WindowOptionsButton}"
+                    Foreground="Red"
+                    ToolTip="{x:Static loc:Resources.tip_close_window_button}">
+
+                <Image Name="iconCloseImage"
+                       Width="14"
+                       Height="14"
+                       Source="{DynamicResource IconBlueClose}"/>
+            </Button>
+
+            <Button Name="maximizeWindowButton"
+                    IsEnabled="False"
+                    Click="maximizeWindowButton_Click"
+                    Margin="0, 5, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Style="{StaticResource WindowOptionsButton}"
+                    ToolTip="{x:Static loc:Resources.tip_maximize_window_button}">
+
+                <Image Name="iconMaximizeImage"
+                       Width="14"
+                       Height="14"
+                       Source="{DynamicResource IconMaximize}"/>
+            </Button>
+
+            <Button Name="minimizeWindowButton"
+                    Click="minimizeWindowButton_Click"
+                    Margin="0, 5, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Style="{StaticResource WindowOptionsButton}"
+                    ToolTip="{x:Static loc:Resources.tip_minimize_window_button}">
+
+                <Image Name="iconMinimizeImage"
+                       Width="14"
+                       Height="2"
+                       Source="{DynamicResource IconMinimize}"/>
+            </Button>
+        </StackPanel>
+
+        <!-- Page Navigation -->
+        <Frame Name="pageNavigation" 
+               NavigationUIVisibility="Hidden"
+               Grid.Column="1"
+               Grid.Row="1">
+
+        </Frame>
+    </Grid>
+</Window>

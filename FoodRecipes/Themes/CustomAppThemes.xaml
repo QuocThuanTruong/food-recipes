@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local_converter="clr-namespace:FoodRecipes.Converter"
+                    xmlns:local_custom="clr-namespace:FoodRecipes.CustomView"
+                    xmlns:local="clr-namespace:FoodRecipes">
+
+    <!-- Absolute path converter -->
+    <local_converter:AbsolutePathConverter x:Key="PathConverter"/>
+
+    <!-- Define Color -->
+    <SolidColorBrush x:Key="MyRed" Color="#d92027"/>
+    <SolidColorBrush x:Key="MyOrange" Color="#fe9e0c"/>
+    <SolidColorBrush x:Key="MyYellow" Color="#ffcd3c"/>
+    <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
+    <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
+    <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
+    <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
+    <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
+    <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
+    <Color x:Key="YellowShadow">#fcdd00</Color>
+
+    <!-- Define Text Appearance-->
+    <Style TargetType="local_custom:OutlineTextControl"
+               x:Key="LargeText">
+        <Setter Property="FontSize" Value="48"/>
+        <Setter Property="Font" Value="{DynamicResource OswaldBold}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="HeaderText">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="MediumText">
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SmallText">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="RegularText">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBox"
+                   x:Key="RegularTextTb">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="LargeTitleText">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldBold}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+</ResourceDictionary>

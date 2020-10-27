@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FoodRecipes">
+
+    <ImageSource x:Key="BottomRightRibbon">pack://application:,,,/Assets/bottom_right_ribbon.png</ImageSource>
+    <ImageSource x:Key="BrushTornPaper">pack://application:,,,/Assets/brush_torn_paper.png</ImageSource>
+    <ImageSource x:Key="FoodRecipeLogo">pack://application:,,,/Assets/food_recipe_logo.png</ImageSource>
+    <ImageSource x:Key="GridBackground">pack://application:,,,/Assets/grid_background.png</ImageSource>
+    <ImageSource x:Key="IconAbout">pack://application:,,,/Assets/icon_about.png</ImageSource>
+    <ImageSource x:Key="IconActiveFav">pack://application:,,,/Assets/icon_active_fav.png</ImageSource>
+    <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/icon_asc.png</ImageSource>
+    <ImageSource x:Key="IconBlueAdd">pack://application:,,,/Assets/icon_blue_add.png</ImageSource>
+    <ImageSource x:Key="IconBlueClose">pack://application:,,,/Assets/icon_blue_close.png</ImageSource>
+    <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
+    <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
+    <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>
+    <ImageSource x:Key="IconEraser">pack://application:,,,/Assets/icon_eraser.png</ImageSource>
+    <ImageSource x:Key="IconFastfood">pack://application:,,,/Assets/icon_fastfood.png</ImageSource>
+    <ImageSource x:Key="IconFavorite">pack://application:,,,/Assets/icon_favorite.png</ImageSource>
+    <ImageSource x:Key="IconFilter">pack://application:,,,/Assets/icon_filter.png</ImageSource>
+    <ImageSource x:Key="IconFirst">pack://application:,,,/Assets/icon_first.png</ImageSource>
+    <ImageSource x:Key="IconGrayAdd">pack://application:,,,/Assets/icon_gray_add.png</ImageSource>
+    <ImageSource x:Key="IconGrayClock">pack://application:,,,/Assets/icon_gray_clock.png</ImageSource>
+    <ImageSource x:Key="IconGrayClose">pack://application:,,,/Assets/icon_gray_close.png</ImageSource>
+    <ImageSource x:Key="IconGrayGroup">pack://application:,,,/Assets/icon_gray_group.png</ImageSource>
+    <ImageSource x:Key="IconGrayLevel">pack://application:,,,/Assets/icon_gray_level.png</ImageSource>
+    <ImageSource x:Key="IconHealthy">pack://application:,,,/Assets/icon_healthy.png</ImageSource>
+    <ImageSource x:Key="IconHelp">pack://application:,,,/Assets/icon_help.png</ImageSource>
+    <ImageSource x:Key="IconHome">pack://application:,,,/Assets/icon_home.png</ImageSource>
+    <ImageSource x:Key="IconLast">pack://application:,,,/Assets/icon_last.png</ImageSource>
+    <ImageSource x:Key="IconMaindish">pack://application:,,,/Assets/icon_maindish.png</ImageSource>
+    <ImageSource x:Key="IconMinimize">pack://application:,,,/Assets/icon_minimize.png</ImageSource>
+    <ImageSource x:Key="IconMaximize">pack://application:,,,/Assets/icon_maximize.png</ImageSource>
+    <ImageSource x:Key="IconNext">pack://application:,,,/Assets/icon_next.png</ImageSource>
+    <ImageSource x:Key="IconOrangeClock">pack://application:,,,/Assets/icon_orange_clock.png</ImageSource>
+    <ImageSource x:Key="IconOrangeGroup">pack://application:,,,/Assets/icon_orange_group.png</ImageSource>
+    <ImageSource x:Key="IconOrangeLevel">pack://application:,,,/Assets/icon_orange_level.png</ImageSource>
+    <ImageSource x:Key="IconPassiveFav">pack://application:,,,/Assets/icon_passive_fav.png</ImageSource>
+    <ImageSource x:Key="IconPrevious">pack://application:,,,/Assets/icon_previous.png</ImageSource>
+    <ImageSource x:Key="IconRestoreDown">pack://application:,,,/Assets/icon_restore_down.png</ImageSource>
+    <ImageSource x:Key="IconSearch">pack://application:,,,/Assets/icon_search.png</ImageSource>
+    <ImageSource x:Key="IconShopping">pack://application:,,,/Assets/icon_shopping.png</ImageSource>
+    <ImageSource x:Key="IconVegetarian">pack://application:,,,/Assets/icon_vegetarian.png</ImageSource>
+    <ImageSource x:Key="Tape">pack://application:,,,/Assets/tape.png</ImageSource>
+    <ImageSource x:Key="TopLeftRibbon">pack://application:,,,/Assets/top_left_ribbon.png</ImageSource>
+    <ImageSource x:Key="TornPaper">pack://application:,,,/Assets/torn_paper.png</ImageSource>
+
+
+    <ImageSource x:Key="TEST_AVT">pack://application:,,,/Assets/test_avt.jpeg</ImageSource>
+
+</ResourceDictionary>
