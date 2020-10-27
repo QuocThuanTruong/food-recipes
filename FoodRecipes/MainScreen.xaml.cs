@@ -120,7 +120,7 @@ namespace FoodRecipes
 			}
 			else if (selectedButton.Name == shoppingPageButton.Name)
 			{
-				result = new ShoppingPage();
+				result = new RecipeDetailPage();
 			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{

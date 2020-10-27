@@ -119,5 +119,10 @@ namespace FoodRecipes.Pages
 		{
 
 		}
+
+		private void recipesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			
+		}
 	}
 }

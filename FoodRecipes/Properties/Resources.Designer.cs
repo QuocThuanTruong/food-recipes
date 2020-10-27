@@ -169,6 +169,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADD SHOPPING.
+        /// </summary>
+        public static string text_add_shopping {
+            get {
+                return ResourceManager.GetString("text_add_shopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ăn sáng.
         /// </summary>
         public static string text_breakfast_group {
@@ -358,11 +367,47 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NGUYÊN LIỆU.
+        /// </summary>
+        public static string title_igredient {
+            get {
+                return ResourceManager.GetString("title_igredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HÌNH ẢNH - VIDEO.
+        /// </summary>
+        public static string title_image_video {
+            get {
+                return ResourceManager.GetString("title_image_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort by:.
         /// </summary>
         public static string title_sort_box {
             get {
                 return ResourceManager.GetString("title_sort_box", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bước.
+        /// </summary>
+        public static string title_step {
+            get {
+                return ResourceManager.GetString("title_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HƯỚNG DẪN THỰC HIỆN.
+        /// </summary>
+        public static string title_tutorial {
+            get {
+                return ResourceManager.GetString("title_tutorial", resourceCulture);
             }
         }
     }

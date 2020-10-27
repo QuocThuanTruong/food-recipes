@@ -684,8 +684,9 @@
         <ListView Name="recipesListView"
                   ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
                   SelectionMode="Single"
+                  SelectionChanged="recipesListView_SelectionChanged"
                   Grid.Column="1"
-                  Grid.Row="2" HorizontalAlignment="Right" Width="1034">
+                  Grid.Row="2">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -920,6 +921,12 @@
             </ListView.ItemTemplate>
 
             <!--for test-->
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
             <materialDesign:Card></materialDesign:Card>
             <materialDesign:Card></materialDesign:Card>
             <materialDesign:Card></materialDesign:Card>

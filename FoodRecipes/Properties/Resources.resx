@@ -153,6 +153,9 @@
   <data name="test_name_recipe" xml:space="preserve">
     <value>GÀ LĂN HỒ ĐÀO MỸ CHIÊN GIÒN VỚI SALAD NHO KHÔ DƯA HẤU</value>
   </data>
+  <data name="text_add_shopping" xml:space="preserve">
+    <value>ADD SHOPPING</value>
+  </data>
   <data name="text_breakfast_group" xml:space="preserve">
     <value>Ăn sáng</value>
   </data>
@@ -216,7 +219,19 @@
   <data name="title_grid_box" xml:space="preserve">
     <value>Grid:</value>
   </data>
+  <data name="title_igredient" xml:space="preserve">
+    <value>NGUYÊN LIỆU</value>
+  </data>
+  <data name="title_image_video" xml:space="preserve">
+    <value>HÌNH ẢNH - VIDEO</value>
+  </data>
   <data name="title_sort_box" xml:space="preserve">
     <value>Sort by:</value>
+  </data>
+  <data name="title_step" xml:space="preserve">
+    <value>Bước</value>
+  </data>
+  <data name="title_tutorial" xml:space="preserve">
+    <value>HƯỚNG DẪN THỰC HIỆN</value>
   </data>
 </root>

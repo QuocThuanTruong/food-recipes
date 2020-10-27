@@ -15,8 +15,10 @@
     <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
     <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
     <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
+    <SolidColorBrush x:Key="MyLightGray3" Color="#d6d6d6"/>
     <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
     <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
+    <SolidColorBrush x:Key="RedHover" Color="#c63449"/>
     <Color x:Key="YellowShadow">#fcdd00</Color>
 
     <!-- Define Text Appearance-->
@@ -36,12 +38,31 @@
     </Style>
 
     <Style TargetType="TextBlock"
+               x:Key="MediumHeaderText">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+
+    <Style TargetType="TextBlock"
                    x:Key="MediumText">
         <Setter Property="FontSize" Value="13.5"/>
         <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="DetailTextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
     </Style>
 
     <Style TargetType="TextBlock"
@@ -60,6 +81,24 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="StepRegularText">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="StepLargeText">
+        <Setter Property="FontSize" Value="23"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 
     <Style TargetType="TextBox"
