@@ -73,6 +73,7 @@
 
                             <Image Name="iconSearch"
                                    HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
                                Width="23"
                                Height="22"
                                Source="{StaticResource IconSearch}"/>
@@ -112,6 +113,7 @@
 
                                 <Image Name="iconFilter"
                                    HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
                                    Width="18"
                                    Height="20"
                                    Source="{StaticResource IconFilter}"/>
@@ -156,6 +158,7 @@
                                    Text="{x:Static loc:Resources.title_sort_box}"/>
 
                         <ComboBox Name="sortTypeComboBox"
+                                  SelectionChanged="sortTypeComboBox_SelectionChanged"
                                   Style="{StaticResource SearchBoxComboBox}"
                                   ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                   Height="30"
@@ -379,33 +382,38 @@
                                    Text="{x:Static loc:Resources.title_grid_box}"/>
 
                         <ComboBox Name="gridTypeComboBox"
-                                  ItemsSource="{Binding GridTypes}"
+                                  SelectionChanged="gridTypeComboBox_SelectionChanged"
                                   Style="{StaticResource SearchBoxComboBox}"
                                   ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                   Height="30"
-                                  SelectedIndex="0"
+                                  SelectedIndex="1"
                                   BorderBrush="{DynamicResource MyBlack}"
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                   Margin="4, 1, 0, 0"
                                   OverridesDefaultStyle="True"
-                                  Width="45">
+                                  Width="47">
 
                             <ComboBoxItem Name="grid34">
                                 <TextBlock Name="titleGrid34"
                                            Text="{x:Static loc:Resources.text_item_grid_34}"/>
                             </ComboBoxItem>
 
-                            <ComboBoxItem Name="grid23">
-                                <TextBlock Name="titleGrid23"
-                                           Text="{x:Static loc:Resources.text_item_grid_23}"/>
+                            <ComboBoxItem Name="grid44">
+                                <TextBlock Name="titleGrid44"
+                                           Text="{x:Static loc:Resources.text_item_grid_44}"/>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="grid54">
+                                <TextBlock Name="titleGrid54"
+                                           Text="{x:Static loc:Resources.text_item_grid_54}"/>
                             </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
                 </materialDesign:Card>
             </materialDesign:ColorZone>
         </Grid>
-        
+
         <ListBox Name="foodGroupListBox"
                  SelectionChanged="foodGroupListBox_SelectionChanged"
                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
@@ -436,14 +444,15 @@
                             Margin="3.5"
                             Padding="0"
                             VerticalAlignment="Center"
+                            IsEnabled="False"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="breakfastGroupImage"
                            Width="24"
                            Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconBreakfast}"/>
 
                     </Button>
@@ -476,13 +485,14 @@
                             Padding="0"
                             VerticalAlignment="Center"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
+                            IsEnabled="False"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="fastfoodGroupImage"
                            Width="23"
                            Height="23"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconFastfood}"/>
 
                     </Button>
@@ -515,13 +525,14 @@
                             Padding="0"
                             VerticalAlignment="Center"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
+                            IsEnabled="False"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="healthyGroupImage"
                            Width="23"
                            Height="22"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconHealthy}"/>
 
                     </Button>
@@ -554,13 +565,14 @@
                             Padding="0"
                             VerticalAlignment="Center"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
+                            IsEnabled="False"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="maindishGroupImage"
                            Width="23"
                            Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconMaindish}"/>
 
                     </Button>
@@ -593,13 +605,14 @@
                             Padding="0"
                             VerticalAlignment="Center"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
+                            IsEnabled="False"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="vegetarianGroupImage"
                            Width="23"
                            Height="23"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconVegetarian}"/>
 
                     </Button>
@@ -632,13 +645,14 @@
                             Padding="0"
                             VerticalAlignment="Center"
                             Style="{StaticResource GroupButton}"
-                            Foreground="{StaticResource MyOrange}"
+                            IsEnabled="False"
                             Background="White"
                             Grid.Column="0">
 
                         <Image Name="drinkGroupImage"
                            Width="23"
                            Height="23"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconDrink}"/>
 
                     </Button>
@@ -667,6 +681,350 @@
                        Source="{StaticResource IconEraser}"/>
             </Button>
         </ListBox>
+        <ListView Name="recipesListView"
+                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                  SelectionMode="Single"
+                  Grid.Column="1"
+                  Grid.Row="2" HorizontalAlignment="Right" Width="1034">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Name="recipeCardContainer"
+                              Width="208"
+                              Margin="12, 6, 12, 6"
+                              Height="154">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="68*"/>
+                            <ColumnDefinition Width="18*"/>
+                            <ColumnDefinition Width="72*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28*"/>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="22*"/>
+                            <RowDefinition Height="54*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Name="recipeItemButtonShadow"
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                Margin="0, 0, 0, 0"
+                                Grid.ColumnSpan="4"
+                                Grid.Row="1"
+                                Grid.RowSpan="4"
+                                CornerRadius="13"
+                                Width="208"
+                                Height="126">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Orange"
+                                                  Opacity="0.5"
+                                                  Direction="320"
+                                                  BlurRadius="5"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <Button Name="recipeItemButton"
+                                Style="{StaticResource RecipeButton}"
+                                Grid.ColumnSpan="4"
+                                Grid.Row="1"
+                                Grid.RowSpan="4">
+
+                            <Grid Width="{Binding ActualWidth, ElementName=recipeItemButton}"
+                                  Height="{Binding ActualHeight, ElementName=recipeItemButton}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="68*"/>
+                                    <ColumnDefinition Width="18*"/>
+                                    <ColumnDefinition Width="72*"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*"/>
+                                    <RowDefinition Height="22*"/>
+                                    <RowDefinition Height="54*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Name="favContainer"
+                                      Margin="0, 5, 10, 0">
+                                    
+                                    <Border Name="favBackground"
+                                            VerticalAlignment="Center"
+                                            Width="30"
+                                            Height="30"
+                                            Background="White"
+                                            Opacity="0.4"
+                                            CornerRadius="6"/>
+
+                                    <!-- Binding ischecked -->
+                                    <ToggleButton Name="favButton"
+                                                  VerticalAlignment="Center"
+                                                  Width="35"
+                                                  Height="35"
+                                                  IsChecked="False"
+                                                  Background="Transparent"
+                                                  BorderThickness="0"
+                                                  Style="{StaticResource MaterialDesignActionToggleButton}">
+
+                                        <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                                            <DataTemplate>
+                                                <Image Width="13.5"
+                                                       Height="13.5"
+                                                       Margin="0, 1, 0, 0"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                                       Source="{StaticResource IconActiveFav}"/>
+                                            </DataTemplate>
+                                        </materialDesign:ToggleButtonAssist.OnContentTemplate>
+
+                                        <Image Width="13.5"
+                                               Height="13.5"
+                                               Margin="0, 1, 0, 0"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Source="{StaticResource IconPassiveFav}"/>
+                                    </ToggleButton>
+                                    
+                                </Grid>
+                                
+                                <StackPanel Name="nameTimeGroupContainer"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Margin="16, 0, 0, 0"
+                                    Grid.Column="0"                                   
+                                    Grid.Row="3"
+                                    Grid.ColumnSpan="3">
+
+                                    <!-- Binding data -->
+                                    <TextBlock Name="recipeNameTextBlock"
+                                       Style="{StaticResource RegularText}"
+                                       Foreground="White"
+                                       FontSize="16"
+                                       Text="Gà lăn hồ đào..."/>
+
+                                    <Grid Name="timeLevelContainer"
+                                          Margin="0, 4, 0, 8">
+                                        
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="10*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Image Name="iconTime"
+                                               VerticalAlignment="Center"
+                                               Width="10"
+                                               Height="10"
+                                               Source="{StaticResource IconGrayClock}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                        <!-- Binding data -->
+                                        <TextBlock Name="timeTextBlock"
+                                           VerticalAlignment="Center"
+                                           Margin="4, 0, 0, 0"
+                                           Grid.Column="1"
+                                           Style="{StaticResource SmallText}"
+                                           FontFamily="{StaticResource GilroyMedium}"
+                                           FontSize="10"
+                                           Foreground="{DynamicResource MyLightGray2}"
+                                           Text="9h30ph"/>
+
+                                        <Image Name="iconGroup"
+                                               Grid.Column="3"
+                                               VerticalAlignment="Center"
+                                               Width="10"
+                                               Height="10"
+                                               Source="{StaticResource IconGrayGroup}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                        <!-- Binding data -->
+                                        <TextBlock Name="groupTextBlock"
+                                           VerticalAlignment="Center"
+                                           Margin="4, 0, 0, 0"
+                                           Grid.Column="4"
+                                           Style="{StaticResource SmallText}"
+                                           FontFamily="{StaticResource GilroyMedium}"
+                                           FontSize="10"
+                                           Foreground="{DynamicResource MyLightGray2}"
+                                           Text="Món chính"/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Name="levelContainer"
+                                            Margin="0, 14, 0, 0"
+                                            Grid.Column="3"
+                                            Grid.Row="2"
+                                            Orientation="Horizontal">
+                                    
+                                    <Image Name="iconLevel"
+                                           VerticalAlignment="Center"
+                                           Margin="0, 0, 4, 0"
+                                           Width="6"
+                                           Height="12"
+                                           Source="{StaticResource IconGrayLevel}"/>
+
+                                    <!-- Binding data -->
+                                    <TextBlock Name="levelTextBlock"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource RegularText}"
+                                               Foreground="{DynamicResource MyLightGray2}"
+                                               Text="Khó"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+
+                        <Border Name="imageCardShadow"
+                                BorderBrush="{DynamicResource MyOrange}"
+                                BorderThickness="10"
+                                VerticalAlignment="Top"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="3"
+                                Grid.RowSpan="3"
+                                CornerRadius="48"
+                                Width="94"
+                                Height="94">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Gray"
+                                                  Opacity="0.5"
+                                                  Direction="240"
+                                                  BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <materialDesign:Card Name="imageRecipeCard"
+                                             Style="{StaticResource ImageRecipeCard}"
+                                             Grid.Column="2"
+                                             Grid.ColumnSpan="3"
+                                             Grid.RowSpan="3">
+                            
+                            <!-- Binding data -->
+                            <Image Name="recipeImage"
+                                   Width="95"
+                                   Height="95"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource TEST_AVT}"/>
+                        </materialDesign:Card>
+
+                        
+                        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!--for test-->
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+            <materialDesign:Card></materialDesign:Card>
+        </ListView>
+
+        <Grid Name="pageContainer"
+              Grid.Column="1"
+              Grid.Row="3">
+
+            <StackPanel Name="pageButtonContainer"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft">
+
+                <Button Name="lastPageButton"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+                    
+                    <Image Name="iconLast"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconLast}"/>
+                </Button>
+
+                <Button Name="nextPageButton"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconNext"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconNext}"/>
+                </Button>
+
+                <materialDesign:ColorZone Mode="Custom"
+                                          Width="70"
+                                      Height="{Binding ActualHeight, ElementName=pageContainer}">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="Red" 
+                                          Opacity="0.5" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+                    <materialDesign:Card Name="currenPageContainer"
+                                         Width="60"
+                                         Background="{StaticResource MyRed}"
+                                         Margin="0, 0, 0, 4"
+                                         Height="28"
+                                         UniformCornerRadius="14"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        
+                        <!-- Binding data -->
+                        <TextBlock Name="currentPageTextBlock"
+                                   FlowDirection="LeftToRight"
+                                   Text="1 of 5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   Style="{StaticResource SmallText}"
+                                   FontFamily="{StaticResource GilroySemiBold}"/>
+                    </materialDesign:Card>
+                </materialDesign:ColorZone>
+
+                <Button Name="prevPageButton"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconPrev"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPrevious}"/>
+                </Button>
+
+                <Button Name="firstPageButton"
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconFirst"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconFirst}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Page>

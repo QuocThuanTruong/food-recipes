@@ -14,7 +14,9 @@
     <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
     <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
     <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
+    <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
     <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
+    <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
     <Color x:Key="YellowShadow">#fcdd00</Color>
 
     <!-- Define Text Appearance-->

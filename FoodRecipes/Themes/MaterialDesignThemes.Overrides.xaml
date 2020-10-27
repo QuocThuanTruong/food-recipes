@@ -72,7 +72,7 @@
                                                                                         ConverterParameter=0.25}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Opacity" Value="0.23"/>
+                            <Setter Property="Opacity" Value="1"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -219,4 +219,71 @@
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="21"/>
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
     </Style>
+
+    <Style x:Key="RecipeButton" TargetType="{x:Type Button}" BasedOn="{StaticResource WindowOptionsButton}">
+        <Setter Property="Height" Value="126"/>
+        <Setter Property="Width" Value="208"/>
+        <Setter Property="Background" Value="{DynamicResource MyOrange}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OrangeHover}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="12"/>
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MyYellow}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                x:Name="border" 
+                                CornerRadius="{Binding Path=(materialDesign:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <materialDesign:Ripple Content="{TemplateBinding Content}" 
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                        Focusable="False"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Padding="{TemplateBinding Padding}" 
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <materialDesign:Ripple.Clip>
+                                    <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                                        <Binding ElementName="border" Path="ActualWidth" />
+                                        <Binding ElementName="border" Path="ActualHeight" />
+                                        <Binding ElementName="border" Path="CornerRadius" />
+                                        <Binding ElementName="border" Path="BorderThickness" />
+                                    </MultiBinding>
+                                </materialDesign:Ripple.Clip>
+                            </materialDesign:Ripple>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{Binding Foreground,
+                                                                                        RelativeSource={RelativeSource Mode=TemplatedParent},
+                                                                                        Converter={StaticResource BrushOpacityConverter},
+                                                                                        ConverterParameter=1}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ImageRecipeCard" TargetType="{x:Type materialDesign:Card}">
+        <Setter Property="Width" Value="95"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="UniformCornerRadius" Value="48"/>
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
 </ResourceDictionary>

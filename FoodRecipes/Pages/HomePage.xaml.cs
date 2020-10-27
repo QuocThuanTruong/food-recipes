@@ -34,11 +34,6 @@ namespace FoodRecipes.Pages
 			
 		}
 
-		private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
-		{
-
-		}
-
 		private void foodGroupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			foreach (var item in foodGroupListBox.SelectedItems)
@@ -82,10 +77,14 @@ namespace FoodRecipes.Pages
 			if (foodGroupListBox.Visibility == Visibility.Visible)
 			{
 				foodGroupListBox.Visibility = Visibility.Collapsed;
+				recipesListView.SetValue(Grid.RowProperty, 1);
+				recipesListView.SetValue(Grid.RowSpanProperty, 2);
 			}
 			else
 			{
 				foodGroupListBox.Visibility = Visibility.Visible;
+				recipesListView.SetValue(Grid.RowProperty, 2);
+				recipesListView.SetValue(Grid.RowSpanProperty, 1);
 			}
 		}
 
@@ -99,6 +98,16 @@ namespace FoodRecipes.Pages
 			}
 
 			foodGroupListBox.SelectedItems.Clear();
+		}
+
+		private void gridTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
+
+		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }

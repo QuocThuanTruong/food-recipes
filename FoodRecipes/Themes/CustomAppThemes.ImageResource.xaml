@@ -20,6 +20,7 @@
     <ImageSource x:Key="IconFilter">pack://application:,,,/Assets/icon_filter.png</ImageSource>
     <ImageSource x:Key="IconFirst">pack://application:,,,/Assets/icon_first.png</ImageSource>
     <ImageSource x:Key="IconGrayAdd">pack://application:,,,/Assets/icon_gray_add.png</ImageSource>
+    <ImageSource x:Key="IconGrayClock">pack://application:,,,/Assets/icon_gray_clock.png</ImageSource>
     <ImageSource x:Key="IconGrayClose">pack://application:,,,/Assets/icon_gray_close.png</ImageSource>
     <ImageSource x:Key="IconGrayGroup">pack://application:,,,/Assets/icon_gray_group.png</ImageSource>
     <ImageSource x:Key="IconGrayLevel">pack://application:,,,/Assets/icon_gray_level.png</ImageSource>

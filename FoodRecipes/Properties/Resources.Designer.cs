@@ -205,20 +205,29 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2 x 3.
-        /// </summary>
-        public static string text_item_grid_23 {
-            get {
-                return ResourceManager.GetString("text_item_grid_23", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 3 x 4.
         /// </summary>
         public static string text_item_grid_34 {
             get {
                 return ResourceManager.GetString("text_item_grid_34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4 x 4.
+        /// </summary>
+        public static string text_item_grid_44 {
+            get {
+                return ResourceManager.GetString("text_item_grid_44", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5 x 4.
+        /// </summary>
+        public static string text_item_grid_54 {
+            get {
+                return ResourceManager.GetString("text_item_grid_54", resourceCulture);
             }
         }
         
