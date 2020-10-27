@@ -28,6 +28,16 @@ namespace FoodRecipes.Pages
 			InitializeComponent();
 		}
 
+		public HomePage(bool isFavorite)
+		{
+			if (isFavorite)
+			{
+
+			}	
+			
+			InitializeComponent();
+		}
+
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			DataContext = this;

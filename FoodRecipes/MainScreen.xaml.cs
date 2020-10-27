@@ -112,7 +112,7 @@ namespace FoodRecipes
 			}
 			else if (selectedButton.Name == favPageButton.Name)
 			{
-				result = new FavoritePage();
+				result = new HomePage(true);
 			}
 			else if (selectedButton.Name == addRecipePageButton.Name)
 			{
