@@ -312,14 +312,7 @@
                             </Border>
 
                             <Button Name="stepButton"
-                                    Width="85"
-                                    Style="{StaticResource RecipeButton}"
-                                    materialDesign:ButtonAssist.CornerRadius="5"
-                                    Background="{StaticResource MyRed}"
-                                    Foreground="{StaticResource MyRed}"
-                                    materialDesign:RippleAssist.Feedback="Red"
-                                    Height="30"                        
-                                    materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                                    Style="{StaticResource StepButton}">
 
                                 <StackPanel Orientation="Horizontal">
 

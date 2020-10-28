@@ -52,6 +52,7 @@
         <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBlue}"/>
     </Style>
 

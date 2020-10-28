@@ -16,7 +16,7 @@ namespace FoodRecipes
 	{
 		public App()
 		{
-			Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("vi");
+			//Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("vi");
 			InitializeComponent();
 		}
 	}

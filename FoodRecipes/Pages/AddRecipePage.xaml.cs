@@ -24,5 +24,20 @@ namespace FoodRecipes.Pages
 		{
 			InitializeComponent();
 		}
+
+		private void avatarImagePickerButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void levelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
+
+		private void groupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
 	}
 }

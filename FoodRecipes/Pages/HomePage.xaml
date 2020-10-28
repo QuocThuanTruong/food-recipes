@@ -88,19 +88,8 @@
                                  materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_text_search}"
                                  Grid.Column="1"/>
 
-                        <materialDesign:ColorZone Mode="Custom"
-                                                  Grid.Column="2"
-                                      Height="{Binding ActualHeight, ElementName=searchBoxContainer}">
-
-                            <materialDesign:ColorZone.Effect>
-                                <DropShadowEffect BlurRadius="10" 
-                                                  ShadowDepth="1" 
-                                                  Color="Yellow" 
-                                                  Opacity="0.5" 
-                                                  RenderingBias="Performance" />
-                            </materialDesign:ColorZone.Effect>
-
-                            <Button Name="filterButton"
+                        <Button Name="filterButton"
+                                     Grid.Column="2"
                                     Click="filterButton_Click"
                                     materialDesign:ButtonAssist.CornerRadius="20"
                                     Background="{DynamicResource MyYellow}"
@@ -111,15 +100,13 @@
                                     Width="40"
                                     Height="40">
 
-                                <Image Name="iconFilter"
+                            <Image Name="iconFilter"
                                    HorizontalAlignment="Center"
                                    RenderOptions.BitmapScalingMode="HighQuality"
                                    Width="18"
                                    Height="20"
                                    Source="{StaticResource IconFilter}"/>
-                            </Button>
-                        </materialDesign:ColorZone>
-
+                        </Button>
                     </Grid>
                 </materialDesign:Card>
             </materialDesign:ColorZone>

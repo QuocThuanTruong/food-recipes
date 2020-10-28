@@ -132,8 +132,20 @@
   <data name="help_page_name" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="hint_description_recipe" xml:space="preserve">
+    <value>Mô tả món ăn của bạn</value>
+  </data>
+  <data name="hint_link_video" xml:space="preserve">
+    <value>Nhập vào url video món ăn của bạn</value>
+  </data>
+  <data name="hint_recipe_name" xml:space="preserve">
+    <value>Nhập tên món ăn của bạn</value>
+  </data>
   <data name="hint_text_search" xml:space="preserve">
     <value>Search your recipe here..</value>
+  </data>
+  <data name="hint_time" xml:space="preserve">
+    <value>Thời gian làm món ăn</value>
   </data>
   <data name="home_page_name" xml:space="preserve">
     <value>Home</value>
@@ -159,6 +171,9 @@
   <data name="text_add_shopping" xml:space="preserve">
     <value>ADD SHOPPING</value>
   </data>
+  <data name="text_add_step" xml:space="preserve">
+    <value>ADD STEP</value>
+  </data>
   <data name="text_breakfast_group" xml:space="preserve">
     <value>Ăn sáng</value>
   </data>
@@ -171,6 +186,9 @@
   <data name="text_healthy_group" xml:space="preserve">
     <value>Healthy</value>
   </data>
+  <data name="text_item_ez" xml:space="preserve">
+    <value>Easy</value>
+  </data>
   <data name="text_item_grid_34" xml:space="preserve">
     <value>3 x 4</value>
   </data>
@@ -179,6 +197,12 @@
   </data>
   <data name="text_item_grid_54" xml:space="preserve">
     <value>5 x 4</value>
+  </data>
+  <data name="text_item_hard" xml:space="preserve">
+    <value>Hard</value>
+  </data>
+  <data name="text_item_normal" xml:space="preserve">
+    <value>Normal</value>
   </data>
   <data name="text_item_sort_az" xml:space="preserve">
     <value>A-Z</value>
@@ -197,6 +221,9 @@
   </data>
   <data name="text_maindish_group" xml:space="preserve">
     <value>Món chính</value>
+  </data>
+  <data name="text_save_recipe" xml:space="preserve">
+    <value>SAVE RECIPE</value>
   </data>
   <data name="text_vegetarian_group" xml:space="preserve">
     <value>Món chay</value>
@@ -219,20 +246,47 @@
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
   </data>
+  <data name="title_avt" xml:space="preserve">
+    <value>HÌNH ĐẠI DIỆN</value>
+  </data>
+  <data name="title_description" xml:space="preserve">
+    <value>MÔ TẢ</value>
+  </data>
+  <data name="title_detail_step" xml:space="preserve">
+    <value>CHI TIẾT BƯỚC THỰC HIỆN</value>
+  </data>
   <data name="title_grid_box" xml:space="preserve">
     <value>Grid:</value>
   </data>
   <data name="title_igredient" xml:space="preserve">
     <value>NGUYÊN LIỆU</value>
   </data>
+  <data name="title_igredient_name" xml:space="preserve">
+    <value>TÊN NGUYÊN LIỆU</value>
+  </data>
+  <data name="title_igredient_quantity" xml:space="preserve">
+    <value>SỐ LƯỢNG</value>
+  </data>
   <data name="title_image_video" xml:space="preserve">
     <value>HÌNH ẢNH - VIDEO</value>
+  </data>
+  <data name="title_link_video" xml:space="preserve">
+    <value>LINK VIDEO</value>
+  </data>
+  <data name="title_recipe_name" xml:space="preserve">
+    <value>TÊN MÓN ĂN</value>
+  </data>
+  <data name="title_relative_image" xml:space="preserve">
+    <value>HÌNH ẢNH ĐI KÈM</value>
   </data>
   <data name="title_sort_box" xml:space="preserve">
     <value>Sort by:</value>
   </data>
   <data name="title_step" xml:space="preserve">
     <value>Bước</value>
+  </data>
+  <data name="title_time_group_level" xml:space="preserve">
+    <value>THỜI GIAN - NHÓM - MỨC ĐỘ</value>
   </data>
   <data name="title_tutorial" xml:space="preserve">
     <value>HƯỚNG DẪN THỰC HIỆN</value>
