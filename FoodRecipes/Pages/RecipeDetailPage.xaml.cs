@@ -25,6 +25,11 @@ namespace FoodRecipes.Pages
 			InitializeComponent();
 		}
 
+		public RecipeDetailPage(int recipeID)
+		{
+			InitializeComponent();
+		}
+
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 		}

@@ -11,7 +11,33 @@
       d:DesignHeight="728" d:DesignWidth="1126"
       Title="AddRecipePage">
 
-    <Grid>
-        <TextBlock Text="add recipe"/>
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="370*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="636*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="105*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="130*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="33*"/>
+        </Grid.RowDefinitions>
+        
+        
     </Grid>
 </Page>

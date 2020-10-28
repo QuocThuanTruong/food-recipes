@@ -419,7 +419,7 @@
             </Button>
 
             <Button Name="maximizeWindowButton"
-                    IsEnabled="False"
+                    IsEnabled="True"
                     Click="maximizeWindowButton_Click"
                     Margin="0, 5, 0, 0"
                     Padding="5, 0, 5, 0"

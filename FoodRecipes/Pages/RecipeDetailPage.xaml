@@ -16,8 +16,8 @@
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="370*"/>
             <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="626*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="636*"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -146,6 +146,7 @@
         </ScrollViewer>
 
         <Grid Name="igredientContainer"
+              Margin="0, 4, 0, 0"
               Grid.Column="1"
               Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -200,7 +201,7 @@
                 <DataTemplate>
                     <UniformGrid Columns="2"
                                  Margin="2, 0, 10, 0">
-                        
+
                         <!-- Binding data -->
                         <TextBlock Name="nameIgredient"
                                    Text="Nho khô California đen"
@@ -234,9 +235,40 @@
                    Text="{x:Static loc:Resources.title_image_video}"/>
 
 
-        <!-- Carousel -->
+        <!-- Image recipe list view -->
+        <ListView Name="imageRecipeListView"
+                  Margin="0, -8, 0, 0"
+                  ItemContainerStyle="{StaticResource ImageRecipeListViewItem}"
+                  Grid.Column="1"
+                  Grid.Row="6">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Binding data -->
+                    <Image Name="foodRecipeImage"
+                           Width="92"
+                           Height="92"
+                           Source="{StaticResource TEST_AVT}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+        </ListView>
         
         <MediaElement Name="videoContainer"
+                      Margin="0, 10, 0, 0"
                       LoadedBehavior="Manual"
                       Grid.Column="1"
                       Grid.Row="7"/>
@@ -250,27 +282,34 @@
 
         <ListView Name="stepsListView"
                   ItemContainerStyle="{StaticResource StepListBoxItem}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   Grid.Column="3"
                   Grid.Row="1"
                   Grid.RowSpan="7">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical"
+                                Width="{Binding ActualWidth, ElementName=stepsListView}"
+                                Margin="4, 4, 4, 8">
+                        <Grid Name="stepButtonContainer"
+                              Margin="0, 4, 0, 0"
+                              HorizontalAlignment="Left">
 
-                        <materialDesign:ColorZone Mode="Custom"
-                                      HorizontalAlignment="Left"
-                                      Width="90"
-                                      Grid.Column="1"
-                                      Height="40">
-
-                            <materialDesign:ColorZone.Effect>
-                                <DropShadowEffect BlurRadius="10" 
-                                          ShadowDepth="1" 
-                                          Color="Red" 
-                                          Opacity="0.5" 
-                                          RenderingBias="Performance" />
-                            </materialDesign:ColorZone.Effect>
+                            <!-- Shadow button -->
+                            <Border Width="80"
+                                    Height="24"
+                                    Margin="0, 0, 5, 0"
+                                    BorderThickness="4"
+                                    CornerRadius="0"
+                                    BorderBrush="Red">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="15"
+                                                      Direction="0"
+                                                      Color="Red"
+                                                      Opacity="1"/>
+                                </Border.Effect>
+                            </Border>
 
                             <Button Name="stepButton"
                                     Width="85"
@@ -283,14 +322,14 @@
                                     materialDesign:ShadowAssist.ShadowDepth="Depth0">
 
                                 <StackPanel Orientation="Horizontal">
-                                    
+
                                     <TextBlock Name="stepTitle"
                                            Text="{x:Static loc:Resources.title_step}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                               Margin="0, 2, 4, 0"
                                            Style="{StaticResource StepRegularText}"/>
-                                    
+
                                     <!-- Binding data -->
                                     <TextBlock Name="noStepTextBlock"
                                                Margin="0, 0, 0, 2"
@@ -299,16 +338,56 @@
                                                VerticalAlignment="Center"
                                                Style="{StaticResource StepLargeText}"/>
                                 </StackPanel>
-                                
                             </Button>
-                        </materialDesign:ColorZone>
-                        
-                        
+                        </Grid>
+
+                        <!-- Binding data -->
+                        <TextBlock Name="detailStepTextBlock"
+                                   Margin="0, 8, 0, 0"
+                                   Padding="0, 0, 30, 0"
+                                   Width="{Binding ActualWidth, ElementName=stepsListView}"
+                                   Style="{StaticResource DetailTextBlock}"
+                                   FontSize="14"
+                                   FontFamily="{StaticResource GilroyRegular}"
+                                   Text="{x:Static loc:Resources.test_step}"/>
+
+
+                        <ListView Name="imageStepListView"
+                                  Margin="0, 8, 30, 0"
+                                  Width="{Binding ActualWidth, ElementName=detailStepTextBlock}"
+                                  ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Binding data -->
+                                    <Image Name="foodRecipeImage"
+                                           Width="144"
+                                           Height="144"
+                                           Source="{StaticResource TEST_AVT}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                        </ListView>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
             <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+            
         </ListView>
     </Grid>
 </Page>

@@ -414,6 +414,7 @@
             </materialDesign:ColorZone>
         </Grid>
 
+        <!-- Food group filter list box -->
         <ListBox Name="foodGroupListBox"
                  SelectionChanged="foodGroupListBox_SelectionChanged"
                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
@@ -681,8 +682,10 @@
                        Source="{StaticResource IconEraser}"/>
             </Button>
         </ListBox>
+        
+        <!-- Main list - recipes list view -->
         <ListView Name="recipesListView"
-                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                  ItemContainerStyle="{StaticResource FoodRecipeListViewItem}"
                   SelectionMode="Single"
                   SelectionChanged="recipesListView_SelectionChanged"
                   Grid.Column="1"
@@ -936,6 +939,7 @@
             <materialDesign:Card></materialDesign:Card>
             <materialDesign:Card></materialDesign:Card>
             <materialDesign:Card></materialDesign:Card>
+           
         </ListView>
 
         <Grid Name="pageContainer"

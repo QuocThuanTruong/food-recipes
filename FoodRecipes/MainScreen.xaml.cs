@@ -109,10 +109,12 @@ namespace FoodRecipes
 			if (selectedButton.Name == homePageButton.Name)
 			{
 				result = new HomePage();
+				((HomePage)result).ShowRecipeDetailPage += MainScreen_ShowRecipeDetailPage;
 			}
 			else if (selectedButton.Name == favPageButton.Name)
 			{
 				result = new HomePage(true);
+				((HomePage)result).ShowRecipeDetailPage += MainScreen_ShowRecipeDetailPage;
 			}
 			else if (selectedButton.Name == addRecipePageButton.Name)
 			{
@@ -120,7 +122,7 @@ namespace FoodRecipes
 			}
 			else if (selectedButton.Name == shoppingPageButton.Name)
 			{
-				result = new RecipeDetailPage();
+				result = new ShoppingPage();
 			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{
@@ -134,5 +136,16 @@ namespace FoodRecipes
 			return result;
 		}
 
+		private void MainScreen_ShowRecipeDetailPage(int recipeID)
+		{
+			pageNavigation.NavigationService.Navigate(new RecipeDetailPage(recipeID));
+
+			//Clear selected button
+			foreach (var button in _mainScreenButtons)
+			{
+				button.Background = Brushes.Transparent;
+				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
+			}
+		}
 	}
 }

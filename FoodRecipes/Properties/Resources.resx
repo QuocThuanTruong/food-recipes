@@ -153,6 +153,9 @@
   <data name="test_name_recipe" xml:space="preserve">
     <value>GÀ LĂN HỒ ĐÀO MỸ CHIÊN GIÒN VỚI SALAD NHO KHÔ DƯA HẤU</value>
   </data>
+  <data name="test_step" xml:space="preserve">
+    <value>Sốt Giấm: Cho 2 muỗng canh nho khô California đen, 1 quả ớt jalapeno bỏ hạt, 1 muỗng canh mù tạt Dijon, 11/2 muỗng cà phê mù tạt nguyên hạt, 1 muỗng canh mật ong, 1 muỗng canh dấm gạo, 2 muỗng canh dầu ô liu, 1 muỗng canh hẹ tươi đã cắt nhỏ, 1 muỗng cà phê muối và tiêu vào cối xay sinh tốt, xay nhuyễn và giữ lạnh.</value>
+  </data>
   <data name="text_add_shopping" xml:space="preserve">
     <value>ADD SHOPPING</value>
   </data>

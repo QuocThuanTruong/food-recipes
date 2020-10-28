@@ -169,6 +169,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sốt Giấm: Cho 2 muỗng canh nho khô California đen, 1 quả ớt jalapeno bỏ hạt, 1 muỗng canh mù tạt Dijon, 11/2 muỗng cà phê mù tạt nguyên hạt, 1 muỗng canh mật ong, 1 muỗng canh dấm gạo, 2 muỗng canh dầu ô liu, 1 muỗng canh hẹ tươi đã cắt nhỏ, 1 muỗng cà phê muối và tiêu vào cối xay sinh tốt, xay nhuyễn và giữ lạnh..
+        /// </summary>
+        public static string test_step {
+            get {
+                return ResourceManager.GetString("test_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD SHOPPING.
         /// </summary>
         public static string text_add_shopping {
