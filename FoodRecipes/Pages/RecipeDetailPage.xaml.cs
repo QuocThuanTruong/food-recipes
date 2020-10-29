@@ -16,28 +16,22 @@ using System.Windows.Shapes;
 namespace FoodRecipes.Pages
 {
 	/// <summary>
-	/// Interaction logic for AddRecipePage.xaml
+	/// Interaction logic for RecipeDetailPage.xaml
 	/// </summary>
-	public partial class AddRecipePage : Page
+	public partial class RecipeDetailPage : Page
 	{
-		public AddRecipePage()
+		public RecipeDetailPage()
 		{
 			InitializeComponent();
 		}
 
-		private void avatarImagePickerButton_Click(object sender, RoutedEventArgs e)
+		public RecipeDetailPage(int recipeID)
 		{
-
+			InitializeComponent();
 		}
 
-		private void levelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-
-		}
-
-		private void groupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
 		}
 	}
 }

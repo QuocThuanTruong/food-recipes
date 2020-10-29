@@ -22,6 +22,8 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class HomePage : Page
 	{
+		public delegate void ShowRecipeDetailPageHandler(int recipeID);
+		public event ShowRecipeDetailPageHandler ShowRecipeDetailPage;
 
 		public HomePage()
 		{
@@ -118,6 +120,20 @@ namespace FoodRecipes.Pages
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+		}
+
+		private void recipesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var selectedItemIndex = recipesListView.SelectedIndex;
+
+			if (selectedItemIndex != -1)
+			{
+				Debug.WriteLine(selectedItemIndex);
+			}
+
+			//Get Id recipe base on item clikced
+			var dummyID = 1;
+			ShowRecipeDetailPage?.Invoke(dummyID);	
 		}
 	}
 }

@@ -23,6 +23,7 @@
     <ImageSource x:Key="IconGrayClock">pack://application:,,,/Assets/icon_gray_clock.png</ImageSource>
     <ImageSource x:Key="IconGrayClose">pack://application:,,,/Assets/icon_gray_close.png</ImageSource>
     <ImageSource x:Key="IconGrayGroup">pack://application:,,,/Assets/icon_gray_group.png</ImageSource>
+    <ImageSource x:Key="IconGrayImgPicker">pack://application:,,,/Assets/icon_gray_img_picker.png</ImageSource>
     <ImageSource x:Key="IconGrayLevel">pack://application:,,,/Assets/icon_gray_level.png</ImageSource>
     <ImageSource x:Key="IconHealthy">pack://application:,,,/Assets/icon_healthy.png</ImageSource>
     <ImageSource x:Key="IconHelp">pack://application:,,,/Assets/icon_help.png</ImageSource>

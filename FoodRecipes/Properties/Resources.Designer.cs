@@ -106,11 +106,47 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mô tả món ăn của bạn.
+        /// </summary>
+        public static string hint_description_recipe {
+            get {
+                return ResourceManager.GetString("hint_description_recipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập vào url video món ăn của bạn.
+        /// </summary>
+        public static string hint_link_video {
+            get {
+                return ResourceManager.GetString("hint_link_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập tên món ăn của bạn.
+        /// </summary>
+        public static string hint_recipe_name {
+            get {
+                return ResourceManager.GetString("hint_recipe_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search your recipe here...
         /// </summary>
         public static string hint_text_search {
             get {
                 return ResourceManager.GetString("hint_text_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thời gian làm món ăn.
+        /// </summary>
+        public static string hint_time {
+            get {
+                return ResourceManager.GetString("hint_time", resourceCulture);
             }
         }
         
@@ -169,6 +205,33 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sốt Giấm: Cho 2 muỗng canh nho khô California đen, 1 quả ớt jalapeno bỏ hạt, 1 muỗng canh mù tạt Dijon, 11/2 muỗng cà phê mù tạt nguyên hạt, 1 muỗng canh mật ong, 1 muỗng canh dấm gạo, 2 muỗng canh dầu ô liu, 1 muỗng canh hẹ tươi đã cắt nhỏ, 1 muỗng cà phê muối và tiêu vào cối xay sinh tốt, xay nhuyễn và giữ lạnh..
+        /// </summary>
+        public static string test_step {
+            get {
+                return ResourceManager.GetString("test_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADD SHOPPING.
+        /// </summary>
+        public static string text_add_shopping {
+            get {
+                return ResourceManager.GetString("text_add_shopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ADD STEP.
+        /// </summary>
+        public static string text_add_step {
+            get {
+                return ResourceManager.GetString("text_add_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ăn sáng.
         /// </summary>
         public static string text_breakfast_group {
@@ -205,6 +268,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Easy.
+        /// </summary>
+        public static string text_item_ez {
+            get {
+                return ResourceManager.GetString("text_item_ez", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 3 x 4.
         /// </summary>
         public static string text_item_grid_34 {
@@ -228,6 +300,24 @@ namespace FoodRecipes.Properties {
         public static string text_item_grid_54 {
             get {
                 return ResourceManager.GetString("text_item_grid_54", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hard.
+        /// </summary>
+        public static string text_item_hard {
+            get {
+                return ResourceManager.GetString("text_item_hard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string text_item_normal {
+            get {
+                return ResourceManager.GetString("text_item_normal", resourceCulture);
             }
         }
         
@@ -282,6 +372,15 @@ namespace FoodRecipes.Properties {
         public static string text_maindish_group {
             get {
                 return ResourceManager.GetString("text_maindish_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAVE RECIPE.
+        /// </summary>
+        public static string text_save_recipe {
+            get {
+                return ResourceManager.GetString("text_save_recipe", resourceCulture);
             }
         }
         
@@ -349,6 +448,33 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HÌNH ĐẠI DIỆN.
+        /// </summary>
+        public static string title_avt {
+            get {
+                return ResourceManager.GetString("title_avt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MÔ TẢ.
+        /// </summary>
+        public static string title_description {
+            get {
+                return ResourceManager.GetString("title_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHI TIẾT BƯỚC THỰC HIỆN.
+        /// </summary>
+        public static string title_detail_step {
+            get {
+                return ResourceManager.GetString("title_detail_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grid:.
         /// </summary>
         public static string title_grid_box {
@@ -358,11 +484,101 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NGUYÊN LIỆU.
+        /// </summary>
+        public static string title_igredient {
+            get {
+                return ResourceManager.GetString("title_igredient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TÊN NGUYÊN LIỆU.
+        /// </summary>
+        public static string title_igredient_name {
+            get {
+                return ResourceManager.GetString("title_igredient_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SỐ LƯỢNG.
+        /// </summary>
+        public static string title_igredient_quantity {
+            get {
+                return ResourceManager.GetString("title_igredient_quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HÌNH ẢNH - VIDEO.
+        /// </summary>
+        public static string title_image_video {
+            get {
+                return ResourceManager.GetString("title_image_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LINK VIDEO.
+        /// </summary>
+        public static string title_link_video {
+            get {
+                return ResourceManager.GetString("title_link_video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TÊN MÓN ĂN.
+        /// </summary>
+        public static string title_recipe_name {
+            get {
+                return ResourceManager.GetString("title_recipe_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HÌNH ẢNH ĐI KÈM.
+        /// </summary>
+        public static string title_relative_image {
+            get {
+                return ResourceManager.GetString("title_relative_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort by:.
         /// </summary>
         public static string title_sort_box {
             get {
                 return ResourceManager.GetString("title_sort_box", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bước.
+        /// </summary>
+        public static string title_step {
+            get {
+                return ResourceManager.GetString("title_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THỜI GIAN - NHÓM - MỨC ĐỘ.
+        /// </summary>
+        public static string title_time_group_level {
+            get {
+                return ResourceManager.GetString("title_time_group_level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HƯỚNG DẪN THỰC HIỆN.
+        /// </summary>
+        public static string title_tutorial {
+            get {
+                return ResourceManager.GetString("title_tutorial", resourceCulture);
             }
         }
     }
