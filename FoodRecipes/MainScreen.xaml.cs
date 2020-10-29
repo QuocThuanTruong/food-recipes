@@ -85,12 +85,14 @@ namespace FoodRecipes
 				{
 					button.Background = Brushes.Transparent;
 					button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
+					button.IsEnabled = true;
 				}
 			}
 
 			//Highlight
 			selectedButton.Background = Brushes.White;
 			selectedButton.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(NONE_BORDERTHICKNESS);
+			selectedButton.IsEnabled = false;
 			/****/
 
 			/** Navigating page **/
@@ -119,6 +121,7 @@ namespace FoodRecipes
 			else if (selectedButton.Name == addRecipePageButton.Name)
 			{
 				result = new AddRecipePage();
+				((AddRecipePage)result).BackToHome += MainScreen_BackToHome;
 			}
 			else if (selectedButton.Name == shoppingPageButton.Name)
 			{
@@ -136,6 +139,23 @@ namespace FoodRecipes
 			return result;
 		}
 
+		private void MainScreen_BackToHome()
+		{
+			pageNavigation.NavigationService.Navigate(new HomePage());
+
+			//Clear selected button
+			foreach (var button in _mainScreenButtons)
+			{
+				button.Background = Brushes.Transparent;
+				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
+				button.IsEnabled = true;
+			}
+
+			homePageButton.Background = Brushes.White;
+			homePageButton.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(NONE_BORDERTHICKNESS);
+			homePageButton.IsEnabled = false;
+		}
+
 		private void MainScreen_ShowRecipeDetailPage(int recipeID)
 		{
 			pageNavigation.NavigationService.Navigate(new RecipeDetailPage(recipeID));
@@ -145,6 +165,7 @@ namespace FoodRecipes
 			{
 				button.Background = Brushes.Transparent;
 				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
+				button.IsEnabled = true;
 			}
 		}
 	}

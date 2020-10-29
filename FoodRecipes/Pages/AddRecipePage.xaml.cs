@@ -21,6 +21,8 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class AddRecipePage : Page
 	{
+		public delegate void BackToHomeHandler();
+		public event BackToHomeHandler BackToHome;
 		public AddRecipePage()
 		{
 			InitializeComponent();
@@ -74,6 +76,11 @@ namespace FoodRecipes.Pages
 		private void avatarPickerFrameButton_Click(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+		{
+			BackToHome?.Invoke();
 		}
 	}
 }

@@ -33,5 +33,10 @@ namespace FoodRecipes.Pages
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 		}
+
+		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+		{
+			notiMessageSnackbar.IsActive = false;
+		}
 	}
 }

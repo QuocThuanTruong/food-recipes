@@ -125,15 +125,22 @@ namespace FoodRecipes.Pages
 		private void recipesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var selectedItemIndex = recipesListView.SelectedIndex;
+			string selectedID = "";
 
 			if (selectedItemIndex != -1)
 			{
-				Debug.WriteLine(selectedItemIndex);
+				selectedID = ((Grid)recipesListView.SelectedItem).Tag.ToString();
+				Debug.WriteLine(selectedID);
 			}
 
 			//Get Id recipe base on item clikced
-			var dummyID = 1;
-			ShowRecipeDetailPage?.Invoke(dummyID);	
+
+			ShowRecipeDetailPage?.Invoke(int.Parse(selectedID));	
+		}
+
+		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+		{
+			notiMessageSnackbar.IsActive = false;
 		}
 	}
 }

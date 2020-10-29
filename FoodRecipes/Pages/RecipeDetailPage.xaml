@@ -203,12 +203,12 @@
                                  Margin="2, 0, 10, 0">
 
                         <!-- Binding data -->
-                        <TextBlock Name="nameIgredient"
+                        <TextBlock Name="nameIgredientTextBlock"
                                    Text="Nho khô California đen"
                                    Style="{StaticResource DetailTextBlock}"/>
 
                         <!-- Binding data -->
-                        <TextBlock Name="quantityIgredient"
+                        <TextBlock Name="quantityIgredientTextBlock"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right"
                                    Text="1/2 muỗng cà phê"
@@ -272,6 +272,23 @@
                       LoadedBehavior="Manual"
                       Grid.Column="1"
                       Grid.Row="7"/>
+
+        <!-- Post mesage to notification to user here (active = true) -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 Margin="0, 0, 0, 8"
+                                 Width="370"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="7"
+                                 Grid.RowSpan="2">
+
+            <!-- Get/set data notiMessageSnackbar.Message.Content-->
+            <materialDesign:SnackbarMessage Content="Test notification"
+                                            ActionContent="CLOSE"
+                                            ActionClick="SnackbarMessage_ActionClick"/>
+
+        </materialDesign:Snackbar>
 
         <TextBlock Name="tutorialTitleTextBlock"
                    VerticalAlignment="Center"

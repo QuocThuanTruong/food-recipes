@@ -11,6 +11,7 @@
     <SolidColorBrush x:Key="MyRed" Color="#d92027"/>
     <SolidColorBrush x:Key="MyOrange" Color="#fe9e0c"/>
     <SolidColorBrush x:Key="MyYellow" Color="#ffcd3c"/>
+    <SolidColorBrush x:Key="LightYellow" Color="#fce68d"/>
     <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
     <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
     <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
@@ -19,6 +20,7 @@
     <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
     <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
     <SolidColorBrush x:Key="RedHover" Color="#e5173a"/>
+    <SolidColorBrush x:Key="LightRedHover" Color="#ff6666"/>
     <Color x:Key="YellowShadow">#fcdd00</Color>
 
     <!-- Define Text Appearance-->
@@ -101,6 +103,14 @@
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="ShoppingLargeText">
+        <Setter Property="FontSize" Value="19"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
 
     <Style TargetType="TextBlock"
                x:Key="StepLargeText">

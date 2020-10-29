@@ -9,6 +9,7 @@
     <ImageSource x:Key="IconAbout">pack://application:,,,/Assets/icon_about.png</ImageSource>
     <ImageSource x:Key="IconActiveFav">pack://application:,,,/Assets/icon_active_fav.png</ImageSource>
     <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/icon_asc.png</ImageSource>
+    <ImageSource x:Key="IconBlackEraser">pack://application:,,,/Assets/icon_black_eraser.png</ImageSource>
     <ImageSource x:Key="IconBlueAdd">pack://application:,,,/Assets/icon_blue_add.png</ImageSource>
     <ImageSource x:Key="IconBlueClose">pack://application:,,,/Assets/icon_blue_close.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
@@ -42,6 +43,7 @@
     <ImageSource x:Key="IconSearch">pack://application:,,,/Assets/icon_search.png</ImageSource>
     <ImageSource x:Key="IconShopping">pack://application:,,,/Assets/icon_shopping.png</ImageSource>
     <ImageSource x:Key="IconVegetarian">pack://application:,,,/Assets/icon_vegetarian.png</ImageSource>
+    <ImageSource x:Key="IconWhiteTick">pack://application:,,,/Assets/icon_white_tick.png</ImageSource>
     <ImageSource x:Key="Tape">pack://application:,,,/Assets/tape.png</ImageSource>
     <ImageSource x:Key="TopLeftRibbon">pack://application:,,,/Assets/top_left_ribbon.png</ImageSource>
     <ImageSource x:Key="TornPaper">pack://application:,,,/Assets/torn_paper.png</ImageSource>
