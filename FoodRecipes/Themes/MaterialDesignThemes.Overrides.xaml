@@ -475,28 +475,26 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="85"/>
         <Setter Property="Background" Value="{DynamicResource MyRed}"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyRed}"/>
-        <Setter Property="materialDesign:RippleAssist.Feedback" Value="Red"/>
+        <Setter Property="Foreground" Value="{DynamicResource RedHover}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="Orange"/>
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5"/>
     </Style>
 
-    <Style x:Key="ImagePickerButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFlatButton}">
-        <Setter Property="Width" Value="35"/>
-        <Setter Property="Height" Value="35"/>
+    <Style x:Key="ImagePickerFrameButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Width" Value="120"/>
+        <Setter Property="Height" Value="120"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource RippleBlue}"/>
         <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="1" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Grid>
-                        <Border Background="{TemplateBinding Background,
-                                Converter={StaticResource BrushOpacityConverter},
-                                ConverterParameter=0.7}"
+                        <Border Background="{TemplateBinding Background}"
                                 x:Name="border" 
                                 CornerRadius="{Binding Path=(materialDesign:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -522,10 +520,75 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{Binding Background,
-                                                                                        RelativeSource={RelativeSource Mode=TemplatedParent},
-                                                                                        Converter={StaticResource BrushOpacityConverter},
-                                                                                        ConverterParameter=0.8}" />
+                            <Setter Property="Visibility" TargetName="border" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Control.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="Opacity"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Control.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard >
+                        <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="Opacity"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ImagePickerButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource RippleBlue}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                x:Name="border" 
+                                CornerRadius="{Binding Path=(materialDesign:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <materialDesign:Ripple Content="{TemplateBinding Content}" 
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                        Focusable="False"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Padding="{TemplateBinding Padding}" 
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <materialDesign:Ripple.Clip>
+                                    <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                                        <Binding ElementName="border" Path="ActualWidth" />
+                                        <Binding ElementName="border" Path="ActualHeight" />
+                                        <Binding ElementName="border" Path="CornerRadius" />
+                                        <Binding ElementName="border" Path="BorderThickness" />
+                                    </MultiBinding>
+                                </materialDesign:Ripple.Clip>
+                            </materialDesign:Ripple>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="LightGray" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="1"/>

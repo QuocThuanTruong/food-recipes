@@ -135,6 +135,15 @@
   <data name="hint_description_recipe" xml:space="preserve">
     <value>Mô tả món ăn của bạn</value>
   </data>
+  <data name="hint_detail_step" xml:space="preserve">
+    <value>Mô tả chi tiết bước thực hiện</value>
+  </data>
+  <data name="hint_igredient_name" xml:space="preserve">
+    <value>Nhập tên nguyên liệu</value>
+  </data>
+  <data name="hint_igredient_quantity" xml:space="preserve">
+    <value>Nhập số lượng</value>
+  </data>
   <data name="hint_link_video" xml:space="preserve">
     <value>Nhập vào url video món ăn của bạn</value>
   </data>
@@ -168,6 +177,9 @@
   <data name="test_step" xml:space="preserve">
     <value>Sốt Giấm: Cho 2 muỗng canh nho khô California đen, 1 quả ớt jalapeno bỏ hạt, 1 muỗng canh mù tạt Dijon, 11/2 muỗng cà phê mù tạt nguyên hạt, 1 muỗng canh mật ong, 1 muỗng canh dấm gạo, 2 muỗng canh dầu ô liu, 1 muỗng canh hẹ tươi đã cắt nhỏ, 1 muỗng cà phê muối và tiêu vào cối xay sinh tốt, xay nhuyễn và giữ lạnh.</value>
   </data>
+  <data name="text_0" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="text_add_shopping" xml:space="preserve">
     <value>ADD SHOPPING</value>
   </data>
@@ -185,6 +197,9 @@
   </data>
   <data name="text_healthy_group" xml:space="preserve">
     <value>Healthy</value>
+  </data>
+  <data name="text_hour" xml:space="preserve">
+    <value>giờ</value>
   </data>
   <data name="text_item_ez" xml:space="preserve">
     <value>Easy</value>
@@ -221,6 +236,9 @@
   </data>
   <data name="text_maindish_group" xml:space="preserve">
     <value>Món chính</value>
+  </data>
+  <data name="text_minute" xml:space="preserve">
+    <value>phút</value>
   </data>
   <data name="text_save_recipe" xml:space="preserve">
     <value>SAVE RECIPE</value>

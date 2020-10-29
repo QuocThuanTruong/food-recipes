@@ -115,6 +115,33 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mô tả chi tiết bước thực hiện.
+        /// </summary>
+        public static string hint_detail_step {
+            get {
+                return ResourceManager.GetString("hint_detail_step", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập tên nguyên liệu.
+        /// </summary>
+        public static string hint_igredient_name {
+            get {
+                return ResourceManager.GetString("hint_igredient_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập số lượng.
+        /// </summary>
+        public static string hint_igredient_quantity {
+            get {
+                return ResourceManager.GetString("hint_igredient_quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhập vào url video món ăn của bạn.
         /// </summary>
         public static string hint_link_video {
@@ -214,6 +241,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        public static string text_0 {
+            get {
+                return ResourceManager.GetString("text_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD SHOPPING.
         /// </summary>
         public static string text_add_shopping {
@@ -264,6 +300,15 @@ namespace FoodRecipes.Properties {
         public static string text_healthy_group {
             get {
                 return ResourceManager.GetString("text_healthy_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to giờ.
+        /// </summary>
+        public static string text_hour {
+            get {
+                return ResourceManager.GetString("text_hour", resourceCulture);
             }
         }
         
@@ -372,6 +417,15 @@ namespace FoodRecipes.Properties {
         public static string text_maindish_group {
             get {
                 return ResourceManager.GetString("text_maindish_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to phút.
+        /// </summary>
+        public static string text_minute {
+            get {
+                return ResourceManager.GetString("text_minute", resourceCulture);
             }
         }
         

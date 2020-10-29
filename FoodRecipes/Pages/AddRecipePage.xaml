@@ -106,7 +106,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="6.25*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Name="imagePicker"
@@ -118,18 +118,25 @@
                        Height="120"
                        Source="{StaticResource TEST_AVT}"/>
 
-                <Button Name="avatarImagePickerButton"
-                        Click="avatarImagePickerButton_Click"
+                <!-- Click here to get avt-->
+                <Button Name="avatarPickerFrameButton"
+                        Click="avatarPickerFrameButton_Click"
+                        Opacity="0"
+                        Style="{StaticResource ImagePickerFrameButton}"
+                        VerticalContentAlignment="Bottom"
+                        Height="120">
+                    
+                    <Button Name="avatarImagePickerButton"
                         Style="{StaticResource ImagePickerButton}"
-                        Background="{DynamicResource MyLightGray}"
-                        VerticalAlignment="Bottom"
+                        Background="{DynamicResource MyLightGray2}"
                         Width="120"
                         Height="44">
 
-                    <Image Name="iconPicker"
+                        <Image Name="iconPicker"
                            Width="23"
                            Height="21"
                            Source="{StaticResource IconGrayImgPicker}"/>
+                    </Button>
                 </Button>
             </Grid>
 
@@ -153,13 +160,50 @@
                        Height="27"
                        Source="{StaticResource IconOrangeClock}"/>
 
-                <!-- Get data -->
-                <TextBox Name="timeTextBox"
-                         Style="{StaticResource AddRecipePageTextBox}"
-                         materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_time}"
-                         Grid.Column="2"
-                         Grid.Row="0"/>
-                
+                <Grid Name="timePickerContainer"
+                      Grid.Column="2"
+                      Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Get data -->
+                    <TextBox Name="hourTextBox"
+                             PreviewTextInput="hourTextBox_PreviewTextInput"
+                             VerticalAlignment="Center"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="{x:Static loc:Resources.text_0}"
+                             Grid.Column="0"/>
+
+                    <TextBlock Name="titleHour"
+                               VerticalAlignment="Center"
+                               Margin="8, 0, 0, 0"
+                               Grid.Column="1"
+                               Text="{x:Static loc:Resources.text_hour}"
+                               Style="{StaticResource DetailTextBlock}"/>
+
+                    <!-- Get data -->
+                    <TextBox Name="minuteTextBox"
+                             PreviewTextInput="hourTextBox_PreviewTextInput"
+                             VerticalAlignment="Center"
+                             Style="{StaticResource AddRecipePageTextBox}"                         
+                             materialDesign:HintAssist.Hint="{x:Static loc:Resources.text_0}"
+                             Grid.Column="3"/>
+
+                    <TextBlock Name="titleMinute"
+                               VerticalAlignment="Center"
+                               Margin="8, 0, 0, 0"
+                               Grid.Column="4"
+                               Text="{x:Static loc:Resources.text_minute}"
+                               Style="{StaticResource DetailTextBlock}"/>
+
+                </Grid>
+
                 <Image Name="iconGroup"
                        Grid.Row="1"
                        Width="27"
@@ -220,7 +264,6 @@
                                            Text="{x:Static loc:Resources.text_drink_group}"/>
                         </ComboBoxItem>
                     </ComboBox>
-
                 </Grid>
 
                 <Image Name="iconLevel"
@@ -268,10 +311,387 @@
                                            Text="{x:Static loc:Resources.text_item_hard}"/>
                         </ComboBoxItem>
                     </ComboBox>
-
                 </Grid>
             </Grid>
         </Grid>
 
+        <Grid Name="igredientTitleContainer"
+              Grid.Column="1"
+              Grid.Row="10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="5.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Name="igredientNameTextBlock"
+                       Grid.Column="0"
+                       Text="{x:Static loc:Resources.title_igredient_name}"
+                       Style="{StaticResource SmallHeaderText}"/>
+
+            <TextBlock Name="igredientQuantityTextBlock"
+                       Grid.Column="1"
+                       Text="{x:Static loc:Resources.title_igredient_quantity}"
+                       Style="{StaticResource SmallHeaderText}"/>
+        </Grid>
+
+        <Grid Name="igredientInputContainer"
+              Grid.Column="1"
+              Grid.Row="11">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Get data -->
+            <TextBox Name="igredientNameTextBox"
+                     VerticalAlignment="Center"
+                     Style="{StaticResource AddRecipePageTextBox}"                         
+                     materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_igredient_name}"
+                     Grid.Column="0"/>
+            
+            <!-- Get data -->
+            <TextBox Name="igredientQuantityTextBox"
+                     VerticalAlignment="Center"
+                     Style="{StaticResource AddRecipePageTextBox}"                         
+                     materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_igredient_quantity}"
+                     Grid.Column="2"/>
+
+            <materialDesign:ColorZone Mode="Custom"
+                                      HorizontalAlignment="Center"
+                                      Width="40"
+                                      Grid.Column="4"
+                                      Height="{Binding ActualHeight, ElementName=igredientInputContainer}">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="Red" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <Button Name="addShoppingButton"
+                        Width="32"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                    <Image Name="iconAdd"
+                           Width="16"
+                           Height="16"
+                           Source="{StaticResource IconGrayAdd}"/>
+                </Button>
+            </materialDesign:ColorZone>
+        </Grid>
+
+        <ListView Name="igredientsListView"
+                  Grid.Column="1"
+                  Grid.Row="12"
+                  Grid.RowSpan="2"
+                  Margin="0, 4, 0, 8"
+                  ItemContainerStyle="{StaticResource LinearColorHoverListBox}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <UniformGrid Columns="2"
+                                 Margin="2, 0, 10, 0">
+
+                        <!-- Binding data -->
+                        <TextBlock Name="nameIgredient"
+                                   Text="Nho khô California đen"
+                                   Style="{StaticResource DetailTextBlock}"/>
+
+                        <!-- Binding data -->
+                        <TextBlock Name="quantityIgredient"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Text="1/2 muỗng cà phê"
+                                   Style="{StaticResource DetailTextBlock}"/>
+                    </UniformGrid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <!--for test-->
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+            <Grid></Grid>
+        </ListView>
+
+        <TextBlock Name="detailStepTitleTextBlock"
+                       Grid.Column="3"
+                       Text="{x:Static loc:Resources.title_detail_step}"
+                       Style="{StaticResource SmallHeaderText}"/>
+
+        <!-- Get data -->
+        <TextBox Name="detailStepTextBox"
+                 Style="{StaticResource AddRecipePageTextBox}"
+                 Height="92"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Stretch"
+                 materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_detail_step}"
+                 Grid.Column="3"
+                 Grid.Row="1"
+                 Grid.RowSpan="3"/>
+
+        <Grid Name="relativeImageStepTitleContainer"
+              Grid.Column="3"
+              Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Name="relativeImageStepTitleTextBlock"
+                   Text="{x:Static loc:Resources.title_relative_image}"
+                   Style="{StaticResource SmallHeaderText}"/>
+        </Grid>
+
+        <StackPanel Name="relativeImagePicker"
+                    Orientation="Horizontal"
+              Grid.Column="3"
+              Grid.Row="5"
+              Grid.RowSpan="2">
+
+            <!-- Collaped when no image, visible when image added-->
+            <!-- Binding data -->
+            <ListView Name="relativeImageStepListView"
+                  Margin="0, 0, 14, 0"
+                  Width="{Binding ActualWidth, ElementName=relativeImageStepTitleTextBlock}"
+                  ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Binding data -->
+                        <Image Name="relativeStepImage"
+                           Width="112"
+                           Height="112"
+                           Source="{StaticResource TEST_AVT}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <Image></Image>
+                <Image></Image>
+                <Image></Image>
+                <Image></Image>
+                <Image></Image>
+                <Image></Image>
+                <Image></Image>
+            </ListView>
+
+            <Button Name="relativeImagePickerButton"
+                    Style="{StaticResource ImagePickerButton}"
+                    Background="{DynamicResource MyLightGray2}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Margin="0, 4, 0, 0"
+                    Width="112"
+                    Height="112">
+
+                <Image Width="39"
+                       Height="34"
+                       Source="{StaticResource IconGrayImgPicker}"/>
+                </Button>
+        </StackPanel>
+
+        <materialDesign:ColorZone Mode="Custom"
+                                  HorizontalAlignment="{Binding HorizontalAlignment, ElementName=relativeImagePickerButton}"
+                                  Grid.Column="3"
+                                  Grid.Row="7"
+                                  Height="{Binding ActualHeight, ElementName=igredientInputContainer}">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="Red" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+            <Button Name="addStepButton"
+                    Click="addStepButton_Click"
+                    Width="128"
+                    Style="{StaticResource StepButton}"
+                    materialDesign:ButtonAssist.CornerRadius="16"
+                    Height="32"                        
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <TextBlock Name="addStepTextBlock"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="{x:Static loc:Resources.text_add_step}"/>
+            </Button>
+        </materialDesign:ColorZone>
+
+        <ListView Name="stepsPreviewListView"
+                  ItemContainerStyle="{StaticResource StepListBoxItem}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  Grid.Column="3"
+                  Margin="0, 8, 0, 8"
+                  Grid.Row="8"
+                  Grid.RowSpan="5">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical"
+                                Width="{Binding ActualWidth, ElementName=stepsPreviewListView}"
+                                Margin="4, 4, 4, 8">
+                        <Grid Name="stepButtonContainer"
+                              Margin="0, 4, 0, 0"
+                              HorizontalAlignment="Left">
+
+                            <!-- Shadow button -->
+                            <Border Width="80"
+                                    Height="24"
+                                    Margin="0, 0, 5, 0"
+                                    BorderThickness="4"
+                                    CornerRadius="0"
+                                    BorderBrush="Red">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="15"
+                                                      Direction="0"
+                                                      Color="Red"
+                                                      Opacity="1"/>
+                                </Border.Effect>
+                            </Border>
+
+                            <Button Name="stepButton"
+                                    Style="{StaticResource StepButton}">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock Name="stepTitle"
+                                           Text="{x:Static loc:Resources.title_step}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                              Margin="0, 2, 4, 0"
+                                           Style="{StaticResource StepRegularText}"/>
+
+                                    <!-- Binding data -->
+                                    <TextBlock Name="noStepTextBlock"
+                                               Margin="0, 0, 0, 2"
+                                               Text="01"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource StepLargeText}"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <!-- Binding data -->
+                        <TextBlock Name="detailStepTextBlock"
+                                   Margin="0, 8, 0, 0"
+                                   Padding="0, 0, 30, 0"
+                                   Width="{Binding ActualWidth, ElementName=stepsListView}"
+                                   Style="{StaticResource DetailTextBlock}"
+                                   FontSize="14"
+                                   FontFamily="{StaticResource GilroyRegular}"
+                                   Text="{x:Static loc:Resources.test_step}"/>
+
+
+                        <ListView Name="imageStepListView"
+                                  Margin="0, 8, 30, 0"
+                                  Width="{Binding ActualWidth, ElementName=detailStepTextBlock}"
+                                  ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Binding data -->
+                                    <Image Name="foodRecipeImage"
+                                           Width="144"
+                                           Height="144"
+                                           Source="{StaticResource TEST_AVT}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                            <Image></Image>
+                        </ListView>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+            <StackPanel></StackPanel>
+        </ListView>
+
+        <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Bottom"
+                                  Padding="0, 0, 4, 0"
+                                  HorizontalAlignment="Center"
+                                  Width="{Binding ActualWidth, ElementName=detailStepTitleTextBlock}"
+                                  Grid.Column="3"
+                                  Grid.Row="13">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="Red" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+            <StackPanel Name="saveRecipeContainer"
+                        Height="40"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    FlowDirection="RightToLeft">
+
+                <Button Name="cancelAddRecipeButton"
+                        Click="cancelAddRecipeButton_Click"
+                        Width="32"
+                        Margin="0, 0, 14, 0"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                    <Image Name="iconCancel"
+                           VerticalAlignment="Center"
+                           Width="11"
+                           Height="11"
+                           Source="{StaticResource IconGrayClose}"/>
+                </Button>
+
+                <Button Name="saveRecipeButton"
+                        Click="saveRecipeButton_Click"
+                        Width="128"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                    <TextBlock Name="saveRecipeTextBlock"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="{x:Static loc:Resources.text_save_recipe}"/>
+                </Button>
+            </StackPanel>
+        </materialDesign:ColorZone>
     </Grid>
 </Page>
