@@ -12,6 +12,7 @@
     <ImageSource x:Key="IconBlackEraser">pack://application:,,,/Assets/icon_black_eraser.png</ImageSource>
     <ImageSource x:Key="IconBlueAdd">pack://application:,,,/Assets/icon_blue_add.png</ImageSource>
     <ImageSource x:Key="IconBlueClose">pack://application:,,,/Assets/icon_blue_close.png</ImageSource>
+    <ImageSource x:Key="IconBlueDelete">pack://application:,,,/Assets/icon_blue_delete.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
     <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
     <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>

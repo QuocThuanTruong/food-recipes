@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -129,12 +130,13 @@ namespace FoodRecipes.Pages
 
 		private void deleteShoppingRecipeButton_Click(object sender, RoutedEventArgs e)
 		{
-			notiMessageSnackbar.IsActive = true;
+			//Test Show snack bar
+			notiMessageSnackbar.MessageQueue.Enqueue("Test", "UNDO", () => { UndoDeleteShoppingItem(); });
 		}
 
-		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+		private void UndoDeleteShoppingItem()
 		{
-			notiMessageSnackbar.IsActive = false;
+
 		}
 
 	}

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,22 +53,6 @@ namespace FoodRecipes
 		private void minimizeWindowButton_Click(object sender, RoutedEventArgs e)
 		{
 			this.WindowState = WindowState.Minimized;
-		}
-
-		private void maximizeWindowButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (this.WindowState == WindowState.Maximized)
-			{
-				this.WindowState = WindowState.Normal;
-				iconMaximizeImage.Source = new BitmapImage(new Uri(FindResource("IconMaximize").ToString()));
-				iconMaximizeImage.ToolTip = Properties.Resources.tip_maximize_window_button;
-			}
-			else
-			{
-				this.WindowState = WindowState.Maximized;
-				iconMaximizeImage.Source = new BitmapImage(new Uri(FindResource("IconRestoreDown").ToString()));
-				iconMaximizeImage.ToolTip = Properties.Resources.tip_restore_window_button;
-			}
 		}
 
 		private void DrawerButton_Click(object sender, RoutedEventArgs e)
@@ -158,7 +143,10 @@ namespace FoodRecipes
 
 		private void MainScreen_ShowRecipeDetailPage(int recipeID)
 		{
-			pageNavigation.NavigationService.Navigate(new RecipeDetailPage(recipeID));
+			var recipeDetailPage = new RecipeDetailPage(recipeID);
+
+			recipeDetailPage.GoShopping += RecipeDetailPage_GoShopping;
+			pageNavigation.NavigationService.Navigate(recipeDetailPage);
 
 			//Clear selected button
 			foreach (var button in _mainScreenButtons)
@@ -167,6 +155,29 @@ namespace FoodRecipes
 				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
 				button.IsEnabled = true;
 			}
+		}
+
+		private void RecipeDetailPage_GoShopping()
+		{
+			pageNavigation.NavigationService.Navigate(new ShoppingPage());
+
+			//Clear selected button
+			foreach (var button in _mainScreenButtons)
+			{
+				button.Background = Brushes.Transparent;
+				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
+				button.IsEnabled = true;
+			}
+
+			shoppingPageButton.Background = Brushes.White;
+			shoppingPageButton.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(NONE_BORDERTHICKNESS);
+			shoppingPageButton.IsEnabled = false;
+		}
+
+		private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			this.DragMove();
+			Debug.WriteLine("drag");
 		}
 	}
 }

@@ -632,23 +632,27 @@
                                            Foreground="{DynamicResource MyLightGray2}"
                                            Text="Món chính"/>
                                         </StackPanel>
+                                    </Grid>
 
-                                        <Button Name="deleteShoppingRecipeButton"
+                                    <Button Name="deleteShoppingRecipeButton"
                                                 Click="deleteShoppingRecipeButton_Click"
                                                 Grid.Column="1"
+                                                Grid.Row="1"
+                                                Grid.RowSpan="2"
+                                                VerticalAlignment="Bottom"
                                                 Style="{StaticResource GroupButton}"
                                                 materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
                                                 HorizontalAlignment="Right"
-                                                Width="34"
-                                                Height="34">
+                                                Width="26"
+                                                Height="26">
 
-                                            <Image Name="iconDelete"
-                                                   Margin="0, 0, 0, 8"
-                                                   Source="{StaticResource IconBlackEraser}"
-                                                   Width="12"
-                                                   Height="12"/>
-                                        </Button>
-                                    </Grid>
+                                        <Image Name="iconDelete"
+                                                   Margin="0, 0, 0, 0"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Source="{StaticResource IconBlueDelete}"
+                                                   Width="14"
+                                                   Height="14"/>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Button>
@@ -743,18 +747,13 @@
         <!-- Post mesage to notification to user here (active = true) -->
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="10, 0, 0, 8"
                                  MaxWidth="600"
                                  IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2" 
                                  Grid.RowSpan="2">
-
-            <!-- Get/set data notiMessageSnackbar.Message.Content-->
-            <materialDesign:SnackbarMessage Content="You have just delete one item frome shoping list"
-                                            ActionContent="UNDO"
-                                            ActionClick="SnackbarMessage_ActionClick"/>
-
         </materialDesign:Snackbar>
     </Grid>
 </Page>

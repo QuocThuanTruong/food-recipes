@@ -713,6 +713,12 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
+
+    <Style x:Key="MemberAvatarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+        <Setter Property="Height" Value="84"/>
+        <Setter Property="Width" Value="84"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="42"/>
+    </Style>
     
     <!-- Custom Scroll bar -->
     <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">

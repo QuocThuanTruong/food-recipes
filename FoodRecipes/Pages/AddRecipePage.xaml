@@ -488,6 +488,8 @@
                 <Image></Image>
                 <Image></Image>
                 <Image></Image>
+                <Image></Image>
+                <Image></Image>
             </ListView>
 
             <Button Name="relativeImagePickerButton"
@@ -506,6 +508,7 @@
         </StackPanel>
 
         <materialDesign:ColorZone Mode="Custom"
+                                  Padding="0, 0, 4, 0"
                                   HorizontalAlignment="{Binding HorizontalAlignment, ElementName=relativeImagePickerButton}"
                                   Grid.Column="3"
                                   Grid.Row="7"
@@ -551,7 +554,7 @@
                               Margin="0, 4, 0, 0"
                               HorizontalAlignment="Left">
 
-                            <!-- Shadow button -->
+                            <!--Shadow button-->
                             <Border Width="80"
                                     Height="24"
                                     Margin="0, 0, 5, 0"
@@ -578,7 +581,7 @@
                                               Margin="0, 2, 4, 0"
                                            Style="{StaticResource StepRegularText}"/>
 
-                                    <!-- Binding data -->
+                                    <!--Binding data-->
                                     <TextBlock Name="noStepTextBlock"
                                                Margin="0, 0, 0, 2"
                                                Text="01"
@@ -589,7 +592,7 @@
                             </Button>
                         </Grid>
 
-                        <!-- Binding data -->
+                        <!--Binding data-->
                         <TextBlock Name="detailStepTextBlock"
                                    Margin="0, 8, 0, 0"
                                    Padding="0, 0, 30, 0"
@@ -613,25 +616,18 @@
 
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <!-- Binding data -->
+                                    <!--Binding data-->
                                     <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
                                            Source="{StaticResource TEST_AVT}"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-
-                            <Image></Image>
-                            <Image></Image>
-                            <Image></Image>
-                            <Image></Image>
                         </ListView>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <StackPanel></StackPanel>
-            <StackPanel></StackPanel>
+            
         </ListView>
 
         <materialDesign:ColorZone Mode="Custom"
@@ -691,18 +687,13 @@
         <!-- Post mesage to notification to user here (active = true) -->
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="0, 0, 0, 8"
                                  MaxWidth="600"
-                                 IsActive="True"
+                                 IsActive="False"
                                  Grid.Column="3"
                                  Grid.Row="13"
                                  Grid.RowSpan="2">
-
-            <!-- Get/set data notiMessageSnackbar.Message.Content-->
-            <materialDesign:SnackbarMessage Content="Test notification"
-                                            ActionContent="BACK TO HOME"
-                                            ActionClick="SnackbarMessage_ActionClick"/>
-
         </materialDesign:Snackbar>
     </Grid>
 </Page>

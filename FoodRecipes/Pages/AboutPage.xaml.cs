@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,16 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class AboutPage : Page
 	{
+		private ObservableCollection<Tuple<string, string, string>> _memberDetails = new ObservableCollection<Tuple<string, string,string>>();
 		public AboutPage()
 		{
 			InitializeComponent();
+
+			_memberDetails.Add(new Tuple<string, string, string>("QT", Properties.Resources.text_name_qt, Properties.Resources.text_mssv_qt));
+			_memberDetails.Add(new Tuple<string, string, string>("HT", Properties.Resources.text_name_ht, Properties.Resources.text_mssv_ht));
+			_memberDetails.Add(new Tuple<string, string, string>("NT", Properties.Resources.text_name_nt, Properties.Resources.text_name_nt));
+
+			membersListview.ItemsSource = _memberDetails;
 		}
 	}
 }

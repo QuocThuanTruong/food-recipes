@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,14 @@ namespace FoodRecipes.Pages
 		public AddRecipePage()
 		{
 			InitializeComponent();
+
+			//Show snack bar
+			notiMessageSnackbar.MessageQueue.Enqueue("Test", "BACK HOME", () => { BackHome(); });
+		}
+
+		private void BackHome()
+		{
+			BackToHome?.Invoke();
 		}
 
 		private void avatarImagePickerButton_Click(object sender, RoutedEventArgs e)
@@ -76,11 +85,6 @@ namespace FoodRecipes.Pages
 		private void avatarPickerFrameButton_Click(object sender, RoutedEventArgs e)
 		{
 
-		}
-
-		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
-		{
-			BackToHome?.Invoke();
 		}
 	}
 }

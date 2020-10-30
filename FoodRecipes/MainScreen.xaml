@@ -26,7 +26,7 @@
             <Grid Name="drawerBackground">
                 <Border Name="drawerShadow"
                         BorderThickness="2"
-                        Margin="0, 0, 3, 0"
+                        Margin="0, 0, 9, 0"
                         CornerRadius="0, 40, 40, 0"
                         BorderBrush="Red">
 
@@ -40,6 +40,7 @@
                 </Border>
                 
                 <Border Name="drawerShape"
+                        Margin="0, 0, 6, 0"
                         CornerRadius="0, 40, 40, 0"
                         Background="{DynamicResource MyYellow}"/>
             </Grid>
@@ -398,9 +399,18 @@
           
         </Grid>
 
+        <!-- Tool bar -->
+        <Rectangle Grid.Column="1"
+                   Fill="Transparent"
+                   MouseDown="Rectangle_MouseDown"
+                   Height="{Binding ActualHeight, ElementName=windowOptionsContainer}"
+                   Grid.Row="0"/>
+        
         <StackPanel Name="windowOptionsContainer"
                     Orientation="Horizontal"
+                    HorizontalAlignment="Right"
                     FlowDirection="RightToLeft"
+                    Width="80"
                     Grid.Column="1"
                     Grid.Row="0">
 
@@ -416,20 +426,6 @@
                        Width="14"
                        Height="14"
                        Source="{DynamicResource IconBlueClose}"/>
-            </Button>
-
-            <Button Name="maximizeWindowButton"
-                    IsEnabled="True"
-                    Click="maximizeWindowButton_Click"
-                    Margin="0, 5, 0, 0"
-                    Padding="5, 0, 5, 0"
-                    Style="{StaticResource WindowOptionsButton}"
-                    ToolTip="{x:Static loc:Resources.tip_maximize_window_button}">
-
-                <Image Name="iconMaximizeImage"
-                       Width="14"
-                       Height="14"
-                       Source="{DynamicResource IconMaximize}"/>
             </Button>
 
             <Button Name="minimizeWindowButton"

@@ -31,6 +31,15 @@
     </Style>
 
     <Style TargetType="TextBlock"
+               x:Key="LargeHeaderText">
+        <Setter Property="FontSize" Value="39"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
                x:Key="HeaderText">
         <Setter Property="FontSize" Value="28"/>
         <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
@@ -105,6 +114,15 @@
     </Style>
 
     <Style TargetType="TextBlock"
+                   x:Key="MemberRegularText">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
                    x:Key="ShoppingLargeText">
         <Setter Property="FontSize" Value="19"/>
         <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
@@ -119,6 +137,15 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="MemberLargeText">
+        <Setter Property="FontSize" Value="19"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource MyBlack}"/>
     </Style>
 
     <Style TargetType="TextBox"

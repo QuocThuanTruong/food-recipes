@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +22,8 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class RecipeDetailPage : Page
 	{
+		public delegate void GoShoppingHandler();
+		public event GoShoppingHandler GoShopping;
 		public RecipeDetailPage()
 		{
 			InitializeComponent();
@@ -34,9 +38,15 @@ namespace FoodRecipes.Pages
 		{
 		}
 
-		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+		private void addShoppingButton_Click(object sender, RoutedEventArgs e)
 		{
-			notiMessageSnackbar.IsActive = false;
+			//Test Show snack bar
+			notiMessageSnackbar.MessageQueue.Enqueue("Đã thêm...", "GO SHOPPING", () => { GoShoppingPage(); });
+		}
+
+		private void GoShoppingPage()
+		{
+			GoShopping?.Invoke();
 		}
 	}
 }

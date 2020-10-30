@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -28,6 +29,9 @@ namespace FoodRecipes.Pages
 		public HomePage()
 		{
 			InitializeComponent();
+
+			//Test Show snack bar
+			notiMessageSnackbar.MessageQueue.Enqueue("Tìm được 4 món ăn thỏa yêu cầu", "CLOSE", () => { });
 		}
 
 		public HomePage(bool isFavorite)
