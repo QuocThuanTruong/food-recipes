@@ -96,7 +96,7 @@
                                     Padding="0"
                                     BorderThickness="0"
                                     materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                                    materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
+                                    materialDesign:RippleAssist.Feedback="Yellow"
                                     Width="40"
                                     Height="40">
 
@@ -373,7 +373,7 @@
                                   Style="{StaticResource SearchBoxComboBox}"
                                   ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                   Height="30"
-                                  SelectedIndex="1"
+                                  SelectedIndex="0"
                                   BorderBrush="{DynamicResource MyBlack}"
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
@@ -672,7 +672,7 @@
         
         <!-- Main list - recipes list view -->
         <ListView Name="recipesListView"
-                  ItemContainerStyle="{StaticResource FoodRecipeListViewItem}"
+                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
                   SelectionMode="Single"
                   SelectionChanged="recipesListView_SelectionChanged"
                   Grid.Column="1"
@@ -686,10 +686,12 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    <!-- Binding tag as ID of recipe -->
                     <Grid Name="recipeCardContainer"
-                              Width="208"
-                              Margin="12, 6, 12, 6"
-                              Height="154">
+                          Tag="0"
+                          Width="208"
+                          Margin="12, 6, 12, 6"
+                          Height="154">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="68*"/>
                             <ColumnDefinition Width="18*"/>
@@ -723,6 +725,7 @@
                         </Border>
                         
                         <Button Name="recipeItemButton"
+                                ClickMode="Hover"
                                 Style="{StaticResource RecipeButton}"
                                 Grid.ColumnSpan="4"
                                 Grid.Row="1"
@@ -904,28 +907,25 @@
                                    Source="{StaticResource TEST_AVT}"/>
                         </materialDesign:Card>
 
-                        
-                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
             <!--for test-->
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
-            <materialDesign:Card></materialDesign:Card>
+            <Grid Tag="0"></Grid>
+            <Grid Tag="1"></Grid>
+            <Grid Tag="2"></Grid>
+            <Grid Tag="3"></Grid>
+            <Grid Tag="4"></Grid>
+            <Grid Tag="5"></Grid>
+            <Grid Tag="6"></Grid>
+            <Grid Tag="7"></Grid>
+            <Grid Tag="8"></Grid>
+            <Grid Tag="9"></Grid>
+            <Grid Tag="10"></Grid>
+            <Grid Tag="11"></Grid>
+            <Grid Tag="12"></Grid>
+          
            
         </ListView>
 
@@ -1023,6 +1023,18 @@
                 </Button>
             </StackPanel>
         </Grid>
+
+        <!-- Post mesage to notification to user here (active = true) -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 8"
+                                 MaxWidth="600"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
 
     </Grid>
 </Page>

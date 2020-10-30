@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about_page_upper" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
   <data name="about_us_page_name" xml:space="preserve">
     <value>About us</value>
   </data>
   <data name="add_recipe_page_name" xml:space="preserve">
     <value>Add Recipe</value>
+  </data>
+  <data name="add_recipe_page_upper" xml:space="preserve">
+    <value>ADD RECIPE</value>
   </data>
   <data name="app_name" xml:space="preserve">
     <value>FOOD RECIPES</value>
@@ -129,11 +135,26 @@
   <data name="fav_page_name" xml:space="preserve">
     <value>Favorite</value>
   </data>
+  <data name="fav_page_upper" xml:space="preserve">
+    <value>FAVORITE</value>
+  </data>
   <data name="help_page_name" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="help_page_upper" xml:space="preserve">
+    <value>HELP</value>
+  </data>
   <data name="hint_description_recipe" xml:space="preserve">
     <value>Mô tả món ăn của bạn</value>
+  </data>
+  <data name="hint_detail_step" xml:space="preserve">
+    <value>Mô tả chi tiết bước thực hiện</value>
+  </data>
+  <data name="hint_igredient_name" xml:space="preserve">
+    <value>Nhập tên nguyên liệu</value>
+  </data>
+  <data name="hint_igredient_quantity" xml:space="preserve">
+    <value>Nhập số lượng</value>
   </data>
   <data name="hint_link_video" xml:space="preserve">
     <value>Nhập vào url video món ăn của bạn</value>
@@ -150,6 +171,9 @@
   <data name="home_page_name" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="home_page_upper" xml:space="preserve">
+    <value>HOME</value>
+  </data>
   <data name="home_text_btn" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -158,6 +182,9 @@
   </data>
   <data name="shopping_page_name" xml:space="preserve">
     <value>Shopping</value>
+  </data>
+  <data name="shopping_page_upper" xml:space="preserve">
+    <value>SHOPPING</value>
   </data>
   <data name="test_description" xml:space="preserve">
     <value>Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu là món salad vừa thơm ngon lại rất bổ dưỡng. Một món ăn chứa đầy đủ chất dinh dưỡng từ các loại rau xanh, dưa hấu, nho khô, thịt gà ăn kèm cùng với sốt giấm đặc biệt sẽ khiến cho bạn càng ăn càng mê. Bạn hãy lưu lại ngay công thức bên dưới để làm món salad này nhé.</value>
@@ -168,6 +195,18 @@
   <data name="test_step" xml:space="preserve">
     <value>Sốt Giấm: Cho 2 muỗng canh nho khô California đen, 1 quả ớt jalapeno bỏ hạt, 1 muỗng canh mù tạt Dijon, 11/2 muỗng cà phê mù tạt nguyên hạt, 1 muỗng canh mật ong, 1 muỗng canh dấm gạo, 2 muỗng canh dầu ô liu, 1 muỗng canh hẹ tươi đã cắt nhỏ, 1 muỗng cà phê muối và tiêu vào cối xay sinh tốt, xay nhuyễn và giữ lạnh.</value>
   </data>
+  <data name="text_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="text_about_app" xml:space="preserve">
+    <value>Food Recipes là một ứng dụng được viết bằng công nghệ WPF của Microsoft giúp bạn có thể dễ dàng tìm kiếm và chia sẻ các công thức nấu ăn một cách nhanh chóng và tiện lợi.</value>
+  </data>
+  <data name="text_about_sort" xml:space="preserve">
+    <value>**Danh sách trên được sắp xếp tăng dần theo MSSV.</value>
+  </data>
+  <data name="text_about_us" xml:space="preserve">
+    <value>Sinh viên đang học môn Lập trình Windows - Thầy Trần Duy Quang, khoa Công nghệ thông tin, Trường Đại học Khoa học tự nhiên, ĐHQG TP.Hồ Chí Minh.</value>
+  </data>
   <data name="text_add_shopping" xml:space="preserve">
     <value>ADD SHOPPING</value>
   </data>
@@ -177,14 +216,44 @@
   <data name="text_breakfast_group" xml:space="preserve">
     <value>Ăn sáng</value>
   </data>
+  <data name="text_contact" xml:space="preserve">
+    <value>Mọi thắc mắc về ứng dụng xin vui lòng liên hệ foodrecipes.hcmus@gmail.com.
+Copy right © 2020</value>
+  </data>
   <data name="text_drink_group" xml:space="preserve">
     <value>Thức uống</value>
   </data>
   <data name="text_fastfood_group" xml:space="preserve">
     <value>Ăn vặt</value>
   </data>
+  <data name="text_github" xml:space="preserve">
+    <value>https://github.com/</value>
+  </data>
   <data name="text_healthy_group" xml:space="preserve">
     <value>Healthy</value>
+  </data>
+  <data name="text_help_about" xml:space="preserve">
+    <value>Chứa thông tin về ứng dụng dụng và các thành viên phát triển.</value>
+  </data>
+  <data name="text_help_add_recipe" xml:space="preserve">
+    <value>Bạn có thẻ thêm món ăn của mình và danh sách bằng cách điền đầy đủ thông tin và hình ảnh vào trang này. Các thông tin đó bao gồm tên món ăn, mô tả, ảnh đại diện, link video của món ăn, thời gian, nhóm của món ăn, mức độ và các bước thực hiện.</value>
+  </data>
+  <data name="text_help_fav" xml:space="preserve">
+    <value>Nơi chứa những món ăn được bạn yêu thích, bạn có thế tìm kiếm với các chế độ khác nhau như HOME.</value>
+  </data>
+  <data name="text_help_help" xml:space="preserve">
+    <value>Cung cấp thông tin về các trang và hướng dẫn bạn sử dụng Food Recipes.</value>
+  </data>
+  <data name="text_help_home" xml:space="preserve">
+    <value>Sử dụng thanh tìm kiếm để tìm món ăn mà bạn muốn, bạn có thể sử dụng các chế độ sắp xếp, chế độ hiển thị của danh sách món ăn và bộ lọc các món ăn theo nhóm để tìm kiếm nhanh hơn.
+Mẹo tìm kiếm từ khóa: Bạn có thể sử dụng cú pháp “&lt;key_word_1&gt;” &lt;operator&gt; &lt;”key_word_2&gt;” với &lt;operator&gt; có thể là ‘and’, ‘or’ hoặc ‘and not’ để tìm kiếm.
+Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết món ăn đó. Bên trong mỗi món ăn bạn có thể thêm danh sách nguyên liệu vào shopping list bằng cách click vào nút ADD SHOPPING.</value>
+  </data>
+  <data name="text_help_shopping" xml:space="preserve">
+    <value>Khi bạn thêm nguyên liệu vào shopping list ở trang chi tiết món ăn, danh sách nguyên liệu của bạn sẽ được lưu lại ở trang này và bạn có thể dễ dàng mua sắm với danh sách nguyên liệu cần thiết. Ngoài ra bạn có thể tick vào nút cạnh bên nguyên liệu để đánh dấu rằng bạn đã mua nó.</value>
+  </data>
+  <data name="text_hour" xml:space="preserve">
+    <value>giờ</value>
   </data>
   <data name="text_item_ez" xml:space="preserve">
     <value>Easy</value>
@@ -219,8 +288,32 @@
   <data name="text_item_sort_za" xml:space="preserve">
     <value>Z-A</value>
   </data>
+  <data name="text_link_video_help" xml:space="preserve">
+    <value>https://youtube.com</value>
+  </data>
   <data name="text_maindish_group" xml:space="preserve">
     <value>Món chính</value>
+  </data>
+  <data name="text_minute" xml:space="preserve">
+    <value>phút</value>
+  </data>
+  <data name="text_mssv_ht" xml:space="preserve">
+    <value>18120605</value>
+  </data>
+  <data name="text_mssv_nt" xml:space="preserve">
+    <value>18120632</value>
+  </data>
+  <data name="text_mssv_qt" xml:space="preserve">
+    <value>18120583</value>
+  </data>
+  <data name="text_name_ht" xml:space="preserve">
+    <value>Hoàng Thị Thùy Trang</value>
+  </data>
+  <data name="text_name_nt" xml:space="preserve">
+    <value>Lê Nhật Tuấn</value>
+  </data>
+  <data name="text_name_qt" xml:space="preserve">
+    <value>Quốc Thuận Trương</value>
   </data>
   <data name="text_save_recipe" xml:space="preserve">
     <value>SAVE RECIPE</value>
@@ -246,8 +339,17 @@
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
   </data>
+  <data name="title_about_app" xml:space="preserve">
+    <value>VỀ ỨNG DỤNG FOOD RECIPES</value>
+  </data>
+  <data name="title_about_us" xml:space="preserve">
+    <value>VỀ CHÚNG TÔI</value>
+  </data>
   <data name="title_avt" xml:space="preserve">
     <value>HÌNH ĐẠI DIỆN</value>
+  </data>
+  <data name="title_contact" xml:space="preserve">
+    <value>LIÊN HỆ</value>
   </data>
   <data name="title_description" xml:space="preserve">
     <value>MÔ TẢ</value>
@@ -257,6 +359,9 @@
   </data>
   <data name="title_grid_box" xml:space="preserve">
     <value>Grid:</value>
+  </data>
+  <data name="title_how_to_use" xml:space="preserve">
+    <value>HƯỚNG DẪN SỬ DỤNG FOOD RECIPES</value>
   </data>
   <data name="title_igredient" xml:space="preserve">
     <value>NGUYÊN LIỆU</value>
@@ -270,8 +375,14 @@
   <data name="title_image_video" xml:space="preserve">
     <value>HÌNH ẢNH - VIDEO</value>
   </data>
+  <data name="title_link_how_to_use" xml:space="preserve">
+    <value>LINK HƯỚNG DẪN CHI TIẾT</value>
+  </data>
   <data name="title_link_video" xml:space="preserve">
     <value>LINK VIDEO</value>
+  </data>
+  <data name="title_open_source" xml:space="preserve">
+    <value>MÃ NGUỒN MỞ</value>
   </data>
   <data name="title_recipe_name" xml:space="preserve">
     <value>TÊN MÓN ĂN</value>

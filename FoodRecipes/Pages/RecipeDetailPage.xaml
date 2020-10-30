@@ -174,6 +174,7 @@
                 </materialDesign:ColorZone.Effect>
 
                 <Button Name="addShoppingButton"
+                        Click="addShoppingButton_Click"
                         Width="110"
                         Style="{StaticResource RecipeButton}"
                         materialDesign:ButtonAssist.CornerRadius="14"
@@ -203,12 +204,12 @@
                                  Margin="2, 0, 10, 0">
 
                         <!-- Binding data -->
-                        <TextBlock Name="nameIgredient"
+                        <TextBlock Name="nameIgredientTextBlock"
                                    Text="Nho khô California đen"
                                    Style="{StaticResource DetailTextBlock}"/>
 
                         <!-- Binding data -->
-                        <TextBlock Name="quantityIgredient"
+                        <TextBlock Name="quantityIgredientTextBlock"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right"
                                    Text="1/2 muỗng cà phê"
@@ -272,6 +273,18 @@
                       LoadedBehavior="Manual"
                       Grid.Column="1"
                       Grid.Row="7"/>
+
+        <!-- Post mesage to notification to user here (active = true) -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="0, 0, 0, 8"
+                                 Width="370"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="7"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
 
         <TextBlock Name="tutorialTitleTextBlock"
                    VerticalAlignment="Center"

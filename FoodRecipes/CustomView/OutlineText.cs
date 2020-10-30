@@ -3,6 +3,9 @@ using System.Globalization;
 using System.Windows.Media;
 using System.Windows;
 
+/// <summary>
+/// This custom Outlined Text originate from Microsoft
+/// </summary>
 namespace FoodRecipes.CustomView
 {
     /// <summary>
