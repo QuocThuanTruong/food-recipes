@@ -25,8 +25,7 @@
 
         <StackPanel Name="contentContainer"
                     Grid.Column="1"
-                    Grid.Row="0"
-                    Width="{Binding ActualWidth, ElementName=mainContainer}">
+                    Grid.Row="0">
 
             <TextBlock Name="aboutAppTitleTextBlock"
                    VerticalAlignment="Center"
