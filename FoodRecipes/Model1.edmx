@@ -1,0 +1,792 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FoodRecipeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Igredient">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="QUANTITY" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="LINK_VIDEO" Type="nvarchar" MaxLength="300" />
+          <Property Name="LINK_AVATAR" Type="nvarchar" MaxLength="300" />
+          <Property Name="TIME" Type="nvarchar" MaxLength="20" />
+          <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
+          <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
+          <Property Name="SHOPPING_FLAG" Type="bit" />
+          <Property Name="FAVORITE_FLAG" Type="bit" />
+          <Property Name="ADD_DATE" Type="date" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NO_STEP" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+          <Property Name="NO_STEP" Type="int" Nullable="false" />
+          <Property Name="DETAIL" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="StepImages">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NO_STEP" />
+            <PropertyRef Name="LINK_IMAGES" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+          <Property Name="NO_STEP" Type="int" Nullable="false" />
+          <Property Name="LINK_IMAGES" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Igredient_Recipe">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="Igredient" Type="Self.Igredient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="ID_RECIPE" />
+            </Principal>
+            <Dependent Role="Igredient">
+              <PropertyRef Name="ID_RECIPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Recipe">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="Step" Type="Self.Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="ID_RECIPE" />
+            </Principal>
+            <Dependent Role="Step">
+              <PropertyRef Name="ID_RECIPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StepImages_Step">
+          <End Role="Step" Type="Self.Step" Multiplicity="1" />
+          <End Role="StepImages" Type="Self.StepImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="ID_RECIPE" />
+              <PropertyRef Name="NO_STEP" />
+            </Principal>
+            <Dependent Role="StepImages">
+              <PropertyRef Name="ID_RECIPE" />
+              <PropertyRef Name="NO_STEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllFromRecipe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+                <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+                <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+                <Property Name="LINK_VIDEO" Type="nvarchar" MaxLength="300" />
+                <Property Name="LINK_AVATAR" Type="nvarchar" MaxLength="300" />
+                <Property Name="TIME" Type="nvarchar" MaxLength="20" />
+                <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
+                <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
+                <Property Name="SHOPPING_FLAG" Type="bit" />
+                <Property Name="FAVORITE_FLAG" Type="bit" />
+                <Property Name="ADD_DATE" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetAllRecipeSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+                <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+                <Property Name="TIME" Type="nvarchar" MaxLength="20" />
+                <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
+                <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
+                <Property Name="FAVORITE_FLAG" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIDRecipeByFavoriteFlag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="favorite_flag" Type="bit" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIDRecipeByFoodGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="food_group" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIDRecipeByFoodLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="food_level" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIDRecipeByShoppingFlag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="shopping_flag" Type="bit" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIDRecipeByTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="time" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetIgredientByIDRecipe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="QUANTITY" Type="nvarchar" MaxLength="100" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetLinkImageSByIDRecipeAndNOStep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <Parameter Name="NO_step" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="LINK_IMAGES" Type="nvarchar" MaxLength="300" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetMaxIDRecipe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetNumericalOrderAndDetailOfStepByIDRecipe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="NO_STEP" Type="int" Nullable="false" />
+                <Property Name="DETAIL" Type="nvarchar(max)" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetRecipeById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+                <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+                <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+                <Property Name="LINK_VIDEO" Type="nvarchar" MaxLength="300" />
+                <Property Name="LINK_AVATAR" Type="nvarchar" MaxLength="300" />
+                <Property Name="TIME" Type="nvarchar" MaxLength="20" />
+                <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
+                <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
+                <Property Name="SHOPPING_FLAG" Type="bit" />
+                <Property Name="FAVORITE_FLAG" Type="bit" />
+                <Property Name="ADD_DATE" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetRecipeByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="current_page" Type="int" Mode="In" />
+          <Parameter Name="total_recipe_per_page" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" Nullable="false" />
+                <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+                <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+                <Property Name="LINK_VIDEO" Type="nvarchar" MaxLength="300" />
+                <Property Name="LINK_AVATAR" Type="nvarchar" MaxLength="300" />
+                <Property Name="TIME" Type="nvarchar" MaxLength="20" />
+                <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
+                <Property Name="FOOD_LEVEL" Type="nvarchar" MaxLength="50" />
+                <Property Name="SHOPPING_FLAG" Type="bit" />
+                <Property Name="FAVORITE_FLAG" Type="bit" />
+                <Property Name="ADD_DATE" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="InsertIgredient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="quantity" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertRecipe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="link_video" Type="nvarchar" Mode="In" />
+          <Parameter Name="link_avatar" Type="nvarchar" Mode="In" />
+          <Parameter Name="time" Type="nvarchar" Mode="In" />
+          <Parameter Name="food_group" Type="nvarchar" Mode="In" />
+          <Parameter Name="food_level" Type="nvarchar" Mode="In" />
+          <Parameter Name="shopping_flag" Type="bit" Mode="In" />
+          <Parameter Name="favorite_flag" Type="bit" Mode="In" />
+          <Parameter Name="add_date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="InsertStep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <Parameter Name="no_step" Type="int" Mode="In" />
+          <Parameter Name="detail" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="InsertStepImages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+          <Parameter Name="no_step" Type="int" Mode="In" />
+          <Parameter Name="link_images" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SearchByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search_text" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_RECIPE" Type="int" />
+                <Property Name="RANK" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="TurnFavoriteFlagOff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TurnFavoriteFlagOn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TurnShoppingFlagOff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TurnShoppingFlagOn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_recipe" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="FoodRecipeModelStoreContainer">
+          <EntitySet Name="Igredient" EntityType="Self.Igredient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step" EntityType="Self.Step" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StepImages" EntityType="Self.StepImages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Igredient_Recipe" Association="Self.FK_Igredient_Recipe">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="Igredient" EntitySet="Igredient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Recipe" Association="Self.FK_Step_Recipe">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="Step" EntitySet="Step" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StepImages_Step" Association="Self.FK_StepImages_Step">
+            <End Role="Step" EntitySet="Step" />
+            <End Role="StepImages" EntitySet="StepImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FoodRecipeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetAllFromRecipe_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_VIDEO" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_AVATAR" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_GROUP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_LEVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHOPPING_FLAG" Type="Boolean" />
+          <Property Name="FAVORITE_FLAG" Type="Boolean" />
+          <Property Name="ADD_DATE" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="GetAllRecipeSummary_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_GROUP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_LEVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAVORITE_FLAG" Type="Boolean" />
+        </ComplexType>
+        <ComplexType Name="GetIDRecipeByFavoriteFlag_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIDRecipeByFoodGroup_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIDRecipeByFoodLevel_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIDRecipeByShoppingFlag_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIDRecipeByTime_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetIgredientByIDRecipe_Result">
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QUANTITY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <ComplexType Name="GetLinkImageSByIDRecipeAndNOStep_Result">
+          <Property Name="LINK_IMAGES" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetNumericalOrderAndDetailOfStepByIDRecipe_Result">
+          <Property Name="NO_STEP" Type="Int32" Nullable="false" />
+          <Property Name="DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <ComplexType Name="GetRecipeById_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_VIDEO" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_AVATAR" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_GROUP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_LEVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHOPPING_FLAG" Type="Boolean" />
+          <Property Name="FAVORITE_FLAG" Type="Boolean" />
+          <Property Name="ADD_DATE" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="GetRecipeByPage_Result">
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_VIDEO" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_AVATAR" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_GROUP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_LEVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHOPPING_FLAG" Type="Boolean" />
+          <Property Name="FAVORITE_FLAG" Type="Boolean" />
+          <Property Name="ADD_DATE" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="SearchByName_Result">
+          <Property Name="ID_RECIPE" Type="Int32" />
+          <Property Name="RANK" Type="Int32" />
+        </ComplexType>
+        <EntityType Name="Igredient">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QUANTITY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Igredient_Recipe" FromRole="Igredient" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_VIDEO" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_AVATAR" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_GROUP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FOOD_LEVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SHOPPING_FLAG" Type="Boolean" />
+          <Property Name="FAVORITE_FLAG" Type="Boolean" />
+          <Property Name="ADD_DATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Igredients" Relationship="Self.FK_Igredient_Recipe" FromRole="Recipe" ToRole="Igredient" />
+          <NavigationProperty Name="Steps" Relationship="Self.FK_Step_Recipe" FromRole="Recipe" ToRole="Step" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NO_STEP" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NO_STEP" Type="Int32" Nullable="false" />
+          <Property Name="DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Step_Recipe" FromRole="Step" ToRole="Recipe" />
+          <NavigationProperty Name="StepImages" Relationship="Self.FK_StepImages_Step" FromRole="Step" ToRole="StepImages" />
+        </EntityType>
+        <EntityType Name="StepImage">
+          <Key>
+            <PropertyRef Name="ID_RECIPE" />
+            <PropertyRef Name="NO_STEP" />
+            <PropertyRef Name="LINK_IMAGES" />
+          </Key>
+          <Property Name="ID_RECIPE" Type="Int32" Nullable="false" />
+          <Property Name="NO_STEP" Type="Int32" Nullable="false" />
+          <Property Name="LINK_IMAGES" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Step" Relationship="Self.FK_StepImages_Step" FromRole="StepImages" ToRole="Step" />
+        </EntityType>
+        <Association Name="FK_Igredient_Recipe">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="Igredient" Type="Self.Igredient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="ID_RECIPE" />
+            </Principal>
+            <Dependent Role="Igredient">
+              <PropertyRef Name="ID_RECIPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Step_Recipe">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="Step" Type="Self.Step" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="ID_RECIPE" />
+            </Principal>
+            <Dependent Role="Step">
+              <PropertyRef Name="ID_RECIPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StepImages_Step">
+          <End Role="Step" Type="Self.Step" Multiplicity="1" />
+          <End Role="StepImages" Type="Self.StepImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="ID_RECIPE" />
+              <PropertyRef Name="NO_STEP" />
+            </Principal>
+            <Dependent Role="StepImages">
+              <PropertyRef Name="ID_RECIPE" />
+              <PropertyRef Name="NO_STEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FoodRecipeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Igredients" EntityType="Self.Igredient" />
+          <EntitySet Name="Recipes" EntityType="Self.Recipe" />
+          <EntitySet Name="Steps" EntityType="Self.Step" />
+          <EntitySet Name="StepImages" EntityType="Self.StepImage" />
+          <AssociationSet Name="FK_Igredient_Recipe" Association="Self.FK_Igredient_Recipe">
+            <End Role="Recipe" EntitySet="Recipes" />
+            <End Role="Igredient" EntitySet="Igredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Step_Recipe" Association="Self.FK_Step_Recipe">
+            <End Role="Recipe" EntitySet="Recipes" />
+            <End Role="Step" EntitySet="Steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StepImages_Step" Association="Self.FK_StepImages_Step">
+            <End Role="Step" EntitySet="Steps" />
+            <End Role="StepImages" EntitySet="StepImages" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllFromRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetAllFromRecipe_Result)" />
+          <FunctionImport Name="GetAllRecipeSummary" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetAllRecipeSummary_Result)" />
+          <FunctionImport Name="GetIDRecipeByFavoriteFlag" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIDRecipeByFavoriteFlag_Result)">
+            <Parameter Name="favorite_flag" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetIDRecipeByFoodGroup" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIDRecipeByFoodGroup_Result)">
+            <Parameter Name="food_group" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetIDRecipeByFoodLevel" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIDRecipeByFoodLevel_Result)">
+            <Parameter Name="food_level" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetIDRecipeByShoppingFlag" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIDRecipeByShoppingFlag_Result)">
+            <Parameter Name="shopping_flag" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetIDRecipeByTime" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIDRecipeByTime_Result)">
+            <Parameter Name="time" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetIgredientByIDRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIgredientByIDRecipe_Result)">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetLinkImageSByIDRecipeAndNOStep" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetLinkImageSByIDRecipeAndNOStep_Result)">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+            <Parameter Name="NO_step" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetNumericalOrderAndDetailOfStepByIDRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetNumericalOrderAndDetailOfStepByIDRecipe_Result)">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetRecipeById" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetRecipeById_Result)">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetRecipeByPage" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetRecipeByPage_Result)">
+            <Parameter Name="current_page" Mode="In" Type="Int32" />
+            <Parameter Name="total_recipe_per_page" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SearchByName" IsComposable="true" ReturnType="Collection(FoodRecipeModel.SearchByName_Result)">
+            <Parameter Name="search_text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertIgredient">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="quantity" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertRecipe">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="link_video" Mode="In" Type="String" />
+            <Parameter Name="link_avatar" Mode="In" Type="String" />
+            <Parameter Name="time" Mode="In" Type="String" />
+            <Parameter Name="food_group" Mode="In" Type="String" />
+            <Parameter Name="food_level" Mode="In" Type="String" />
+            <Parameter Name="shopping_flag" Mode="In" Type="Boolean" />
+            <Parameter Name="favorite_flag" Mode="In" Type="Boolean" />
+            <Parameter Name="add_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="InsertStep">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+            <Parameter Name="no_step" Mode="In" Type="Int32" />
+            <Parameter Name="detail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertStepImages">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+            <Parameter Name="no_step" Mode="In" Type="Int32" />
+            <Parameter Name="link_images" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TurnFavoriteFlagOff">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TurnFavoriteFlagOn">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TurnShoppingFlagOff">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TurnShoppingFlagOn">
+            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FoodRecipeModelStoreContainer" CdmEntityContainer="FoodRecipeEntities">
+          <EntitySetMapping Name="Igredients">
+            <EntityTypeMapping TypeName="FoodRecipeModel.Igredient">
+              <MappingFragment StoreEntitySet="Igredient">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipes">
+            <EntityTypeMapping TypeName="FoodRecipeModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipe">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="LINK_VIDEO" ColumnName="LINK_VIDEO" />
+                <ScalarProperty Name="LINK_AVATAR" ColumnName="LINK_AVATAR" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
+                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
+                <ScalarProperty Name="SHOPPING_FLAG" ColumnName="SHOPPING_FLAG" />
+                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
+                <ScalarProperty Name="ADD_DATE" ColumnName="ADD_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Steps">
+            <EntityTypeMapping TypeName="FoodRecipeModel.Step">
+              <MappingFragment StoreEntitySet="Step">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NO_STEP" ColumnName="NO_STEP" />
+                <ScalarProperty Name="DETAIL" ColumnName="DETAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StepImages">
+            <EntityTypeMapping TypeName="FoodRecipeModel.StepImage">
+              <MappingFragment StoreEntitySet="StepImages">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NO_STEP" ColumnName="NO_STEP" />
+                <ScalarProperty Name="LINK_IMAGES" ColumnName="LINK_IMAGES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetAllFromRecipe" FunctionImportName="GetAllFromRecipe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetAllFromRecipe_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="LINK_VIDEO" ColumnName="LINK_VIDEO" />
+                <ScalarProperty Name="LINK_AVATAR" ColumnName="LINK_AVATAR" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
+                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
+                <ScalarProperty Name="SHOPPING_FLAG" ColumnName="SHOPPING_FLAG" />
+                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
+                <ScalarProperty Name="ADD_DATE" ColumnName="ADD_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetAllRecipeSummary" FunctionImportName="GetAllRecipeSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetAllRecipeSummary_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
+                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
+                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIDRecipeByFavoriteFlag" FunctionImportName="GetIDRecipeByFavoriteFlag">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIDRecipeByFavoriteFlag_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIDRecipeByFoodGroup" FunctionImportName="GetIDRecipeByFoodGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIDRecipeByFoodGroup_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIDRecipeByFoodLevel" FunctionImportName="GetIDRecipeByFoodLevel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIDRecipeByFoodLevel_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIDRecipeByShoppingFlag" FunctionImportName="GetIDRecipeByShoppingFlag">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIDRecipeByShoppingFlag_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIDRecipeByTime" FunctionImportName="GetIDRecipeByTime">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIDRecipeByTime_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetIgredientByIDRecipe" FunctionImportName="GetIgredientByIDRecipe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetIgredientByIDRecipe_Result">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetLinkImageSByIDRecipeAndNOStep" FunctionImportName="GetLinkImageSByIDRecipeAndNOStep">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetLinkImageSByIDRecipeAndNOStep_Result">
+                <ScalarProperty Name="LINK_IMAGES" ColumnName="LINK_IMAGES" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetNumericalOrderAndDetailOfStepByIDRecipe" FunctionImportName="GetNumericalOrderAndDetailOfStepByIDRecipe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetNumericalOrderAndDetailOfStepByIDRecipe_Result">
+                <ScalarProperty Name="NO_STEP" ColumnName="NO_STEP" />
+                <ScalarProperty Name="DETAIL" ColumnName="DETAIL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetRecipeById" FunctionImportName="GetRecipeById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetRecipeById_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="LINK_VIDEO" ColumnName="LINK_VIDEO" />
+                <ScalarProperty Name="LINK_AVATAR" ColumnName="LINK_AVATAR" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
+                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
+                <ScalarProperty Name="SHOPPING_FLAG" ColumnName="SHOPPING_FLAG" />
+                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
+                <ScalarProperty Name="ADD_DATE" ColumnName="ADD_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.GetRecipeByPage" FunctionImportName="GetRecipeByPage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.GetRecipeByPage_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="LINK_VIDEO" ColumnName="LINK_VIDEO" />
+                <ScalarProperty Name="LINK_AVATAR" ColumnName="LINK_AVATAR" />
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="FOOD_GROUP" ColumnName="FOOD_GROUP" />
+                <ScalarProperty Name="FOOD_LEVEL" ColumnName="FOOD_LEVEL" />
+                <ScalarProperty Name="SHOPPING_FLAG" ColumnName="SHOPPING_FLAG" />
+                <ScalarProperty Name="FAVORITE_FLAG" ColumnName="FAVORITE_FLAG" />
+                <ScalarProperty Name="ADD_DATE" ColumnName="ADD_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="FoodRecipeModel.Store.SearchByName" FunctionImportName="SearchByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FoodRecipeModel.SearchByName_Result">
+                <ScalarProperty Name="ID_RECIPE" ColumnName="ID_RECIPE" />
+                <ScalarProperty Name="RANK" ColumnName="RANK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertIgredient" FunctionName="FoodRecipeModel.Store.InsertIgredient" />
+          <FunctionImportMapping FunctionImportName="InsertRecipe" FunctionName="FoodRecipeModel.Store.InsertRecipe" />
+          <FunctionImportMapping FunctionImportName="InsertStep" FunctionName="FoodRecipeModel.Store.InsertStep" />
+          <FunctionImportMapping FunctionImportName="InsertStepImages" FunctionName="FoodRecipeModel.Store.InsertStepImages" />
+          <FunctionImportMapping FunctionImportName="TurnFavoriteFlagOff" FunctionName="FoodRecipeModel.Store.TurnFavoriteFlagOff" />
+          <FunctionImportMapping FunctionImportName="TurnFavoriteFlagOn" FunctionName="FoodRecipeModel.Store.TurnFavoriteFlagOn" />
+          <FunctionImportMapping FunctionImportName="TurnShoppingFlagOff" FunctionName="FoodRecipeModel.Store.TurnShoppingFlagOff" />
+          <FunctionImportMapping FunctionImportName="TurnShoppingFlagOn" FunctionName="FoodRecipeModel.Store.TurnShoppingFlagOn" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
