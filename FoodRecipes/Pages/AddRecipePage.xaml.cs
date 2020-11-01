@@ -14,6 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FoodRecipes.Utilities;
+using System.Windows.Forms;
+using System.Diagnostics;
+using FoodRecipes.Converter;
+using System.IO;
+using System.Globalization;
 
 namespace FoodRecipes.Pages
 {
@@ -24,12 +30,28 @@ namespace FoodRecipes.Pages
 	{
 		public delegate void BackToHomeHandler();
 		public event BackToHomeHandler BackToHome;
+
+		private DBUtilities _dbUtilitiesInstance = DBUtilities.GetDBInstance();
+		private AppUtilities _appUtilities = new AppUtilities();
+
+		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
+
+		private Recipe recipe = new Recipe();
+		private int totalStep = 0;
+
+		public class MyImage
+        {
+			public string ImageSource { get; set; }
+        }
+
+		List<MyImage> myImages = new List<MyImage>();
+
 		public AddRecipePage()
 		{
 			InitializeComponent();
 
-			//Show snack bar
-			notiMessageSnackbar.MessageQueue.Enqueue("Test", "BACK HOME", () => { BackHome(); });
+			////Show snack bar
+			//notiMessageSnackbar.MessageQueue.Enqueue("Test", "BACK HOME", () => { BackHome(); });
 		}
 
 		private void BackHome()
@@ -67,24 +89,273 @@ namespace FoodRecipes.Pages
 			e.Handled = regex.IsMatch(e.Text);
 		}
 
+		private void relativeImagePickerButton_Click(object sender, RoutedEventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+
+			openFileDialog.Multiselect = true;
+			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+			openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (myImages.Count > 0) 
+				{ 
+					myImages.Clear();
+				}
+				else
+                {
+					//Do nothing
+                }
+
+				foreach (var fileName in openFileDialog.FileNames) {
+					MyImage myImage = new MyImage();
+					myImage.ImageSource = fileName;
+
+					myImages.Add(myImage);
+				}
+
+				relativeImageStepListView.ItemsSource = myImages.ToList();
+			}
+		}
+
 		private void addStepButton_Click(object sender, RoutedEventArgs e)
 		{
+			if (detailStepTextBox.Text.Length == 0)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống chi tiết thực hiện", "Cancel", () => { });
+			}
+			else {
+				++totalStep;
 
+				Step step = new Step();
+
+				step.NO_STEP = totalStep;
+
+				if (step.NO_STEP < 10)
+                {
+					step.NO_STEP_FOR_BINDING = $"0{step.NO_STEP}";
+                } 
+				else
+                {
+					step.NO_STEP_FOR_BINDING = $"{step.NO_STEP}";
+				}
+
+				step.DETAIL = detailStepTextBox.Text;
+
+				foreach (var myImage in myImages)
+				{
+					StepImage stepImage = new StepImage();
+
+					stepImage.NO_STEP = step.NO_STEP;
+					stepImage.LINK_IMAGES = myImage.ImageSource;
+
+					step.StepImages.Add(stepImage);
+				}
+
+				step.StepImagesForBinding = step.StepImages.ToList();
+
+				recipe.Steps.Add(step);
+
+				stepsPreviewListView.ItemsSource = recipe.Steps.ToList();
+
+				relativeImageStepListView.ItemsSource = null;
+
+				detailStepTextBox.Text = "";
+			}
+		}
+
+		private void addShoppingButton_Click(object sender, RoutedEventArgs e)
+		{
+			Igredient igredient = new Igredient();
+
+			igredient.NAME = igredientNameTextBox.Text;
+			igredient.QUANTITY = igredientQuantityTextBox.Text;
+
+			igredientNameTextBox.Text = "";
+			igredientQuantityTextBox.Text = "";
+
+			recipe.Igredients.Add(igredient);
+
+			igredientsListView.ItemsSource = recipe.Igredients.ToList();
 		}
 
 		private void cancelAddRecipeButton_Click(object sender, RoutedEventArgs e)
 		{
+			recipeNameTextBox.Text = "";
+			recipeDescriptionTextBox.Text = "";
+			linkVideoTextBox.Text = "";
+			avatarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/icon_gray_img_picker.png"));
+			hourTextBox.Text = "";
+			minuteTextBox.Text = "";
+			groupComboBox.SelectedIndex = 0;
+			levelComboBox.SelectedIndex = 0;
+			igredientNameTextBox.Text = "";
+			igredientQuantityTextBox.Text = "";
+			igredientsListView.ItemsSource = null;
+			detailStepTextBox.Text = "";
+			relativeImageStepListView.ItemsSource = null;
+			stepsPreviewListView.ItemsSource = null;
 
+			notiMessageSnackbar.MessageQueue.Enqueue("Empty Form", "OK", () => { });
 		}
 
 		private void saveRecipeButton_Click(object sender, RoutedEventArgs e)
 		{
+			recipe.ID_RECIPE = _dbUtilitiesInstance.GetMaxIDRecipe() + 1;
 
+			//Check name
+			if (recipeNameTextBox.Text.Length == 0)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống tên món ăn", "Cancel", () => { });
+				return;
+			}
+			else
+			{
+				recipe.NAME = recipeNameTextBox.Text;
+			}
+
+			//check description
+			if (recipeDescriptionTextBox.Text.Length == 0)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống phần mô tả", "Cancel", () => { });
+				return;
+			}
+			else
+			{
+				recipe.DESCRIPTION = recipeDescriptionTextBox.Text;
+			}
+
+			//Allow to empty
+			recipe.LINK_VIDEO = linkVideoTextBox.Text;
+
+			//Check empty Avatar
+			if (avatarImage.Source.ToString() == "pack://application:,,,/Assets/icon_gray_img_picker.png")
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "Cancel", () => { });
+				return;
+			}
+
+
+			if (isValidTime())
+			{
+				recipe.TIME = (hourTextBox.Text == "0" ? "" : (hourTextBox.Text + "g")) + (minuteTextBox.Text == "0" ? "" : (minuteTextBox.Text + "ph"));
+			}
+			else
+			{
+				hourTextBox.Text = "";
+				minuteTextBox.Text = "";
+
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống thời gian hoàn thành", "Cancel", () => { });
+				return;
+			}
+
+			recipe.FOOD_GROUP = groupComboBox.Text;
+			recipe.FOOD_LEVEL = levelComboBox.Text;
+
+			if (recipe.Igredients.Count == 0)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống nguyên liệu", "Cancel", () => { });
+				return;
+			}
+			else 
+			{
+				//Do Nothing
+			}
+
+			if (recipe.Steps.Count == 0) 
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống các bước thực hiện", "Cancel", () => { });
+				return;
+			} 
+			else
+            {
+				_appUtilities.createIDDirectory(recipe.ID_RECIPE);
+
+				var srcAvatar = avatarImage.Source.ToString().Substring(8);
+
+				_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcAvatar, "avatar");
+
+				recipe.LINK_AVATAR = _appUtilities.getTypeOfImage(srcAvatar);
+
+				var today = DateTime.Now;
+
+				_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today);
+
+				foreach (var igredient in recipe.Igredients) {
+					_dbUtilitiesInstance.InsertIgredient(recipe.ID_RECIPE, igredient.NAME, igredient.QUANTITY);
+				}
+
+				var steps = recipe.Steps.ToList();
+
+				for (int no_step = 1; no_step <= steps.Count; ++no_step) {
+					var step = steps[no_step - 1];
+
+					step.ID_RECIPE = recipe.ID_RECIPE;
+
+					_dbUtilitiesInstance.InsertStep(recipe.ID_RECIPE, no_step, step.DETAIL);
+					
+					var images = step.StepImages.ToList();
+
+					for (int no_image = 1; no_image <= images.Count; ++no_image) {
+						var image = images[no_image - 1];
+
+						image.ID_RECIPE = recipe.ID_RECIPE;
+
+						var srcImage = image.LINK_IMAGES;
+						var linkImage = $"{no_step}_{no_image}";
+
+						_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcImage, linkImage);
+						_dbUtilitiesInstance.InsertStepImages(recipe.ID_RECIPE, no_step, $"{linkImage}.{_appUtilities.getTypeOfImage(srcImage)}");
+					}
+				}
+            }
+
+			notiMessageSnackbar.MessageQueue.Enqueue("Thêm món ăn thành công", "OK", () => { });
+
+			recipe = new Recipe();
+			totalStep = 0;
 		}
 
 		private void avatarPickerFrameButton_Click(object sender, RoutedEventArgs e)
 		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
 
+			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+			openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Uri avatarUri = new Uri(openFileDialog.FileName);
+				avatarImage.Source = new BitmapImage(avatarUri);
+			}
 		}
-	}
+
+		private bool isValidTime() {
+			var result = true;
+
+			if (hourTextBox.Text == "")
+			{
+				hourTextBox.Text = "0";
+			}
+			else 
+			{ 
+				//Do nothing	
+			}
+			if (minuteTextBox.Text == "")
+			{
+				minuteTextBox.Text = "0";
+			}
+			else
+			{
+				//Do nothing	
+			}
+
+			if (hourTextBox.Text == "0" && minuteTextBox.Text == "0") {
+				result = false;
+			}
+
+			return result;
+		}
+    }
 }

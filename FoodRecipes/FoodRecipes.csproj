@@ -260,6 +260,7 @@
     <Compile Include="StepImage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\AppUtilities.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
     <Page Include="MainScreen.xaml">
       <SubType>Designer</SubType>

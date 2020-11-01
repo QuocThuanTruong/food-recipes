@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FoodRecipes.Utilities;
 
 namespace FoodRecipes
 {
@@ -29,6 +30,7 @@ namespace FoodRecipes
 		public MainScreen()
 		{
 			InitializeComponent();
+
 			this.WindowState = WindowState.Normal;
 		}
 

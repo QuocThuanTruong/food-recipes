@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 
-namespace FoodRecipes.DBUtilities
+namespace FoodRecipes.Utilities
 {
     class DBUtilities
     {

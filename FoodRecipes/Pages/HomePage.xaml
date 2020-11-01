@@ -688,7 +688,7 @@
                 <DataTemplate>
                     <!-- Binding tag as ID of recipe -->
                     <Grid Name="recipeCardContainer"
-                          Tag="0"
+                          Tag="{Binding ID_RECIPE}"
                           Width="208"
                           Margin="12, 6, 12, 6"
                           Height="154">
@@ -723,7 +723,7 @@
                                                   BlurRadius="5"/>
                             </Border.Effect>
                         </Border>
-                        
+
                         <Button Name="recipeItemButton"
                                 ClickMode="Hover"
                                 Style="{StaticResource RecipeButton}"
@@ -749,7 +749,7 @@
 
                                 <Grid Name="favContainer"
                                       Margin="0, 5, 10, 0">
-                                    
+
                                     <Border Name="favBackground"
                                             VerticalAlignment="Center"
                                             Width="30"
@@ -784,9 +784,9 @@
                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                Source="{StaticResource IconPassiveFav}"/>
                                     </ToggleButton>
-                                    
+
                                 </Grid>
-                                
+
                                 <StackPanel Name="nameTimeGroupContainer"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
@@ -804,7 +804,7 @@
 
                                     <Grid Name="timeLevelContainer"
                                           Margin="0, 4, 0, 8">
-                                        
+
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="8*"/>
@@ -812,7 +812,7 @@
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="10*"/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <Image Name="iconTime"
                                                VerticalAlignment="Center"
                                                Width="10"
@@ -857,7 +857,7 @@
                                             Grid.Column="3"
                                             Grid.Row="2"
                                             Orientation="Horizontal">
-                                    
+
                                     <Image Name="iconLevel"
                                            VerticalAlignment="Center"
                                            Margin="0, 0, 4, 0"
@@ -892,13 +892,13 @@
                                                   BlurRadius="10"/>
                             </Border.Effect>
                         </Border>
-                        
+
                         <materialDesign:Card Name="imageRecipeCard"
                                              Style="{StaticResource ImageRecipeCard}"
                                              Grid.Column="2"
                                              Grid.ColumnSpan="3"
                                              Grid.RowSpan="3">
-                            
+
                             <!-- Binding data -->
                             <Image Name="recipeImage"
                                    Width="95"
@@ -910,23 +910,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <!--for test-->
-            <Grid Tag="0"></Grid>
-            <Grid Tag="1"></Grid>
-            <Grid Tag="2"></Grid>
-            <Grid Tag="3"></Grid>
-            <Grid Tag="4"></Grid>
-            <Grid Tag="5"></Grid>
-            <Grid Tag="6"></Grid>
-            <Grid Tag="7"></Grid>
-            <Grid Tag="8"></Grid>
-            <Grid Tag="9"></Grid>
-            <Grid Tag="10"></Grid>
-            <Grid Tag="11"></Grid>
-            <Grid Tag="12"></Grid>
-          
-           
         </ListView>
 
         <Grid Name="pageContainer"

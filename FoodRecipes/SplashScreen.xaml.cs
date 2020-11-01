@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.Timers;
 using System.Diagnostics;
+using FoodRecipes.Utilities;
+using FoodRecipes.Converter;
 
 namespace FoodRecipes
 {
@@ -33,10 +35,24 @@ namespace FoodRecipes
 		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
 		#endregion
 
+		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
+		private AppUtilities _appUtilities = new AppUtilities();
+		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
+		private Random _rng = new Random();
+
 		public SplashScreen()
 		{
 			InitializeComponent();
-			DataContext = this;
+
+			int maxID = _dbUtilities.GetMaxIDRecipe();
+			int randomIndex = _rng.Next(maxID) + 1;
+
+			GetRecipeById_Result recipe = _dbUtilities.GetRecipeById(randomIndex).FirstOrDefault();
+
+			recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
+			recipe.LINK_AVATAR = (string)_absolutePathConverter.Convert($"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}", null, null, null);
+
+			DataContext = recipe;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -57,7 +57,7 @@
                    Style="{StaticResource SmallHeaderText}"/>
 
         <!-- Get data -->
-        <TextBox Name="descriptionRecipeTextBox"
+        <TextBox Name="recipeDescriptionTextBox"
                  Style="{StaticResource AddRecipePageTextBox}"
                  Height="152"
                  TextWrapping="Wrap"
@@ -116,7 +116,7 @@
                 <Image Name="avatarImage"
                        Width="120"
                        Height="120"
-                       Source="{StaticResource TEST_AVT}"/>
+                       Source="{StaticResource IconGrayImgPicker}"/>
 
                 <!-- Click here to get avt-->
                 <Button Name="avatarPickerFrameButton"
@@ -376,6 +376,7 @@
                 </materialDesign:ColorZone.Effect>
 
                 <Button Name="addShoppingButton"
+                        Click="addShoppingButton_Click"
                         Width="32"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
@@ -404,26 +405,18 @@
 
                         <!-- Binding data -->
                         <TextBlock Name="nameIgredientTextBlock"
-                                   Text="Nho khô California đen"
+                                   Text="{Binding NAME}"
                                    Style="{StaticResource DetailTextBlock}"/>
 
                         <!-- Binding data -->
                         <TextBlock Name="quantityIgredientTextBlock"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right"
-                                   Text="1/2 muỗng cà phê"
+                                   Text="{Binding QUANTITY}"
                                    Style="{StaticResource DetailTextBlock}"/>
                     </UniformGrid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <!--for test-->
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
-            <Grid></Grid>
         </ListView>
 
         <TextBlock Name="detailStepTitleTextBlock"
@@ -480,16 +473,9 @@
                         <Image Name="relativeStepImage"
                            Width="112"
                            Height="112"
-                           Source="{StaticResource TEST_AVT}"/>
+                           Source="{Binding ImageSource}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
-                <Image></Image>
-                <Image></Image>
-                <Image></Image>
-                <Image></Image>
-                <Image></Image>
-                <Image></Image>
             </ListView>
 
             <Button Name="relativeImagePickerButton"
@@ -499,12 +485,13 @@
                     HorizontalAlignment="Right"
                     Margin="0, 4, 0, 0"
                     Width="112"
-                    Height="112">
+                    Height="112" 
+                    Click="relativeImagePickerButton_Click">
 
                 <Image Width="39"
                        Height="34"
                        Source="{StaticResource IconGrayImgPicker}"/>
-                </Button>
+            </Button>
         </StackPanel>
 
         <materialDesign:ColorZone Mode="Custom"
@@ -584,7 +571,7 @@
                                     <!--Binding data-->
                                     <TextBlock Name="noStepTextBlock"
                                                Margin="0, 0, 0, 2"
-                                               Text="01"
+                                               Text="{Binding NO_STEP_FOR_BINDING}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Style="{StaticResource StepLargeText}"/>
@@ -600,10 +587,11 @@
                                    Style="{StaticResource DetailTextBlock}"
                                    FontSize="14"
                                    FontFamily="{StaticResource GilroyRegular}"
-                                   Text="{x:Static loc:Resources.test_step}"/>
+                                   Text="{Binding DETAIL}"/>
 
 
                         <ListView Name="imageStepListView"
+                                  ItemsSource="{Binding StepImagesForBinding}"
                                   Margin="0, 8, 30, 0"
                                   Width="{Binding ActualWidth, ElementName=detailStepTextBlock}"
                                   ItemContainerStyle="{StaticResource ImageStepListViewItem}">
@@ -620,7 +608,7 @@
                                     <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
-                                           Source="{StaticResource TEST_AVT}"/>
+                                           Source="{Binding LINK_IMAGES}"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
