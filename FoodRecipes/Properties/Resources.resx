@@ -256,7 +256,7 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
     <value>giờ</value>
   </data>
   <data name="text_item_ez" xml:space="preserve">
-    <value>Easy</value>
+    <value>Dễ</value>
   </data>
   <data name="text_item_grid_34" xml:space="preserve">
     <value>3 x 4</value>
@@ -268,10 +268,10 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
     <value>5 x 4</value>
   </data>
   <data name="text_item_hard" xml:space="preserve">
-    <value>Hard</value>
+    <value>Khó</value>
   </data>
   <data name="text_item_normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>TB</value>
   </data>
   <data name="text_item_sort_az" xml:space="preserve">
     <value>A-Z</value>

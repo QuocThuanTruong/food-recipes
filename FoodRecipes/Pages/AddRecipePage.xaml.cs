@@ -20,6 +20,7 @@ using System.Diagnostics;
 using FoodRecipes.Converter;
 using System.IO;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace FoodRecipes.Pages
 {
@@ -39,12 +40,15 @@ namespace FoodRecipes.Pages
 		private Recipe recipe = new Recipe();
 		private int totalStep = 0;
 
-		public class MyImage
+		public class MyImage: INotifyPropertyChanged
         {
 			public string ImageSource { get; set; }
-        }
+			public int ImageIndex { get; set; }
 
-		List<MyImage> myImages = new List<MyImage>();
+			public event PropertyChangedEventHandler PropertyChanged;
+		}
+
+		BindingList<MyImage> myImages = new BindingList<MyImage>();
 
 		public AddRecipePage()
 		{
@@ -99,6 +103,8 @@ namespace FoodRecipes.Pages
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
+				var imageIdx = 0;
+
 				if (myImages.Count > 0) 
 				{ 
 					myImages.Clear();
@@ -110,12 +116,46 @@ namespace FoodRecipes.Pages
 
 				foreach (var fileName in openFileDialog.FileNames) {
 					MyImage myImage = new MyImage();
+
 					myImage.ImageSource = fileName;
+					myImage.ImageIndex = imageIdx++;
+					Debug.WriteLine(imageIdx);
 
 					myImages.Add(myImage);
 				}
 
-				relativeImageStepListView.ItemsSource = myImages.ToList();
+				relativeImageStepListView.Visibility = Visibility.Visible;
+				relativeImageStepListView.ItemsSource = myImages;
+			}
+		}
+
+		private void deleteRelativeImageInListButton_Click(object sender, RoutedEventArgs e)
+		{
+			var clickedButton = (System.Windows.Controls.Button)sender;
+
+			Debug.WriteLine(clickedButton.Tag);
+
+			myImages.RemoveAt(int.Parse(clickedButton.Tag.ToString()));
+
+			updateRelativeImageIndex();
+		}
+
+		private void updateRelativeImageIndex()
+		{
+			var index = 0;
+
+			foreach (var image in myImages)
+			{
+				image.ImageIndex = index++;
+			}
+
+			if (myImages.Count == 0)
+			{
+				relativeImageStepListView.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				relativeImageStepListView.ItemsSource = myImages;
 			}
 		}
 
@@ -185,7 +225,7 @@ namespace FoodRecipes.Pages
 			recipeNameTextBox.Text = "";
 			recipeDescriptionTextBox.Text = "";
 			linkVideoTextBox.Text = "";
-			avatarImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/icon_gray_img_picker.png"));
+			avatarImage.Source = new BitmapImage(new Uri(FindResource("IconEmptyAvt").ToString()));
 			hourTextBox.Text = "";
 			minuteTextBox.Text = "";
 			groupComboBox.SelectedIndex = 0;
@@ -357,5 +397,6 @@ namespace FoodRecipes.Pages
 
 			return result;
 		}
-    }
+
+	}
 }

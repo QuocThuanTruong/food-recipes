@@ -469,7 +469,7 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Easy.
+        ///   Looks up a localized string similar to Dễ.
         /// </summary>
         public static string text_item_ez {
             get {
@@ -505,7 +505,7 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hard.
+        ///   Looks up a localized string similar to Khó.
         /// </summary>
         public static string text_item_hard {
             get {
@@ -514,7 +514,7 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normal.
+        ///   Looks up a localized string similar to TB.
         /// </summary>
         public static string text_item_normal {
             get {

@@ -116,7 +116,8 @@
                 <Image Name="avatarImage"
                        Width="120"
                        Height="120"
-                       Source="{StaticResource IconGrayImgPicker}"/>
+                       Stretch="UniformToFill"
+                       Source="{StaticResource IconEmptyAvt}"/>
 
                 <!-- Click here to get avt-->
                 <Button Name="avatarPickerFrameButton"
@@ -457,6 +458,8 @@
             <!-- Collaped when no image, visible when image added-->
             <!-- Binding data -->
             <ListView Name="relativeImageStepListView"
+                      Visibility="Collapsed"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   Margin="0, 0, 14, 0"
                   Width="{Binding ActualWidth, ElementName=relativeImageStepTitleTextBlock}"
                   ItemContainerStyle="{StaticResource ImageStepListViewItem}">
@@ -469,11 +472,35 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <!-- Binding data -->
-                        <Image Name="relativeStepImage"
-                           Width="112"
-                           Height="112"
+                        <Grid Name="relativeImageListItem">
+                            
+                            <!-- Binding data -->
+                            <Image Name="relativeStepImage"
+                           Width="110"
+                           Height="110"
+                           Stretch="UniformToFill"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{Binding ImageSource}"/>
+
+                            <Button Name="deleteRelativeImageInListButton"
+                                    Click="deleteRelativeImageInListButton_Click"
+                                    Tag="{Binding ImageIndex}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Style="{StaticResource RecipeButton}"
+                                    Background="Gray"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0, -4, -4, 0"
+                                    materialDesign:ButtonAssist.CornerRadius="14">
+
+                                <Image Width="8"
+                                       Height="8"
+                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                       Source="{StaticResource IconGrayClose}"/>
+                            </Button>
+                        </Grid>
+
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -484,8 +511,8 @@
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
                     Margin="0, 4, 0, 0"
-                    Width="112"
-                    Height="112" 
+                    Width="110"
+                    Height="110" 
                     Click="relativeImagePickerButton_Click">
 
                 <Image Width="39"
@@ -608,6 +635,8 @@
                                     <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Stretch="UniformToFill"
                                            Source="{Binding LINK_IMAGES}"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

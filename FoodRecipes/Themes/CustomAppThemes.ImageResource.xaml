@@ -16,6 +16,7 @@
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
     <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
     <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>
+    <ImageSource x:Key="IconEmptyAvt">pack://application:,,,/Assets/icon_empty_avt.png</ImageSource>
     <ImageSource x:Key="IconEraser">pack://application:,,,/Assets/icon_eraser.png</ImageSource>
     <ImageSource x:Key="IconFastfood">pack://application:,,,/Assets/icon_fastfood.png</ImageSource>
     <ImageSource x:Key="IconFavorite">pack://application:,,,/Assets/icon_favorite.png</ImageSource>

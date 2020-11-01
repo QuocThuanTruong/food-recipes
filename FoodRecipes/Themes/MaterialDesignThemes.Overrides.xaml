@@ -420,7 +420,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border Name="Border" 
-                            Padding="4, 0, 8, 8" 
+                            Padding="4, 8, 8, 8" 
                             SnapsToDevicePixels="true"
                             Background="Transparent">
                         <ContentPresenter VerticalAlignment="Center"/>
@@ -578,8 +578,8 @@
         <Setter Property="Height" Value="120"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{DynamicResource RippleBlue}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MyLightGray3}"/>
+        <Setter Property="Foreground" Value="{DynamicResource RigppleBlue}"/>
         <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="0"/>
@@ -613,7 +613,10 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Visibility" TargetName="border" Value="Visible" />
+                            <Setter Property="Background" TargetName="border" Value="{Binding BorderBrush,
+                                                                                        RelativeSource={RelativeSource Mode=TemplatedParent},
+                                                                                        Converter={StaticResource BrushOpacityConverter},
+                                                                                        ConverterParameter=0.5}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value="1"/>
