@@ -763,7 +763,7 @@
                                                   VerticalAlignment="Center"
                                                   Width="35"
                                                   Height="35"
-                                                  IsChecked="False"
+                                                  IsChecked="{Binding FAVORITE_FLAG}"
                                                   Background="Transparent"
                                                   BorderThickness="0"
                                                   Style="{StaticResource MaterialDesignActionToggleButton}">
@@ -800,7 +800,7 @@
                                        Style="{StaticResource RegularText}"
                                        Foreground="White"
                                        FontSize="15"
-                                       Text="Lẩu kim chi hải sả.."/>
+                                       Text="{Binding NAME_FOR_BINDING}"/>
 
                                     <Grid Name="timeLevelContainer"
                                           Margin="0, 4, 0, 8">
@@ -829,7 +829,7 @@
                                            FontFamily="{StaticResource GilroyMedium}"
                                            FontSize="10"
                                            Foreground="{DynamicResource MyLightGray2}"
-                                           Text="9h30ph"/>
+                                           Text="{Binding TIME}"/>
 
                                         <Image Name="iconGroup"
                                                Grid.Column="3"
@@ -848,7 +848,7 @@
                                            FontFamily="{StaticResource GilroyMedium}"
                                            FontSize="10"
                                            Foreground="{DynamicResource MyLightGray2}"
-                                           Text="Món chính"/>
+                                           Text="{Binding FOOD_GROUP}"/>
                                     </Grid>
                                 </StackPanel>
 
@@ -870,7 +870,7 @@
                                                VerticalAlignment="Center"
                                                Style="{StaticResource RegularText}"
                                                Foreground="{DynamicResource MyLightGray2}"
-                                               Text="Khó"/>
+                                               Text="{Binding FOOD_LEVEL}"/>
                                 </StackPanel>
                             </Grid>
                         </Button>
@@ -904,7 +904,7 @@
                                    Width="95"
                                    Height="95"
                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                   Source="{StaticResource TEST_AVT}"/>
+                                   Source="{Binding LINK_AVATAR}"/>
                         </materialDesign:Card>
 
                     </Grid>
@@ -922,6 +922,7 @@
                         FlowDirection="RightToLeft">
 
                 <Button Name="lastPageButton"
+                        Click="lastPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -935,6 +936,7 @@
                 </Button>
 
                 <Button Name="nextPageButton"
+                        Click="nextPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -980,6 +982,7 @@
                 </materialDesign:ColorZone>
 
                 <Button Name="prevPageButton"
+                        Click="prevPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -993,6 +996,7 @@
                 </Button>
 
                 <Button Name="firstPageButton"
+                        Click="firstPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"

@@ -618,7 +618,7 @@
 
 
                         <ListView Name="imageStepListView"
-                                  ItemsSource="{Binding StepImagesForBinding}"
+                                  ItemsSource="{Binding STEP_IMAGES_LIST_FOR_BINDING}"
                                   Margin="0, 8, 30, 0"
                                   Width="{Binding ActualWidth, ElementName=detailStepTextBlock}"
                                   ItemContainerStyle="{StaticResource ImageStepListViewItem}">

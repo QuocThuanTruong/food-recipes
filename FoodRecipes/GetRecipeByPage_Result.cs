@@ -15,6 +15,7 @@ namespace FoodRecipes
     {
         public int ID_RECIPE { get; set; }
         public string NAME { get; set; }
+        public string NAME_FOR_BINDING { get; set; }
         public string DESCRIPTION { get; set; }
         public string LINK_VIDEO { get; set; }
         public string LINK_AVATAR { get; set; }

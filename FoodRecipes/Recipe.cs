@@ -19,6 +19,7 @@ namespace FoodRecipes
         {
             this.Igredients = new HashSet<Igredient>();
             this.Steps = new HashSet<Step>();
+            this.IMAGES_LIST_FOR_BINDING = new List<StepImage>();
         }
     
         public int ID_RECIPE { get; set; }
@@ -29,6 +30,9 @@ namespace FoodRecipes
         public string TIME { get; set; }
         public string FOOD_GROUP { get; set; }
         public string FOOD_LEVEL { get; set; }
+        public List<Igredient> IGREDIENT_LIST_FOR_BINDING { get; set; }
+        public List<Step> STEP_LIST_FOR_BINDING { get; set; }
+        public List<StepImage> IMAGES_LIST_FOR_BINDING { get; set; }
         public Nullable<bool> SHOPPING_FLAG { get; set; }
         public Nullable<bool> FAVORITE_FLAG { get; set; }
         public Nullable<System.DateTime> ADD_DATE { get; set; }

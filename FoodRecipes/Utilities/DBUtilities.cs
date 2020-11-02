@@ -110,6 +110,13 @@ namespace FoodRecipes.Utilities
             return result;
         }
 
+        public IQueryable<GetRecipeByPage_Result> GetRecipeByPage(Nullable<int> current_page, Nullable<int> total_recipe_per_page)
+        {
+            var result = _dbFoodRecipe.GetRecipeByPage(current_page, total_recipe_per_page);
+
+            return result;
+        }
+
         public int InsertRecipe(Nullable<int> id_recipe, 
                                 string name, 
                                 string description, 

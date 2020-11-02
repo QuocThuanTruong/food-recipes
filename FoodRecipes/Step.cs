@@ -25,7 +25,7 @@ namespace FoodRecipes
         public string NO_STEP_FOR_BINDING { get; set; }
         public string DETAIL { get; set; }
 
-        public List<StepImage> StepImagesForBinding { get; set; }
+        public List<StepImage> STEP_IMAGES_LIST_FOR_BINDING { get; set; }
         public virtual Recipe Recipe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StepImage> StepImages { get; set; }

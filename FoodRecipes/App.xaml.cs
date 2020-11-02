@@ -18,6 +18,7 @@ namespace FoodRecipes
 		{
 			//Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("vi");
 			InitializeComponent();
+
 		}
 	}
 }

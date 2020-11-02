@@ -193,7 +193,7 @@ namespace FoodRecipes.Pages
 					step.StepImages.Add(stepImage);
 				}
 
-				step.StepImagesForBinding = step.StepImages.ToList();
+				step.STEP_IMAGES_LIST_FOR_BINDING = step.StepImages.ToList();
 
 				recipe.Steps.Add(step);
 
@@ -210,7 +210,25 @@ namespace FoodRecipes.Pages
 			Igredient igredient = new Igredient();
 
 			igredient.NAME = igredientNameTextBox.Text;
+			if (igredient.NAME.Length == 0)
+            {
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống tên nguyên liệu", "Cancel", () => { });
+				return;
+			} else
+            {
+				//Do Nothing
+            }
+
 			igredient.QUANTITY = igredientQuantityTextBox.Text;
+			if (igredient.QUANTITY.Length == 0)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống số lượng nguyên liệu", "Cancel", () => { });
+				return;
+			}
+			else
+			{
+				//Do Nothing
+			}
 
 			igredientNameTextBox.Text = "";
 			igredientQuantityTextBox.Text = "";
@@ -270,7 +288,7 @@ namespace FoodRecipes.Pages
 			recipe.LINK_VIDEO = linkVideoTextBox.Text;
 
 			//Check empty Avatar
-			if (avatarImage.Source.ToString() == "pack://application:,,,/Assets/icon_gray_img_picker.png")
+			if (avatarImage.Source.ToString() == FindResource("IconEmptyAvt").ToString())
 			{
 				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "Cancel", () => { });
 				return;
