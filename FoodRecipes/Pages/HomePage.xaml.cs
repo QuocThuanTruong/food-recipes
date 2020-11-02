@@ -48,6 +48,8 @@ namespace FoodRecipes.Pages
 
 		public HomePage(bool isFavorite)
 		{
+			InitializeComponent();
+
 			if (isFavorite)
 			{
 				_isFavorite = true;
@@ -57,8 +59,6 @@ namespace FoodRecipes.Pages
 
 				loadRecipes();
 			}	
-			
-			InitializeComponent();
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -213,21 +213,30 @@ namespace FoodRecipes.Pages
 		}
 
 		private void loadRecipes() {
-			_maxPage = getMaxPage();
-			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+			if (!_isFavorite)
+            {
+				_maxPage = getMaxPage();
+				currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
 
-			List<GetRecipeByPage_Result> recipes = _dbUtilities.GetRecipeByPage(_currentPage, getTotalRecipePerPage()).ToList();
+				List<GetRecipeByPage_Result> recipes = _dbUtilities.GetRecipeByPage(_currentPage, getTotalRecipePerPage()).ToList();
 
-			foreach (var recipe in recipes)
-			{
-				recipe.NAME_FOR_BINDING = _appUtilities.getStandardName(recipe.NAME, false);
+				foreach (var recipe in recipes)
+				{
+					recipe.NAME_FOR_BINDING = _appUtilities.getStandardName(recipe.NAME, false);
 
-				recipe.LINK_AVATAR = (string)(_absolutePathConverter.Convert($"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}", null, null, null));
+					recipe.LINK_AVATAR = (string)(_absolutePathConverter.Convert($"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}", null, null, null));
 
-				Debug.WriteLine(recipe.LINK_AVATAR);
+					Debug.WriteLine(recipe.LINK_AVATAR);
+				}
+
+				recipesListView.ItemsSource = recipes;
 			}
+			else
+            {
 
-			recipesListView.ItemsSource = recipes;
+            }
+
+	
 		}
 	}
 }
