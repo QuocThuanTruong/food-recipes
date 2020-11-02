@@ -132,11 +132,37 @@ namespace FoodRecipes.Pages
 					html += "<iframe id='video' src= 'https://www.youtube.com/embed/{0}' frameborder='0' height='205' width='345' allowfullscreen></iframe>";
 					html += "</body></html>";
 
-					videoContainerFromWeb.NavigateToString(string.Format(html, url.Split('=')[1]));
+					string[] urlParams = url.Split('=');
+
+					string urlID = "";
+
+					if (url.IndexOf("=") != -1)
+                    {
+
+						string urlParamsIDAndFeture = urlParams[1];
+						string[] rawUrl = urlParamsIDAndFeture.Split('&');
+
+						if (rawUrl.Length > 0)
+						{
+							urlID = rawUrl[0];
+						}
+						else
+						{
+							urlID = urlParams[1];
+						}
+					}
+					else
+                    {
+						urlParams = url.Split('/');
+						urlID = urlParams[3];
+                    }
+
+					videoContainerFromWeb.NavigateToString(string.Format(html, urlID));
+
 				}
 				catch (Exception e)
 				{
-					string noti = $"Không thể phát video với đường dẫn \"{url}\"";
+					string noti = $"\"{url}\"";
 					Debug.WriteLine(noti);
 					notiMessageSnackbar.MessageQueue.Enqueue(noti, "OK", () => { });
 				}
