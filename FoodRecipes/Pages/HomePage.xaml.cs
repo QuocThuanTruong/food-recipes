@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FoodRecipes.Utilities;
+using FoodRecipes.Converter;
 
 namespace FoodRecipes.Pages
 {
@@ -26,19 +28,34 @@ namespace FoodRecipes.Pages
 		public delegate void ShowRecipeDetailPageHandler(int recipeID);
 		public event ShowRecipeDetailPageHandler ShowRecipeDetailPage;
 
+		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
+		private AppUtilities _appUtilities = new AppUtilities();
+		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
+
+		private int _currentPage;
+		private int _maxPage = 0;
+		private bool _isFavorite = false;
+
 		public HomePage()
 		{
 			InitializeComponent();
 
-			//Test Show snack bar
-			notiMessageSnackbar.MessageQueue.Enqueue("Tìm được 4 món ăn thỏa yêu cầu", "CLOSE", () => { });
+			_currentPage = 1;
+			_maxPage = getMaxPage();
+
+			loadRecipes();
 		}
 
 		public HomePage(bool isFavorite)
 		{
 			if (isFavorite)
 			{
+				_isFavorite = true;
 
+				_currentPage = 1;
+				_maxPage = getMaxPage();
+
+				loadRecipes();
 			}	
 			
 			InitializeComponent();
@@ -47,7 +64,6 @@ namespace FoodRecipes.Pages
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			DataContext = this;
-			
 		}
 
 		private void foodGroupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -129,22 +145,89 @@ namespace FoodRecipes.Pages
 		private void recipesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var selectedItemIndex = recipesListView.SelectedIndex;
-			string selectedID = "";
+			int selectedID = -1;
 
 			if (selectedItemIndex != -1)
 			{
-				selectedID = ((Grid)recipesListView.SelectedItem).Tag.ToString();
+				selectedID = ((GetRecipeByPage_Result)recipesListView.SelectedItem).ID_RECIPE;
 				Debug.WriteLine(selectedID);
 			}
 
 			//Get Id recipe base on item clikced
 
-			ShowRecipeDetailPage?.Invoke(int.Parse(selectedID));	
+			ShowRecipeDetailPage?.Invoke(selectedID);	
 		}
 
 		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
 		{
 			notiMessageSnackbar.IsActive = false;
+		}
+
+		private void prevPageButton_Click(object sender, RoutedEventArgs e) { 
+			if (_currentPage > 1)
+            {
+				--_currentPage;
+            }
+
+			loadRecipes();
+		}
+
+		private void nextPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (_currentPage < (int)_maxPage)
+			{
+				++_currentPage;
+			}
+
+			loadRecipes();
+		}
+
+		private void firstPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			_currentPage = 1;
+
+			loadRecipes();
+		}
+
+		private void lastPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			_currentPage = getMaxPage();
+
+			loadRecipes();
+		}
+
+		private int getMaxPage()
+        {
+			var result = Math.Ceiling((double)(_dbUtilities.GetMaxIDRecipe()) / (double)getTotalRecipePerPage());
+
+			return (int)result;
+		}
+		private int getTotalRecipePerPage()
+        {
+			var totalRecipePerPageString = gridTypeComboBox.Text;
+
+			string[] paramsRowXColum = totalRecipePerPageString.Split('x');
+			var result = int.Parse(paramsRowXColum[0]) * int.Parse(paramsRowXColum[1]);
+
+			return result;
+		}
+
+		private void loadRecipes() {
+			_maxPage = getMaxPage();
+			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+
+			List<GetRecipeByPage_Result> recipes = _dbUtilities.GetRecipeByPage(_currentPage, getTotalRecipePerPage()).ToList();
+
+			foreach (var recipe in recipes)
+			{
+				recipe.NAME_FOR_BINDING = _appUtilities.getStandardName(recipe.NAME, false);
+
+				recipe.LINK_AVATAR = (string)(_absolutePathConverter.Convert($"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}", null, null, null));
+
+				Debug.WriteLine(recipe.LINK_AVATAR);
+			}
+
+			recipesListView.ItemsSource = recipes;
 		}
 	}
 }

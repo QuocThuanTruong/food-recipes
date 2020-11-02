@@ -34,15 +34,6 @@ namespace FoodRecipes.Utilities
             else
             {
                 maxLength = MAX_NAME_LENGTH_IN_CARD_VIEW;
-
-                result = result.ToLower();
-
-                StringBuilder tempResult = new StringBuilder(result);
-                int startCharacter = tempResult[0];
-
-                tempResult[0] = (char)(startCharacter - 23);
-
-                result = tempResult.ToString();
             }
 
 
