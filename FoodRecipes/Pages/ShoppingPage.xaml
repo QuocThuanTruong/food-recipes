@@ -625,8 +625,8 @@
                                                Source="{StaticResource IconGrayGroup}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                                           <!-- Binding data -->
-                                           <TextBlock Name="groupTextBlock"
+                                            <!-- Binding data -->
+                                            <TextBlock Name="groupTextBlock"
                                            VerticalAlignment="Center"
                                            Margin="4, 0, 0, 0"
                                            Grid.Column="4"
@@ -664,7 +664,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
             <!-- Shopping igredient list view-->
             <ListView Name="shoppingIgredientListView"
                       SelectionMode="Multiple"
@@ -730,7 +730,7 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
+
             </ListView>
         </Grid>
 

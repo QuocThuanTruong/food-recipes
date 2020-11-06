@@ -90,7 +90,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="materialDesign:RippleAssist.Feedback" Value="White" />
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="19" />
-        
+
     </Style>
 
     <Style x:Key="CardScaleHover" TargetType="{x:Type materialDesign:Card}" >
@@ -320,7 +320,7 @@
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="Transparent"/>
                         </Trigger>
-                        
+
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
@@ -339,7 +339,7 @@
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
-                            
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -381,7 +381,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="StepListBoxItem" TargetType="ListBoxItem">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -727,7 +727,7 @@
         <Setter Property="Width" Value="84"/>
         <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="42"/>
     </Style>
-    
+
     <!-- Custom Scroll bar -->
     <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -758,7 +758,7 @@
             </Track>
         </Grid>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.ColumnDefinitions>
