@@ -18,6 +18,7 @@ using FoodRecipes.Converter;
 using FoodRecipes.Utilities;
 using System.Diagnostics;
 using System.Media;
+using System.Windows.Controls.Primitives;
 
 namespace FoodRecipes.Pages
 {
@@ -32,6 +33,8 @@ namespace FoodRecipes.Pages
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private AppUtilities _appUtilities = new AppUtilities();
 		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
+		private int _recipeID;
+
 		public RecipeDetailPage()
 		{
 			InitializeComponent();
@@ -41,75 +44,12 @@ namespace FoodRecipes.Pages
 		{
 			InitializeComponent();
 
-			var recipeGetRecipeById = _dbUtilities.GetRecipeById(recipeID).FirstOrDefault();
+			_recipeID = recipeID;
 
-			Recipe recipe = new Recipe();
+			Recipe recipe = _dbUtilities.GetRecipeById(recipeID);
 
-			recipe.ID_RECIPE = recipeGetRecipeById.ID_RECIPE;
-			recipe.NAME = recipeGetRecipeById.NAME;
-			recipe.TIME = recipeGetRecipeById.TIME;
-			recipe.FOOD_GROUP = recipeGetRecipeById.FOOD_GROUP;
-			recipe.FOOD_LEVEL = recipeGetRecipeById.FOOD_LEVEL;
-			recipe.DESCRIPTION = recipeGetRecipeById.DESCRIPTION;
-			recipe.LINK_AVATAR = recipeGetRecipeById.LINK_AVATAR;
-			recipe.LINK_AVATAR = (string)(_absolutePathConverter.Convert($"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}", null, null, null));
-			recipe.LINK_VIDEO = recipeGetRecipeById.LINK_VIDEO;
-			recipe.ADD_DATE = recipeGetRecipeById.ADD_DATE;
-			recipe.FAVORITE_FLAG = recipeGetRecipeById.FAVORITE_FLAG;
-			recipe.SHOPPING_FLAG = recipeGetRecipeById.SHOPPING_FLAG;
+			recipe = _appUtilities.getRecipeForBindingInRecipeDetail(recipe);
 
-			var igredients = _dbUtilities.GetIgredientByIDRecipe(recipeID);
-			foreach (var igredient in igredients.ToList())
-			{
-				Igredient tempIgredient = new Igredient();
-				tempIgredient.NAME = igredient.NAME;
-				tempIgredient.QUANTITY = igredient.QUANTITY;
-
-				recipe.Igredients.Add(tempIgredient);
-			}
-
-			recipe.IGREDIENT_LIST_FOR_BINDING = recipe.Igredients.ToList();
-
-			var steps = _dbUtilities.GetNumericalOrderAndDetailOfStepByIDRecipe(recipeID);
-
-			foreach (var tempStep in steps)
-			{
-				Step step = new Step();
-				step.NO_STEP = tempStep.NO_STEP;
-
-				if (step.NO_STEP < 10)
-				{
-					step.NO_STEP_FOR_BINDING = $"0{step.NO_STEP}";
-				}
-				else
-				{
-					step.NO_STEP_FOR_BINDING = $"{step.NO_STEP}";
-				}
-
-				step.DETAIL = tempStep.DETAIL;
-
-				var allImageInStep = _dbUtilities.GetLinkImageSByIDRecipeAndNOStep(recipeID, step.NO_STEP);
-
-				foreach (var imageInStep in allImageInStep)
-				{
-					StepImage image = new StepImage();
-
-					image.ID_RECIPE = recipeID;
-					image.NO_STEP = step.NO_STEP;
-					image.LINK_IMAGES = $"Images/{recipeID}/{imageInStep.LINK_IMAGES}";
-					Debug.WriteLine(image.LINK_IMAGES);
-
-					step.StepImages.Add(image);
-					recipe.IMAGES_LIST_FOR_BINDING.Add(image);
-				}
-
-				step.STEP_IMAGES_LIST_FOR_BINDING = step.StepImages.ToList();
-				recipe.Steps.Add(step);
-			}
-
-			recipe.STEP_LIST_FOR_BINDING = recipe.Steps.ToList();
-
-			recipe.LINK_VIDEO = recipeGetRecipeById.LINK_VIDEO;
 			playVideoTutorial(recipe.LINK_VIDEO);
 	
 			mainContainer.DataContext = recipe;
@@ -189,7 +129,7 @@ namespace FoodRecipes.Pages
 			//Test Show snack bar
 			notiMessageSnackbar.MessageQueue.Enqueue("Đã thêm...", "GO SHOPPING", () => { GoShoppingPage(); });
 
-			
+			_dbUtilities.TurnShoppingFlagOn(_recipeID);
 		}
 
 		private void GoShoppingPage()
@@ -206,5 +146,19 @@ namespace FoodRecipes.Pages
         {
 
         }
+
+        private void favButton_Checked(object sender, RoutedEventArgs e)
+        {
+			bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
+
+			if (isFavoriteRecipe)
+			{
+				_dbUtilities.TurnFavoriteFlagOn(_recipeID);
+			}
+			else
+			{
+				_dbUtilities.TurnFavoriteFlagOff(_recipeID);
+			}
+		}
     }
 }

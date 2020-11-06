@@ -15,5 +15,12 @@ namespace FoodRecipes
     {
         public Nullable<int> ID_RECIPE { get; set; }
         public Nullable<int> RANK { get; set; }
+        public string NAME { get; set; }
+        public Nullable<int> TIME { get; set; }
+        public string FOOD_GROUP { get; set; }
+        public Nullable<int> FOOD_LEVEL { get; set; }
+        public Nullable<bool> SHOPPING_FLAG { get; set; }
+        public Nullable<bool> FAVORITE_FLAG { get; set; }
+        public Nullable<System.DateTime> ADD_DATE { get; set; }
     }
 }
