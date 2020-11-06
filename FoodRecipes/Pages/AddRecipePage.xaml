@@ -72,7 +72,7 @@
                    Grid.Row="6"
                    Text="{x:Static loc:Resources.title_link_video}"
                    Style="{StaticResource SmallHeaderText}"/>
-        
+
         <!-- Get data -->
         <TextBox Name="linkVideoTextBox"
                  Style="{StaticResource AddRecipePageTextBox}"
@@ -88,7 +88,7 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Name="avtTextBlock"
                        Grid.Column="0"
                        Text="{x:Static loc:Resources.title_avt}"
@@ -111,7 +111,7 @@
 
             <Grid Name="imagePicker"
                   HorizontalAlignment="Left">
-                
+
                 <!-- Set data -->
                 <Image Name="avatarImage"
                        Width="120"
@@ -126,7 +126,7 @@
                         Style="{StaticResource ImagePickerFrameButton}"
                         VerticalContentAlignment="Bottom"
                         Height="120">
-                    
+
                     <Button Name="avatarImagePickerButton"
                         Style="{StaticResource ImagePickerButton}"
                         Background="{DynamicResource MyLightGray2}"
@@ -149,7 +149,7 @@
                     <ColumnDefinition Width="0.25*"/>
                     <ColumnDefinition Width="8*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -347,14 +347,14 @@
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!-- Get data -->
             <TextBox Name="igredientNameTextBox"
                      VerticalAlignment="Center"
                      Style="{StaticResource AddRecipePageTextBox}"                         
                      materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_igredient_name}"
                      Grid.Column="0"/>
-            
+
             <!-- Get data -->
             <TextBox Name="igredientQuantityTextBox"
                      VerticalAlignment="Center"
@@ -378,11 +378,11 @@
 
                 <Button Name="addShoppingButton"
                         Click="addShoppingButton_Click"
-                        Width="32"
+                        Width="Auto"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
                         Height="32"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0" Margin="4,9">
 
                     <Image Name="iconAdd"
                            Width="16"
@@ -473,7 +473,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Name="relativeImageListItem">
-                            
+
                             <!-- Binding data -->
                             <Image Name="relativeStepImage"
                            Width="110"
@@ -644,7 +644,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
         </ListView>
 
         <materialDesign:ColorZone Mode="Custom"

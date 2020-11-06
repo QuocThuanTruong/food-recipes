@@ -58,13 +58,14 @@
 
                 <!-- Binding ischecked -->
                 <ToggleButton Name="favButton"
+                              Click="favButton_Checked"
                               VerticalAlignment="Center"
                               Width="35"
                               Height="35"
                               IsChecked="{Binding FAVORITE_FLAG}"
                               Background="Transparent"
                               BorderThickness="0"
-                              Style="{StaticResource MaterialDesignActionToggleButton}">
+                              Style="{StaticResource MaterialDesignActionToggleButton}" Checked="favButton_Checked">
 
                     <materialDesign:ToggleButtonAssist.OnContentTemplate>
                         <DataTemplate>
@@ -103,7 +104,7 @@
                        Margin="6, 0, 8, 0"
                        VerticalAlignment="Center"
                        Style="{StaticResource DetailTextBlock}"
-                       Text="{Binding TIME}"/>
+                       Text="{Binding TIME_FOR_BINDING}"/>
 
             <Image Name="iconGroup"
                    Margin="8, -1, 0, 0"

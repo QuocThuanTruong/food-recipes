@@ -530,6 +530,7 @@
                       Margin="0, 16, 0, 0"
                       SelectionChanged="shoppingRecipeListView_SelectionChanged"
                       SelectionMode="Single"
+                      SelectedIndex="0"
                       Grid.Column="0"
                       ItemContainerStyle="{StaticResource ShoppingListViewItem}">
 
@@ -543,14 +544,17 @@
                     <DataTemplate>
                         <!-- Binding tag as ID of recipe -->
                         <Button Name="shoppingCardContainer"
-                                Click="shoppingCardContainer_Click"
-                                Tag="0"
+                                ClickMode="Hover"
+                                Tag="{Binding ID_RECIPE}"
+                                Background="{Binding BorderBrush, 
+                                                              RelativeSource={RelativeSource FindAncestor,
+                                                              AncestorType={x:Type ListViewItem}}}"
                                 Style="{StaticResource ShoppingButton}">
-                            
+
                             <Grid Name="shoppingCardContent"
                                   Height="{Binding ActualHeight, ElementName=shoppingCardContainer}"
                                   Width="{Binding ActualWidth, ElementName=shoppingCardContainer}">
-                                
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2.5*"/>
                                     <ColumnDefinition Width="8*"/>
@@ -584,7 +588,7 @@
                                            Width="59"
                                            Height="59"
                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                           Source="{StaticResource TEST_AVT}"/>
+                                           Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"/>
                                 </materialDesign:Card>
 
                                 <Grid Name="recipeInfoContainer"
@@ -601,7 +605,7 @@
                                     <!-- Binding data -->
                                     <TextBlock Name="recipeNameTextBlock"
                                                Grid.Row="1"
-                                               Text="Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu"
+                                               Text="{Binding NAME}"
                                                Style="{StaticResource StepRegularText}"/>
 
                                     <Grid Grid.Row="2">
@@ -630,21 +634,22 @@
                                            FontFamily="{StaticResource GilroyMedium}"
                                            FontSize="12"
                                            Foreground="{DynamicResource MyLightGray2}"
-                                           Text="Món chính"/>
+                                           Text="{Binding FOOD_GROUP}"/>
                                         </StackPanel>
                                     </Grid>
 
                                     <Button Name="deleteShoppingRecipeButton"
-                                                Click="deleteShoppingRecipeButton_Click"
-                                                Grid.Column="1"
-                                                Grid.Row="1"
-                                                Grid.RowSpan="2"
-                                                VerticalAlignment="Bottom"
-                                                Style="{StaticResource GroupButton}"
-                                                materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
-                                                HorizontalAlignment="Right"
-                                                Width="26"
-                                                Height="26">
+                                            Click="deleteShoppingRecipeButton_Click"
+                                            Tag="{Binding ID_RECIPE}"
+                                            Grid.Column="1"
+                                            Grid.Row="1"
+                                            Grid.RowSpan="2"
+                                            VerticalAlignment="Bottom"
+                                            Style="{StaticResource GroupButton}"
+                                            materialDesign:RippleAssist.Feedback="{DynamicResource RippleBlue}"
+                                            HorizontalAlignment="Right"
+                                            Width="26"
+                                            Height="26">
 
                                         <Image Name="iconDelete"
                                                    Margin="0, 0, 0, 0"
@@ -658,17 +663,8 @@
                         </Button>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
-                <Button Tag="0"></Button>
-                <Button Tag="1"></Button>
-                <Button Tag="2"></Button>
-                <Button Tag="3"></Button>
-                <Button Tag="4"></Button>
-                <Button Tag="5"></Button>
-                <Button Tag="6"></Button>
-                
             </ListView>
-            
+
             <!-- Shopping igredient list view-->
             <ListView Name="shoppingIgredientListView"
                       SelectionMode="Multiple"
@@ -689,7 +685,7 @@
 
                             <!-- Binding data -->
                             <TextBlock Name="nameIgredientTextBlock"
-                                       Text="Nho khô California đen"
+                                       Text="{Binding NAME}"
                                        Margin="8, 0, 0, 0"
                                        Style="{StaticResource ShoppingLargeText}"/>
 
@@ -698,7 +694,7 @@
                                        Grid.Column="1"
                                        Margin="0, 0, 8, 0"
                                        HorizontalAlignment="Right"
-                                       Text="1/2 muỗng cà phê"
+                                       Text="{Binding QUANTITY}"
                                        Style="{StaticResource ShoppingLargeText}"/>
 
                             <ToggleButton Name="haveDoneButton"
@@ -735,12 +731,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
 
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
-                <Grid></Grid>
             </ListView>
         </Grid>
 

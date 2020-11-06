@@ -15,10 +15,10 @@ namespace FoodRecipes
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class FoodRecipeEntities : DbContext
+    public partial class FoodRecipeEntities1 : DbContext
     {
-        public FoodRecipeEntities()
-            : base("name=FoodRecipeEntities")
+        public FoodRecipeEntities1()
+            : base("name=FoodRecipeEntities1")
         {
         }
     
@@ -32,79 +32,23 @@ namespace FoodRecipes
         public virtual DbSet<Step> Steps { get; set; }
         public virtual DbSet<StepImage> StepImages { get; set; }
     
-        [DbFunction("FoodRecipeEntities", "GetAllFromRecipe")]
+        [DbFunction("FoodRecipeEntities1", "GetAllFromRecipe")]
         public virtual IQueryable<GetAllFromRecipe_Result> GetAllFromRecipe()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetAllFromRecipe_Result>("[FoodRecipeEntities].[GetAllFromRecipe]()");
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetAllFromRecipe_Result>("[FoodRecipeEntities1].[GetAllFromRecipe]()");
         }
     
-        [DbFunction("FoodRecipeEntities", "GetAllRecipeSummary")]
-        public virtual IQueryable<GetAllRecipeSummary_Result> GetAllRecipeSummary()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetAllRecipeSummary_Result>("[FoodRecipeEntities].[GetAllRecipeSummary]()");
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIDRecipeByFavoriteFlag")]
-        public virtual IQueryable<GetIDRecipeByFavoriteFlag_Result> GetIDRecipeByFavoriteFlag(Nullable<bool> favorite_flag)
-        {
-            var favorite_flagParameter = favorite_flag.HasValue ?
-                new ObjectParameter("favorite_flag", favorite_flag) :
-                new ObjectParameter("favorite_flag", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIDRecipeByFavoriteFlag_Result>("[FoodRecipeEntities].[GetIDRecipeByFavoriteFlag](@favorite_flag)", favorite_flagParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIDRecipeByFoodGroup")]
-        public virtual IQueryable<GetIDRecipeByFoodGroup_Result> GetIDRecipeByFoodGroup(string food_group)
-        {
-            var food_groupParameter = food_group != null ?
-                new ObjectParameter("food_group", food_group) :
-                new ObjectParameter("food_group", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIDRecipeByFoodGroup_Result>("[FoodRecipeEntities].[GetIDRecipeByFoodGroup](@food_group)", food_groupParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIDRecipeByFoodLevel")]
-        public virtual IQueryable<GetIDRecipeByFoodLevel_Result> GetIDRecipeByFoodLevel(string food_level)
-        {
-            var food_levelParameter = food_level != null ?
-                new ObjectParameter("food_level", food_level) :
-                new ObjectParameter("food_level", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIDRecipeByFoodLevel_Result>("[FoodRecipeEntities].[GetIDRecipeByFoodLevel](@food_level)", food_levelParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIDRecipeByShoppingFlag")]
-        public virtual IQueryable<GetIDRecipeByShoppingFlag_Result> GetIDRecipeByShoppingFlag(Nullable<bool> shopping_flag)
-        {
-            var shopping_flagParameter = shopping_flag.HasValue ?
-                new ObjectParameter("shopping_flag", shopping_flag) :
-                new ObjectParameter("shopping_flag", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIDRecipeByShoppingFlag_Result>("[FoodRecipeEntities].[GetIDRecipeByShoppingFlag](@shopping_flag)", shopping_flagParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIDRecipeByTime")]
-        public virtual IQueryable<GetIDRecipeByTime_Result> GetIDRecipeByTime(string time)
-        {
-            var timeParameter = time != null ?
-                new ObjectParameter("time", time) :
-                new ObjectParameter("time", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIDRecipeByTime_Result>("[FoodRecipeEntities].[GetIDRecipeByTime](@time)", timeParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "GetIgredientByIDRecipe")]
+        [DbFunction("FoodRecipeEntities1", "GetIgredientByIDRecipe")]
         public virtual IQueryable<GetIgredientByIDRecipe_Result> GetIgredientByIDRecipe(Nullable<int> id_recipe)
         {
             var id_recipeParameter = id_recipe.HasValue ?
                 new ObjectParameter("id_recipe", id_recipe) :
                 new ObjectParameter("id_recipe", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIgredientByIDRecipe_Result>("[FoodRecipeEntities].[GetIgredientByIDRecipe](@id_recipe)", id_recipeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetIgredientByIDRecipe_Result>("[FoodRecipeEntities1].[GetIgredientByIDRecipe](@id_recipe)", id_recipeParameter);
         }
     
-        [DbFunction("FoodRecipeEntities", "GetLinkImageSByIDRecipeAndNOStep")]
+        [DbFunction("FoodRecipeEntities1", "GetLinkImageSByIDRecipeAndNOStep")]
         public virtual IQueryable<GetLinkImageSByIDRecipeAndNOStep_Result> GetLinkImageSByIDRecipeAndNOStep(Nullable<int> id_recipe, Nullable<int> nO_step)
         {
             var id_recipeParameter = id_recipe.HasValue ?
@@ -115,51 +59,37 @@ namespace FoodRecipes
                 new ObjectParameter("NO_step", nO_step) :
                 new ObjectParameter("NO_step", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetLinkImageSByIDRecipeAndNOStep_Result>("[FoodRecipeEntities].[GetLinkImageSByIDRecipeAndNOStep](@id_recipe, @NO_step)", id_recipeParameter, nO_stepParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetLinkImageSByIDRecipeAndNOStep_Result>("[FoodRecipeEntities1].[GetLinkImageSByIDRecipeAndNOStep](@id_recipe, @NO_step)", id_recipeParameter, nO_stepParameter);
         }
     
-        [DbFunction("FoodRecipeEntities", "GetNumericalOrderAndDetailOfStepByIDRecipe")]
+        [DbFunction("FoodRecipeEntities1", "GetNumericalOrderAndDetailOfStepByIDRecipe")]
         public virtual IQueryable<GetNumericalOrderAndDetailOfStepByIDRecipe_Result> GetNumericalOrderAndDetailOfStepByIDRecipe(Nullable<int> id_recipe)
         {
             var id_recipeParameter = id_recipe.HasValue ?
                 new ObjectParameter("id_recipe", id_recipe) :
                 new ObjectParameter("id_recipe", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetNumericalOrderAndDetailOfStepByIDRecipe_Result>("[FoodRecipeEntities].[GetNumericalOrderAndDetailOfStepByIDRecipe](@id_recipe)", id_recipeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetNumericalOrderAndDetailOfStepByIDRecipe_Result>("[FoodRecipeEntities1].[GetNumericalOrderAndDetailOfStepByIDRecipe](@id_recipe)", id_recipeParameter);
         }
     
-        [DbFunction("FoodRecipeEntities", "GetRecipeById")]
+        [DbFunction("FoodRecipeEntities1", "GetRecipeById")]
         public virtual IQueryable<GetRecipeById_Result> GetRecipeById(Nullable<int> id_recipe)
         {
             var id_recipeParameter = id_recipe.HasValue ?
                 new ObjectParameter("id_recipe", id_recipe) :
                 new ObjectParameter("id_recipe", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetRecipeById_Result>("[FoodRecipeEntities].[GetRecipeById](@id_recipe)", id_recipeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetRecipeById_Result>("[FoodRecipeEntities1].[GetRecipeById](@id_recipe)", id_recipeParameter);
         }
     
-        [DbFunction("FoodRecipeEntities", "GetRecipeByPage")]
-        public virtual IQueryable<GetRecipeByPage_Result> GetRecipeByPage(Nullable<int> current_page, Nullable<int> total_recipe_per_page)
-        {
-            var current_pageParameter = current_page.HasValue ?
-                new ObjectParameter("current_page", current_page) :
-                new ObjectParameter("current_page", typeof(int));
-    
-            var total_recipe_per_pageParameter = total_recipe_per_page.HasValue ?
-                new ObjectParameter("total_recipe_per_page", total_recipe_per_page) :
-                new ObjectParameter("total_recipe_per_page", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetRecipeByPage_Result>("[FoodRecipeEntities].[GetRecipeByPage](@current_page, @total_recipe_per_page)", current_pageParameter, total_recipe_per_pageParameter);
-        }
-    
-        [DbFunction("FoodRecipeEntities", "SearchByName")]
+        [DbFunction("FoodRecipeEntities1", "SearchByName")]
         public virtual IQueryable<SearchByName_Result> SearchByName(string search_text)
         {
             var search_textParameter = search_text != null ?
                 new ObjectParameter("search_text", search_text) :
                 new ObjectParameter("search_text", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SearchByName_Result>("[FoodRecipeEntities].[SearchByName](@search_text)", search_textParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SearchByName_Result>("[FoodRecipeEntities1].[SearchByName](@search_text)", search_textParameter);
         }
     
         public virtual int InsertIgredient(Nullable<int> id_recipe, string name, string quantity)
@@ -179,7 +109,7 @@ namespace FoodRecipes
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertIgredient", id_recipeParameter, nameParameter, quantityParameter);
         }
     
-        public virtual int InsertRecipe(Nullable<int> id_recipe, string name, string description, string link_video, string link_avatar, string time, string food_group, string food_level, Nullable<bool> shopping_flag, Nullable<bool> favorite_flag, Nullable<System.DateTime> add_date)
+        public virtual int InsertRecipe(Nullable<int> id_recipe, string name, string description, string link_video, string link_avatar, Nullable<int> time, string food_group, Nullable<int> food_level, Nullable<bool> shopping_flag, Nullable<bool> favorite_flag, Nullable<System.DateTime> add_date)
         {
             var id_recipeParameter = id_recipe.HasValue ?
                 new ObjectParameter("id_recipe", id_recipe) :
@@ -201,17 +131,17 @@ namespace FoodRecipes
                 new ObjectParameter("link_avatar", link_avatar) :
                 new ObjectParameter("link_avatar", typeof(string));
     
-            var timeParameter = time != null ?
+            var timeParameter = time.HasValue ?
                 new ObjectParameter("time", time) :
-                new ObjectParameter("time", typeof(string));
+                new ObjectParameter("time", typeof(int));
     
             var food_groupParameter = food_group != null ?
                 new ObjectParameter("food_group", food_group) :
                 new ObjectParameter("food_group", typeof(string));
     
-            var food_levelParameter = food_level != null ?
+            var food_levelParameter = food_level.HasValue ?
                 new ObjectParameter("food_level", food_level) :
-                new ObjectParameter("food_level", typeof(string));
+                new ObjectParameter("food_level", typeof(int));
     
             var shopping_flagParameter = shopping_flag.HasValue ?
                 new ObjectParameter("shopping_flag", shopping_flag) :

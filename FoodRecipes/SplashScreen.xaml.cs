@@ -47,10 +47,11 @@ namespace FoodRecipes
 			int maxID = _dbUtilities.GetMaxIDRecipe();
 			int randomIndex = _rng.Next(maxID) + 1;
 
-			GetRecipeById_Result recipe = _dbUtilities.GetRecipeById(randomIndex).FirstOrDefault();
+			Recipe recipe = _dbUtilities.GetRecipeById(randomIndex);
+			recipe = _appUtilities.getRecipeForBindingInHomePage(recipe);
 
 			recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
-			recipe.LINK_AVATAR = (string)_absolutePathConverter.Convert($"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}", null, null, null);
+			recipe.LINK_AVATAR = $"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}";
 
 			DataContext = recipe;
 		}

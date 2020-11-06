@@ -18,9 +18,9 @@ namespace FoodRecipes
         public string DESCRIPTION { get; set; }
         public string LINK_VIDEO { get; set; }
         public string LINK_AVATAR { get; set; }
-        public string TIME { get; set; }
+        public Nullable<int> TIME { get; set; }
         public string FOOD_GROUP { get; set; }
-        public string FOOD_LEVEL { get; set; }
+        public Nullable<int> FOOD_LEVEL { get; set; }
         public Nullable<bool> SHOPPING_FLAG { get; set; }
         public Nullable<bool> FAVORITE_FLAG { get; set; }
         public Nullable<System.DateTime> ADD_DATE { get; set; }

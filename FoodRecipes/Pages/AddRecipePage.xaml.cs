@@ -214,7 +214,8 @@ namespace FoodRecipes.Pages
             {
 				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống tên nguyên liệu", "Cancel", () => { });
 				return;
-			} else
+			} 
+			else
             {
 				//Do Nothing
             }
@@ -240,21 +241,7 @@ namespace FoodRecipes.Pages
 
 		private void cancelAddRecipeButton_Click(object sender, RoutedEventArgs e)
 		{
-			recipeNameTextBox.Text = "";
-			recipeDescriptionTextBox.Text = "";
-			linkVideoTextBox.Text = "";
-			avatarImage.Source = new BitmapImage(new Uri(FindResource("IconEmptyAvt").ToString()));
-			hourTextBox.Text = "";
-			minuteTextBox.Text = "";
-			groupComboBox.SelectedIndex = 0;
-			levelComboBox.SelectedIndex = 0;
-			igredientNameTextBox.Text = "";
-			igredientQuantityTextBox.Text = "";
-			igredientsListView.ItemsSource = null;
-			detailStepTextBox.Text = "";
-			relativeImageStepListView.ItemsSource = null;
-			stepsPreviewListView.ItemsSource = null;
-
+			clearForm();
 			notiMessageSnackbar.MessageQueue.Enqueue("Empty Form", "OK", () => { });
 		}
 
@@ -297,7 +284,7 @@ namespace FoodRecipes.Pages
 
 			if (isValidTime())
 			{
-				recipe.TIME = (hourTextBox.Text == "0" ? "" : (hourTextBox.Text + "g")) + (minuteTextBox.Text == "0" ? "" : (minuteTextBox.Text + "ph"));
+ 				recipe.TIME = int.Parse(hourTextBox.Text) * 60 + int.Parse(minuteTextBox.Text);
 			}
 			else
 			{
@@ -309,7 +296,7 @@ namespace FoodRecipes.Pages
 			}
 
 			recipe.FOOD_GROUP = groupComboBox.Text;
-			recipe.FOOD_LEVEL = levelComboBox.Text;
+			recipe.FOOD_LEVEL = levelComboBox.SelectedIndex;
 
 			if (recipe.Igredients.Count == 0)
 			{
@@ -338,10 +325,25 @@ namespace FoodRecipes.Pages
 
 				var today = DateTime.Now;
 
-				_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today);
+				try
+				{
+					_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today);
+				}
+				catch (Exception excep) 
+				{
+					Debug.WriteLine(excep.Message);
+				}
 
 				foreach (var igredient in recipe.Igredients) {
-					_dbUtilitiesInstance.InsertIgredient(recipe.ID_RECIPE, igredient.NAME, igredient.QUANTITY);
+					try
+					{
+						_dbUtilitiesInstance.InsertIgredient(recipe.ID_RECIPE, igredient.NAME, igredient.QUANTITY);
+
+					}
+					catch (Exception excep) 
+					{
+						Debug.WriteLine(excep.Message);
+					}
 				}
 
 				var steps = recipe.Steps.ToList();
@@ -351,8 +353,15 @@ namespace FoodRecipes.Pages
 
 					step.ID_RECIPE = recipe.ID_RECIPE;
 
-					_dbUtilitiesInstance.InsertStep(recipe.ID_RECIPE, no_step, step.DETAIL);
-					
+					try
+					{
+						_dbUtilitiesInstance.InsertStep(recipe.ID_RECIPE, no_step, step.DETAIL);
+					}
+					catch (Exception excep)
+					{
+						Debug.WriteLine(excep.Message);
+					}
+
 					var images = step.StepImages.ToList();
 
 					for (int no_image = 1; no_image <= images.Count; ++no_image) {
@@ -363,13 +372,29 @@ namespace FoodRecipes.Pages
 						var srcImage = image.LINK_IMAGES;
 						var linkImage = $"{no_step}_{no_image}";
 
-						_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcImage, linkImage);
-						_dbUtilitiesInstance.InsertStepImages(recipe.ID_RECIPE, no_step, $"{linkImage}.{_appUtilities.getTypeOfImage(srcImage)}");
+						try
+						{
+							_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcImage, linkImage);
+						}
+						catch (Exception excep)
+						{
+							Debug.WriteLine(excep.Message);
+						}
+
+						try
+						{
+							_dbUtilitiesInstance.InsertStepImages(recipe.ID_RECIPE, no_step, $"{linkImage}.{_appUtilities.getTypeOfImage(srcImage)}");
+						}
+						catch (Exception excep)
+						{
+							Debug.WriteLine(excep.Message);
+						}
 					}
 				}
             }
 
-			notiMessageSnackbar.MessageQueue.Enqueue("Thêm món ăn thành công", "OK", () => { });
+			clearForm();
+			notiMessageSnackbar.MessageQueue.Enqueue("Thêm món ăn thành công", "BACK HOME", BackHome);
 
 			recipe = new Recipe();
 			totalStep = 0;
@@ -400,6 +425,7 @@ namespace FoodRecipes.Pages
 			{ 
 				//Do nothing	
 			}
+
 			if (minuteTextBox.Text == "")
 			{
 				minuteTextBox.Text = "0";
@@ -414,6 +440,24 @@ namespace FoodRecipes.Pages
 			}
 
 			return result;
+		}
+
+		private void clearForm()
+        {
+			recipeNameTextBox.Text = "";
+			recipeDescriptionTextBox.Text = "";
+			linkVideoTextBox.Text = "";
+			avatarImage.Source = new BitmapImage(new Uri(FindResource("IconEmptyAvt").ToString()));
+			hourTextBox.Text = "";
+			minuteTextBox.Text = "";
+			groupComboBox.SelectedIndex = 0;
+			levelComboBox.SelectedIndex = 0;
+			igredientNameTextBox.Text = "";
+			igredientQuantityTextBox.Text = "";
+			igredientsListView.ItemsSource = null;
+			detailStepTextBox.Text = "";
+			relativeImageStepListView.ItemsSource = null;
+			stepsPreviewListView.ItemsSource = null;
 		}
 
 	}
