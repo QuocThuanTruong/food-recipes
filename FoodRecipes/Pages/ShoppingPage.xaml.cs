@@ -32,7 +32,6 @@ namespace FoodRecipes.Pages
 		private List<Recipe> _shoppingRecipes = new List<Recipe>();
 
 		private int _deleteRecipeID = -1;
-		private bool _startFlag = true;
 
 		private int _sortedBy = 0;
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
@@ -46,8 +45,6 @@ namespace FoodRecipes.Pages
 
 			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByShoppingPage"]);
 			sortTypeComboBox.SelectedIndex = _sortedBy;
-
-			_startFlag = false;
 
 			_shoppingButtonItems = new List<Button>();
 
@@ -63,7 +60,7 @@ namespace FoodRecipes.Pages
 				selectedButton.Background = (SolidColorBrush)FindResource("MyYellow");
 			}
 
-			if (!_startFlag)
+			if (this.IsLoaded)
             {
 				loadRecipes();
             }
@@ -124,7 +121,7 @@ namespace FoodRecipes.Pages
 
 			foodGroupListBox.SelectedItems.Clear();
 
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				loadRecipes();
 			}
@@ -132,7 +129,7 @@ namespace FoodRecipes.Pages
 
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				_sortedBy = sortTypeComboBox.SelectedIndex;
 
@@ -247,34 +244,26 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes()
         {
-			if (!_startFlag)
-            {
-				//_shoppingButtonItems[0].Background = (SolidColorBrush)FindResource("MyRed");
+			//_shoppingButtonItems[0].Background = (SolidColorBrush)FindResource("MyRed");
 
-				string condition = getConditionInQuery();
-				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
+			string condition = getConditionInQuery();
+			_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 				
-				for (int i = 0; i < _shoppingRecipes.Count; ++i)
-				{
-					_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i]);
-				}
+			for (int i = 0; i < _shoppingRecipes.Count; ++i)
+			{
+				_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i]);
+			}
 
-				if (_shoppingRecipes.Count > 0)
-                {
-					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
-					//shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
-				}
-				else
-                {
-					shoppingRecipeListView.ItemsSource = null;
-					shoppingIgredientListView.ItemsSource = null;
-				}
+			if (_shoppingRecipes.Count > 0)
+            {
+				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+				//shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
 			}
 			else
             {
-				//Do Nothing
-            }
+				shoppingRecipeListView.ItemsSource = null;
+				shoppingIgredientListView.ItemsSource = null;
+			}
 		}
-
 	}
 }
