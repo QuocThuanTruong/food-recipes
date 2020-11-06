@@ -37,7 +37,6 @@ namespace FoodRecipes.Pages
 		private int _currentPage;
 		private int _maxPage = 0;
 		private bool _isFavorite = false;
-		private bool _startFlag = true;
 		private int _typeGridCard = 0;
 		private bool _isSearching = false;
 		private string _prevCondition = "init";
@@ -62,7 +61,6 @@ namespace FoodRecipes.Pages
 
 			_isFavorite = false;
 
-			_startFlag = false;
 			_currentPage = 1;
 	
 			loadRecipes();
@@ -84,7 +82,6 @@ namespace FoodRecipes.Pages
 
 				_isFavorite = true;
 
-				_startFlag = false;
 				_currentPage = 1;
 
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
@@ -107,7 +104,7 @@ namespace FoodRecipes.Pages
 				selectedButton.Background = (SolidColorBrush) FindResource("MyYellow");
 			}
 
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
 				loadRecipes();
@@ -169,7 +166,7 @@ namespace FoodRecipes.Pages
 
 			foodGroupListBox.SelectedItems.Clear();
 
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
 
@@ -181,7 +178,7 @@ namespace FoodRecipes.Pages
 
 		private void gridTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (!_startFlag)
+			if (this.IsLoaded)
             {
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
 
@@ -189,15 +186,13 @@ namespace FoodRecipes.Pages
 				_configuration.Save(ConfigurationSaveMode.Minimal);
 
 				loadRecipes();
-
-				//Ghi lại lên app config
 			}
 		}
 
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
-			if (!_startFlag)
+			if (this.IsLoaded)
             {
 				_sortedBy = sortTypeComboBox.SelectedIndex;
 
