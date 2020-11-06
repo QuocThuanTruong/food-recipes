@@ -159,7 +159,7 @@
 
                     <!-- Binding data -->
                     <Image Name="recipeAvatarImage"
-                       Source="{Binding LINK_AVATAR}"
+                       Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"
                        Width="330"
                        Height="388"
                        Stretch="UniformToFill">

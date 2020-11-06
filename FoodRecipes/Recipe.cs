@@ -21,22 +21,24 @@ namespace FoodRecipes
             this.Steps = new HashSet<Step>();
             this.IMAGES_LIST_FOR_BINDING = new List<StepImage>();
         }
-    
         public int ID_RECIPE { get; set; }
         public string NAME { get; set; }
         public string DESCRIPTION { get; set; }
         public string LINK_VIDEO { get; set; }
         public string LINK_AVATAR { get; set; }
-        public string TIME { get; set; }
+        public Nullable<int> TIME { get; set; }
         public string FOOD_GROUP { get; set; }
-        public string FOOD_LEVEL { get; set; }
-        public List<Igredient> IGREDIENT_LIST_FOR_BINDING { get; set; }
-        public List<Step> STEP_LIST_FOR_BINDING { get; set; }
-        public List<StepImage> IMAGES_LIST_FOR_BINDING { get; set; }
+        public Nullable<int> FOOD_LEVEL { get; set; }
         public Nullable<bool> SHOPPING_FLAG { get; set; }
         public Nullable<bool> FAVORITE_FLAG { get; set; }
         public Nullable<System.DateTime> ADD_DATE { get; set; }
-    
+        public List<Igredient> IGREDIENT_LIST_FOR_BINDING { get; set; }
+        public List<Step> STEP_LIST_FOR_BINDING { get; set; }
+        public List<StepImage> IMAGES_LIST_FOR_BINDING { get; set; }
+        public string TIME_FOR_BINDING { get; set; }
+        public string FOOD_LEVEL_FOR_BINDING { get; set; }
+        public string NAME_FOR_BINDING { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Igredient> Igredients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

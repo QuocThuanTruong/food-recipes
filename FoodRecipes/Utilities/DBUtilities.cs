@@ -13,14 +13,15 @@ namespace FoodRecipes.Utilities
         private DBUtilities() { }
 
         private static DBUtilities _dbInstance;
-        private static FoodRecipeEntities _dbFoodRecipe;
+        private static FoodRecipeEntities1 _dbFoodRecipe;
+        //private AppUtilities _appUtilities = new AppUtilities();
 
         public static DBUtilities GetDBInstance()
         {
             if (_dbInstance == null)
             {
                 _dbInstance = new DBUtilities();
-                _dbFoodRecipe = new FoodRecipeEntities();
+                _dbFoodRecipe = new FoodRecipeEntities1();
             }
             else
             {
@@ -40,9 +41,13 @@ namespace FoodRecipes.Utilities
             return result;
         }
 
-        public IQueryable<GetRecipeById_Result> GetRecipeById(Nullable<int> id_recipe)
+        public Recipe GetRecipeById(Nullable<int> id_recipe)
         {
-            var result = _dbFoodRecipe.GetRecipeById(id_recipe);
+            var query = $"SELECT * FROM RECIPE WHERE ID_RECIPE = {id_recipe}";
+            var result = _dbFoodRecipe
+                .Database
+                .SqlQuery<Recipe>(query)
+                .Single();
 
             return result;
         }
@@ -50,41 +55,6 @@ namespace FoodRecipes.Utilities
         public IQueryable<GetAllFromRecipe_Result> GetAllFromRecipe()
         {
             var result = _dbFoodRecipe.GetAllFromRecipe();
-
-            return result;
-        }
-
-        public IQueryable<GetIDRecipeByFavoriteFlag_Result> GetIDRecipeByFavoriteFlag(Nullable<bool> favorite_flag)
-        {
-            var result = _dbFoodRecipe.GetIDRecipeByFavoriteFlag(favorite_flag);
-
-            return result;
-        }
-
-        public IQueryable<GetIDRecipeByFoodGroup_Result> GetIDRecipeByFoodGroup(string food_group)
-        {
-            var result = _dbFoodRecipe.GetIDRecipeByFoodGroup(food_group);
-
-            return result;
-        }
-
-        public IQueryable<GetIDRecipeByFoodLevel_Result> GetIDRecipeByFoodLevel(string food_level)
-        {
-            var result = _dbFoodRecipe.GetIDRecipeByFoodLevel(food_level);
-
-            return result;
-        }
-
-        public IQueryable<GetIDRecipeByShoppingFlag_Result> GetIDRecipeByShoppingFlag(Nullable<bool> shopping_flag)
-        {
-            var result = _dbFoodRecipe.GetIDRecipeByShoppingFlag(shopping_flag);
-
-            return result;
-        }
-
-        public IQueryable<GetIDRecipeByTime_Result> GetIDRecipeByTime(string time)
-        {
-            var result = _dbFoodRecipe.GetIDRecipeByTime(time);
 
             return result;
         }
@@ -110,21 +80,14 @@ namespace FoodRecipes.Utilities
             return result;
         }
 
-        public IQueryable<GetRecipeByPage_Result> GetRecipeByPage(Nullable<int> current_page, Nullable<int> total_recipe_per_page)
-        {
-            var result = _dbFoodRecipe.GetRecipeByPage(current_page, total_recipe_per_page);
-
-            return result;
-        }
-
         public int InsertRecipe(Nullable<int> id_recipe, 
                                 string name, 
                                 string description, 
                                 string link_video, 
                                 string link_avatar, 
-                                string time, 
+                                Nullable<int> time, 
                                 string food_group, 
-                                string food_level, 
+                                Nullable<int> food_level, 
                                 Nullable<bool> shopping_flag, 
                                 Nullable<bool> favorite_flag, 
                                 Nullable<System.DateTime> add_date)
@@ -190,9 +153,66 @@ namespace FoodRecipes.Utilities
             return result;
         }
 
-        public List<GetAllFromRecipe_Result> GetRecipesSearchResult(string search_text)
+        //(SELECT * FROM [dbo].[Recipe] ORDER BY [ADD_DATE] DESC OFFSET (@current_page - 1)*@total_recipe_per_page ROWS FETCH NEXT @total_recipe_per_page ROWS ONLY);
+    
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="condition"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="totalRecipePerPage"></param>
+        /// <returns></returns>        
+        public (List<Recipe>, int) ExecQureyToGetRecipes(string condition, (string column, string type) sortedBy, int currentPage, int totalRecipePerPage)
         {
-            List<GetAllFromRecipe_Result> result = new List<GetAllFromRecipe_Result>();
+            (List<Recipe> recipesResult, int totalRecipe) result;
+            List<Recipe> recipesResult = new List<Recipe>();
+            int totalRecipe = 0;
+
+            string query = "";
+
+            if (condition.Length > 0)
+            {
+                query = $"SELECT COUNT(ID_RECIPE) FROM [dbo].[Recipe] WHERE {condition}";
+            }
+            else
+            {
+                query = $"SELECT COUNT(ID_RECIPE) FROM [dbo].[Recipe]";
+            }
+
+            totalRecipe = _dbFoodRecipe
+                .Database
+                .SqlQuery<int>(query)
+                .Single();
+
+            if (totalRecipe > 0)
+            { 
+                query = query.Replace("COUNT(ID_RECIPE)", "*");
+                query += $" ORDER BY [{sortedBy.column}] {sortedBy.type} OFFSET {currentPage - 1}*{totalRecipePerPage} ROWS FETCH NEXT {totalRecipePerPage} ROWS ONLY";
+
+                recipesResult = _dbFoodRecipe
+                .Database
+                .SqlQuery<Recipe>(query)
+                .ToList();
+            }
+
+            result.recipesResult = recipesResult;
+            result.totalRecipe = totalRecipe;
+
+            return result;
+        }
+
+        /*
+         select *
+         from SearchByName(N'Bò') as search inner join Recipe as r on search.ID_RECIPE = r.ID_RECIPE
+         where r.FOOD_GROUP = N'Ăn sáng' OR r.FOOD_GROUP = N'Ăn vặt'
+         ORDER BY [ADD_DATE] DESC OFFSET 0 ROWS FETCH NEXT 12 ROWS ONLY
+        */
+        public (List<Recipe>, int) GetRecipesSearchResult(string search_text, string condition, (string column, string type) sortedBy, int currentPage, int totalRecipePerPage)
+        {
+            (List<Recipe> recipesSearchResultList, int totalRecipeSearch) result; 
+            List<Recipe> recipesSearchResultList = new List<Recipe>();
+            int totalRecipeSearch = 0;
 
             //Nhìn ở trên app thì cũng ngon đấy. Chứ đâu ai biết ở dưới app gồng mình catch exception
             try
@@ -209,26 +229,49 @@ namespace FoodRecipes.Utilities
                 //:V lấy hết and, or, and not đẩy vô queue.
                 Queue<int> operators = GetListOperator(search_text);
 
-                //Lấy hết cái danh sách ra.
-                var recipes = GetAllFromRecipe();
-
                 //Nếu số ngoặc kép " là lẻ thì để khỏi crash. thay " thành # :). Best sửa.
                 //Tại sao lại là keywords.Count. Vì lúc lấy cái keywords ra thì chỉ có kết quả khi số " là chẵn. còn nếu " lẻ thì keywords sẽ k có phần tử nào.
                 if (keywords.Count == 0)
                 {
                     search_text = search_text.Replace("\"", "#");
 
-                    //Thay xong rồi thì tìm bình thường thôi
-                    var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
+                    string query = "";
 
-                    foreach (var recipeSearchResult in recipesSearchResult)
+                    if (condition.Length > 0)
                     {
-                        var recipe = from r in recipes
-                                     where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
-                                     select r;
-
-                        result.Add(recipe.FirstOrDefault());
+                        query = $"SELECT COUNT(ID_RECIPE) FROM SearchByName(N'{search_text}') WHERE {condition}";
                     }
+                    else
+                    {
+                        query = $"SELECT COUNT(ID_RECIPE) FROM SearchByName(N'{search_text}')";
+                    }
+
+                    totalRecipeSearch = _dbFoodRecipe
+                        .Database
+                        .SqlQuery<int>(query)
+                        .Single();
+
+                    if (totalRecipeSearch > 0)
+                    {
+                        query = query.Replace("COUNT(ID_RECIPE)", "*");
+                        query += $" ORDER BY [{sortedBy.column}] {sortedBy.type} OFFSET {currentPage - 1}*{totalRecipePerPage} ROWS FETCH NEXT {totalRecipePerPage} ROWS ONLY";
+
+                        recipesSearchResultList = _dbFoodRecipe
+                        .Database
+                        .SqlQuery<Recipe>(query)
+                        .ToList();
+                    }
+
+                    //Thay xong rồi thì tìm bình thường thôi
+                    //var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
+
+                    //foreach (var recipeSearchResult in recipesSearchResult)
+                    //{
+                    //    var recipe = from r in recipes
+                    //                 where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
+                    //                 select r;
+                    //    recipesSearchResultList.Add(recipe.FirstOrDefault());
+                    //}
 
                 }
                 //Điều kiện này tại có nhiều khi nguòi ta chỉ nhập "ab" mà không có toán tử and, or, and not á. thì cũng tìm bình thường á.
@@ -278,44 +321,48 @@ namespace FoodRecipes.Utilities
                         //Bắt đầu quá trình thực hiện phép toán tìm kiếm
                         foreach (var param1 in params1)
                         {
+                            string query = "";
                             //Tìm DeathID
                             if (operatorStr == "and not")
                             {
                                 string deathSearchText = param1 + " " + "and" + " " + param2;
 
-                                var tempRecipesSearchResultDeath = SearchByName(deathSearchText);
+                                //var tempRecipesSearchResultDeath = SearchByName(deathSearchText);
+                                query = $"SELECT * FROM SearchByName(N'{deathSearchText}')";
+
+                                var tempRecipesSearchResultDeath = _dbFoodRecipe
+                                                                .Database
+                                                                .SqlQuery<Recipe>(query)
+                                                                .ToList();
 
                                 foreach (var tempRecipeSearchResultDeath in tempRecipesSearchResultDeath)
                                 {
-                                    var recipe = from r in recipes
-                                                 where r.ID_RECIPE == tempRecipeSearchResultDeath.ID_RECIPE
-                                                 select r;
-
-                                    deathID.Add(recipe.FirstOrDefault().ID_RECIPE);
+                                    deathID.Add(tempRecipeSearchResultDeath.ID_RECIPE);
                                 }
                             }
 
                             //Thực hiện tìm lần lượt nào
                             string tempSearchText = param1 + " " + operatorStr + " " + param2;
 
-                            var tempRecipesSearchResult = SearchByName(tempSearchText);
+                            query = $"SELECT * FROM SearchByName(N'{tempSearchText}')";
+
+                            var tempRecipesSearchResult = _dbFoodRecipe
+                                                        .Database
+                                                        .SqlQuery<Recipe>(query)
+                                                        .ToList();
 
                             count += tempRecipesSearchResult.Count();
 
                             foreach (var tempRecipeSearchResult in tempRecipesSearchResult)
                             {
-                                var recipe = from r in recipes
-                                             where r.ID_RECIPE == tempRecipeSearchResult.ID_RECIPE
-                                             select r;
-
                                 if (operators.Count == 0)
                                 {
-                                    tempIDsResult.Add(recipe.FirstOrDefault().ID_RECIPE);
+                                    tempIDsResult.Add(tempRecipeSearchResult.ID_RECIPE);
                                 }
                                 else
                                 {
                                     //Add cái tên mới tìm ra để tí kết vào tìm theo operator sau tiếp
-                                    tempKeyWords.Add("\"" + recipe.FirstOrDefault().NAME + "\"");
+                                    tempKeyWords.Add("\"" + tempRecipeSearchResult.NAME + "\"");
                                 }
 
                             }
@@ -323,47 +370,114 @@ namespace FoodRecipes.Utilities
                             while (tempKeyWords.Count > 0)
                             {
                                 keywords.Push(tempKeyWords.First());
-
                                 tempKeyWords.Remove(tempKeyWords.First());
                             }
                         }
                     }
 
                     //Lấy kểt quả cuối
-                    while (tempIDsResult.Count > 0)
+                    bool hasConditionBefore = (condition.Length > 0 ? true : false);
+                    string resultQuery = "";
+
+                    if (tempIDsResult.Count > 0)
                     {
-                        int tempID = tempIDsResult.First();
-
-                        tempIDsResult.Remove(tempID);
-
-                        if (!deathID.Contains(tempID))
+                        if (condition.Length > 0)
                         {
-                            var recipe = from r in recipes
-                                         where r.ID_RECIPE == tempID
-                                         select r;
-
-                            result.Add(recipe.FirstOrDefault());
+                            condition += " AND (";
                         }
                         else
                         {
                             //Do Nothing
                         }
 
+                        foreach (var tempID in tempIDsResult)
+                        {
+                            if (!deathID.Contains(tempID))
+                            {
+                                condition += $" ID_RECIPE = {tempID} OR";
+                            }
+                            else
+                            {
+                                //Do Nothing
+                            }
+                        }
+
+                        if (condition.Length > 0)
+                        {
+                            //Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1 AND (FOOD_GROUP = N'Ăn sáng' OR FOOD_GROUP = N'Món chính')
+                            //Select * from [dbo].[Recipe] where FOOD_GROUP = N'Ăn sáng'
+                            condition = condition.Substring(0, condition.Length - 3);
+
+                            if (hasConditionBefore)
+                            {
+                                condition += ")";
+                            }
+                            else
+                            {
+                                //Do Nothing
+                            }
+
+                            if (condition.Length > 0)
+                            {
+                                resultQuery = $"SELECT COUNT(ID_RECIPE) FROM RECIPE WHERE {condition}";
+                            }
+                        }
+                        else
+                        {
+                            //Do Nothing
+                        }
+
+                        totalRecipeSearch = _dbFoodRecipe
+                            .Database
+                            .SqlQuery<int>(resultQuery)
+                            .Single();
+
+                        if (totalRecipeSearch > 0)
+                        {
+                            resultQuery = resultQuery.Replace("COUNT(ID_RECIPE)", "*");
+                            resultQuery += $" ORDER BY [{sortedBy.column}] {sortedBy.type} OFFSET {currentPage - 1}*{totalRecipePerPage} ROWS FETCH NEXT {totalRecipePerPage} ROWS ONLY";
+
+                            recipesSearchResultList = _dbFoodRecipe
+                            .Database
+                            .SqlQuery<Recipe>(resultQuery)
+                            .ToList();
+                        }
+                    }
+                    else
+                    {
+                        //Do Nothing
                     }
 
-                }
+                    
 
+                }
                 else
                 {
-                    var recipesSearchResult = SearchByName(search_text).OrderByDescending(r => r.RANK);
+                    string query = "";
 
-                    foreach (var recipeSearchResult in recipesSearchResult)
+                    if (condition.Length > 0)
                     {
-                        var recipe = from r in recipes
-                                     where r.ID_RECIPE == recipeSearchResult.ID_RECIPE
-                                     select r;
+                        query = $"SELECT COUNT(ID_RECIPE) FROM SearchByName(N'{search_text}') WHERE {condition}";
+                    }
+                    else
+                    {
+                        query = $"SELECT COUNT(ID_RECIPE) FROM SearchByName(N'{search_text}')";
+                    }
 
-                        result.Add(recipe.FirstOrDefault());
+                    totalRecipeSearch = _dbFoodRecipe
+                        .Database
+                        .SqlQuery<int>(query)
+                        .Single();
+
+                    if (totalRecipeSearch > 0)
+                    {
+                        query = query.Replace("COUNT(ID_RECIPE)", "*");
+                        query += $" ORDER BY [{sortedBy.column}] {sortedBy.type} OFFSET {currentPage - 1}*{totalRecipePerPage} ROWS FETCH NEXT {totalRecipePerPage} ROWS ONLY";
+
+                        recipesSearchResultList = _dbFoodRecipe
+                        .Database
+                        .SqlQuery<Recipe>(query)
+                        .ToList();
                     }
                 }
             }
@@ -372,11 +486,13 @@ namespace FoodRecipes.Utilities
                 Debug.WriteLine(ex.InnerException);
             }
 
+            result.recipesSearchResultList = recipesSearchResultList;
+            result.totalRecipeSearch = totalRecipeSearch;
+
             return result;
         }
 
-        //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
-        private string GetStandardString(string srcString)
+        public string GetStandardString(string srcString)
         {
             string result = srcString;
 
@@ -393,7 +509,7 @@ namespace FoodRecipes.Utilities
         }
 
         //Lấy cái list KeyWord để search nè.
-        private Stack<string> GetListKeyWords(string search_text)
+        public Stack<string> GetListKeyWords(string search_text)
         {
             Stack<string> result = new Stack<string>();
             Stack<string> temp = new Stack<string>();
@@ -440,7 +556,7 @@ namespace FoodRecipes.Utilities
         }
 
         //Lấy cái list toán tử nè 
-        private Queue<int> GetListOperator(string search_text)
+        public Queue<int> GetListOperator(string search_text)
         {
             Queue<int> result = new Queue<int>();
 
@@ -464,6 +580,26 @@ namespace FoodRecipes.Utilities
                     result.Enqueue(2);
                 }
             }
+            return result;
+        }
+
+        public List<Recipe> GetShoppingRecipes(string condition, (string column, string type) sortedBy) {
+            List<Recipe> result = new List<Recipe>();
+            string query = "";
+            if (condition.Length > 0)
+            {
+                query = $"SELECT * FROM RECIPE WHERE SHOPPING_FLAG = 1 AND {condition} ORDER BY [{sortedBy.column}] {sortedBy.type}";
+            }
+            else
+            {
+                query = $"SELECT * FROM RECIPE WHERE SHOPPING_FLAG = 1 ORDER BY [{sortedBy.column}] {sortedBy.type}";
+            }
+           
+            result = _dbFoodRecipe
+                    .Database
+                    .SqlQuery<Recipe>(query)
+                    .ToList();
+
             return result;
         }
     }

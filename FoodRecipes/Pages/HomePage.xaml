@@ -86,7 +86,7 @@
                                  Margin="0, 8, 10, 0"
                                  Style="{StaticResource SearchTextBox}"
                                  materialDesign:HintAssist.Hint="{x:Static loc:Resources.hint_text_search}"
-                                 Grid.Column="1"/>
+                                 Grid.Column="1" TextChanged="searchTextBox_TextChanged"/>
 
                         <Button Name="filterButton"
                                      Grid.Column="2"
@@ -146,10 +146,10 @@
 
                         <ComboBox Name="sortTypeComboBox"
                                   SelectionChanged="sortTypeComboBox_SelectionChanged"
+                                  SelectedIndex="0"
                                   Style="{StaticResource SearchBoxComboBox}"
                                   ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                   Height="30"
-                                  SelectedIndex="0"
                                   BorderBrush="{DynamicResource MyBlack}"
                                   BorderThickness="0"
                                   materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
@@ -307,7 +307,7 @@
                                                Grid.Column="1"/>
                                 </Grid>
                             </ComboBoxItem>
-                            
+
                             <ComboBoxItem Name="sortByAscLevel">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -328,7 +328,6 @@
                                                Grid.Column="1"/>
                                 </Grid>
                             </ComboBoxItem>
-
                         </ComboBox>
                     </StackPanel>
                 </materialDesign:Card>
@@ -760,10 +759,12 @@
 
                                     <!-- Binding ischecked -->
                                     <ToggleButton Name="favButton"
+                                                  Click="favButton_Click"
+                                                  Tag="{Binding ID_RECIPE}"
                                                   VerticalAlignment="Center"
                                                   Width="35"
                                                   Height="35"
-                                                  IsChecked="{Binding FAVORITE_FLAG}"
+                                                  IsChecked="{Binding FAVORITE_FLAG}" 
                                                   Background="Transparent"
                                                   BorderThickness="0"
                                                   Style="{StaticResource MaterialDesignActionToggleButton}">
@@ -829,7 +830,7 @@
                                            FontFamily="{StaticResource GilroyMedium}"
                                            FontSize="10"
                                            Foreground="{DynamicResource MyLightGray2}"
-                                           Text="{Binding TIME}"/>
+                                           Text="{Binding TIME_FOR_BINDING}"/>
 
                                         <Image Name="iconGroup"
                                                Grid.Column="3"
@@ -870,7 +871,7 @@
                                                VerticalAlignment="Center"
                                                Style="{StaticResource RegularText}"
                                                Foreground="{DynamicResource MyLightGray2}"
-                                               Text="{Binding FOOD_LEVEL}"/>
+                                               Text="{Binding FOOD_LEVEL_FOR_BINDING}"/>
                                 </StackPanel>
                             </Grid>
                         </Button>
@@ -904,7 +905,7 @@
                                    Width="95"
                                    Height="95"
                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                   Source="{Binding LINK_AVATAR}"/>
+                                   Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"/>
                         </materialDesign:Card>
 
                     </Grid>

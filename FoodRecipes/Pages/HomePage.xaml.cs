@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FoodRecipes.Utilities;
 using FoodRecipes.Converter;
+using System.Windows.Controls.Primitives;
+using System.Configuration;
 
 namespace FoodRecipes.Pages
 {
@@ -30,21 +32,39 @@ namespace FoodRecipes.Pages
 
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private AppUtilities _appUtilities = new AppUtilities();
-		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
+		private Configuration _configuration;
 
 		private int _currentPage;
 		private int _maxPage = 0;
 		private bool _isFavorite = false;
+		private int _typeGridCard = 0;
+		private bool _isSearching = false;
+		private string _prevCondition = "init";
+		private int _sortedBy = 0;
+
+		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
+																	 ("NAME", "ASC"), ("NAME", "DESC"),
+																	 ("TIME", "DESC"), ("TIME", "ASC"),
+																	 ("FOOD_LEVEL", "DESC"), ("FOOD_LEVEL", "ASC")};
 
 		public HomePage()
 		{
 			InitializeComponent();
 
-			_currentPage = 1;
-			_maxPage = getMaxPage();
+			_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
+			_typeGridCard = int.Parse(ConfigurationManager.AppSettings["GridType"]);
+			gridTypeComboBox.SelectedIndex = _typeGridCard;
+
+			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByHomePage"]);
+			sortTypeComboBox.SelectedIndex = _sortedBy;
+
+			_isFavorite = false;
+
+			_currentPage = 1;
+	
 			loadRecipes();
-		}
+		} 
 
 		public HomePage(bool isFavorite)
 		{
@@ -52,10 +72,19 @@ namespace FoodRecipes.Pages
 
 			if (isFavorite)
 			{
+				_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+				_typeGridCard = int.Parse(ConfigurationManager.AppSettings["GridType"]);
+				gridTypeComboBox.SelectedIndex = _typeGridCard;
+
+				_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByHomePage"]);
+				sortTypeComboBox.SelectedIndex = _sortedBy;
+
 				_isFavorite = true;
 
 				_currentPage = 1;
-				_maxPage = getMaxPage();
+
+				_typeGridCard = gridTypeComboBox.SelectedIndex;
 
 				loadRecipes();
 			}	
@@ -74,6 +103,12 @@ namespace FoodRecipes.Pages
 
 				selectedButton.Background = (SolidColorBrush) FindResource("MyYellow");
 			}
+
+			if (this.IsLoaded)
+			{
+				_typeGridCard = gridTypeComboBox.SelectedIndex;
+				loadRecipes();
+			}
 		}
 
 		private void groupButton_Click(object sender, RoutedEventArgs e)
@@ -91,7 +126,7 @@ namespace FoodRecipes.Pages
 			}
 			else
 			{
-				foodGroupListBox.SelectedItems.Add(clickedItem);
+				foodGroupListBox.SelectedItems.Add(clickedItem); 
 			}				
 			
 
@@ -130,16 +165,43 @@ namespace FoodRecipes.Pages
 			}
 
 			foodGroupListBox.SelectedItems.Clear();
+
+			if (this.IsLoaded)
+			{
+				_typeGridCard = gridTypeComboBox.SelectedIndex;
+
+				_prevCondition = "init";
+
+				loadRecipes();
+			}
 		}
 
 		private void gridTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if (this.IsLoaded)
+            {
+				_typeGridCard = gridTypeComboBox.SelectedIndex;
 
+				_configuration.AppSettings.Settings["GridType"].Value = _typeGridCard.ToString();
+				_configuration.Save(ConfigurationSaveMode.Minimal);
+
+				loadRecipes();
+			}
 		}
 
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+			if (this.IsLoaded)
+            {
+				_sortedBy = sortTypeComboBox.SelectedIndex;
+
+				_configuration.AppSettings.Settings["SortedByHomePage"].Value = _sortedBy.ToString();
+				_configuration.Save(ConfigurationSaveMode.Minimal);
+
+				loadRecipes();
+			}
+			
 		}
 
 		private void recipesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -149,7 +211,7 @@ namespace FoodRecipes.Pages
 
 			if (selectedItemIndex != -1)
 			{
-				selectedID = ((GetRecipeByPage_Result)recipesListView.SelectedItem).ID_RECIPE;
+				selectedID = ((Recipe)recipesListView.SelectedItem).ID_RECIPE;
 				Debug.WriteLine(selectedID);
 			}
 
@@ -191,52 +253,222 @@ namespace FoodRecipes.Pages
 
 		private void lastPageButton_Click(object sender, RoutedEventArgs e)
 		{
-			_currentPage = getMaxPage();
+			_currentPage = _maxPage;
 
 			loadRecipes();
 		}
 
-		private int getMaxPage()
+		private void favButton_Click(object sender, RoutedEventArgs e) {
+			Debug.WriteLine(((ToggleButton)sender).Tag);
+			 
+			int ID_RECIPE = int.Parse(((ToggleButton)sender).Tag.ToString());
+
+			bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
+
+			if (isFavoriteRecipe) {
+				_dbUtilities.TurnFavoriteFlagOn(ID_RECIPE);
+			} 
+			else
+            {
+				_dbUtilities.TurnFavoriteFlagOff(ID_RECIPE);
+			}
+		}
+
+		private int getMaxPage(int totalRecipe)
         {
-			var result = Math.Ceiling((double)(_dbUtilities.GetMaxIDRecipe()) / (double)getTotalRecipePerPage());
+			var result = Math.Ceiling((double)totalRecipe / (double)getTotalRecipePerPage());
 
 			return (int)result;
 		}
 		private int getTotalRecipePerPage()
         {
-			var totalRecipePerPageString = gridTypeComboBox.Text;
+			int[] typeGridCardView = { 12, 16, 30 };
 
-			string[] paramsRowXColum = totalRecipePerPageString.Split('x');
-			var result = int.Parse(paramsRowXColum[0]) * int.Parse(paramsRowXColum[1]);
+			var result = typeGridCardView[_typeGridCard];
+
+			Debug.WriteLine(result);
 
 			return result;
 		}
 
-		private void loadRecipes() {
-			if (!_isFavorite)
-            {
-				_maxPage = getMaxPage();
-				currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+		private string getConditionInQuery()
+		{
+			string result = "";
 
-				List<GetRecipeByPage_Result> recipes = _dbUtilities.GetRecipeByPage(_currentPage, getTotalRecipePerPage()).ToList();
+			if (_isFavorite)
+			{
+				//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1
+				result += "FAVORITE_FLAG = 1 ";
 
-				foreach (var recipe in recipes)
+				//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1 AND (
+				if (foodGroupListBox.SelectedItems.Count > 0)
 				{
-					recipe.NAME_FOR_BINDING = _appUtilities.getStandardName(recipe.NAME, false);
+					result += " AND (";
+				}
+				else
+				{
+					//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1
+				}
+			}
+			else
+			{
+				if (foodGroupListBox.SelectedItems.Count > 0)
+				{
+					result += "(";
+				}
+				else
+				{
+					//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1
+				}
+			}
 
-					recipe.LINK_AVATAR = (string)(_absolutePathConverter.Convert($"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}", null, null, null));
+			//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1 AND (FOOD_GROUP = N'Ăn sáng' OR ...
+			//Select * from [dbo].[Recipe] where FOOD_GROUP = N'Ăn sáng' OR
+			string[] foodGroups = { "Ăn sáng", "Ăn vặt", "Healthy", "Món chính", "Món chay", "Thức uống" };
+			foreach (var foodGroupListBoxSelectedItem in foodGroupListBox.SelectedItems)
+			{
+				var selectedButton = ((Button)foodGroupListBoxSelectedItem);
+				int index = int.Parse(selectedButton.Tag.ToString());
+				result += $" FOOD_GROUP = N\'{foodGroups[index]}\' OR";
+			}
 
-					Debug.WriteLine(recipe.LINK_AVATAR);
+			if (result.Length > 0)
+			{
+				//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1 AND (FOOD_GROUP = N'Ăn sáng'
+				//Select * from [dbo].[Recipe] where FOOD_GROUP = N'Ăn sáng'
+				result = result.Substring(0, result.Length - 3);
+
+				if (_isFavorite)
+				{
+					//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1 AND (FOOD_GROUP = N'Ăn sáng')
+					if (foodGroupListBox.SelectedItems.Count > 0)
+					{
+						result += ")";
+					}
+					//Select * from [dbo].[Recipe] where FAVORITE_FLAG = 1
+					else
+					{
+						result += "1";
+					}
+				}
+				else
+				{
+					if (foodGroupListBox.SelectedItems.Count > 0)
+					{
+						result += ")";
+					}
+				}
+			}
+
+			return result;
+        }
+
+		private void loadRecipes() {
+			if (!_isSearching)
+            {
+				string condition = getConditionInQuery();
+
+				if (_prevCondition != condition) {
+					_currentPage = 1;
+					_prevCondition = condition;
+				} 
+				else
+                {
+					//Do Nothing
+                }
+
+				(List<Recipe> recipes, int totalRecipeResult) resultQuery = _dbUtilities.ExecQureyToGetRecipes(condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
+
+				_maxPage = getMaxPage(resultQuery.totalRecipeResult);
+				if (_maxPage == 0)
+				{
+					_maxPage = 1;
+					_currentPage = 1;
+				}
+				else
+				{
+					//Do nothing
+				}
+
+				currentPageTextBlock.Text = $"{_currentPage} of {_maxPage}";
+
+				List<Recipe> recipes = resultQuery.recipes;
+
+				for (int i = 0; i < recipes.Count; ++i)
+				{
+					recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
 				}
 
 				recipesListView.ItemsSource = recipes;
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Có {resultQuery.totalRecipeResult} kết quả phù hợp", "OK", () => { });
 			}
+
 			else
             {
-
-            }
-
-	
+				searchTextBox_TextChanged(null, null);
+			}
 		}
-	}
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+			string search_text = searchTextBox.Text;
+
+			if (search_text.Length != 0)
+			{
+				_isSearching = true;
+
+				string condition = getConditionInQuery();
+
+				if (_prevCondition != condition)
+				{
+					_currentPage = 1;
+					_prevCondition = condition;
+				}
+				else
+				{
+					//Do Nothing
+				}
+
+				(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(search_text, condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
+
+				_maxPage = getMaxPage(recipesSearchResults.totalRecipeResult);
+				if (_maxPage == 0)
+				{
+					_maxPage = 1;
+					_currentPage = 1;
+				}
+				else
+                {
+					//Do nothing
+                }
+
+				currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+
+				List<Recipe> recipes = recipesSearchResults.recipes;
+				if (recipes.Count > 0)
+				{
+					for (int i = 0; i < recipes.Count; ++i)
+					{
+						recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
+					}
+
+					recipesListView.ItemsSource = recipes;
+
+					notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+				}
+				else
+				{
+					recipesListView.ItemsSource = null;
+				}
+
+			}
+			else
+			{
+				_isSearching = false;
+
+				loadRecipes();
+			}
+		}
+    }
 }
