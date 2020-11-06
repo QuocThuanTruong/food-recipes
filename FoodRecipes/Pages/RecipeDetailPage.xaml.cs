@@ -206,5 +206,12 @@ namespace FoodRecipes.Pages
         {
 
         }
-    }
+
+		private void imageRecipeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Debug.WriteLine(imageRecipeListView.SelectedIndex);
+			CarouselDialog carouselDialog = new CarouselDialog();
+			carouselDialog.Show();
+		}
+	}
 }
