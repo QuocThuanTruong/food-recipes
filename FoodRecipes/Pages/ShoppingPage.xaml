@@ -544,8 +544,11 @@
                     <DataTemplate>
                         <!-- Binding tag as ID of recipe -->
                         <Button Name="shoppingCardContainer"
-                                Click="shoppingCardContainer_Click"
+                                ClickMode="Hover"
                                 Tag="{Binding ID_RECIPE}"
+                                Background="{Binding BorderBrush, 
+                                                              RelativeSource={RelativeSource FindAncestor,
+                                                              AncestorType={x:Type ListViewItem}}}"
                                 Style="{StaticResource ShoppingButton}">
 
                             <Grid Name="shoppingCardContent"

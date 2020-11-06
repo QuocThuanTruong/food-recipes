@@ -152,41 +152,22 @@ namespace FoodRecipes.Pages
 			if (shoppingRecipeListView.SelectedIndex != -1)
 			{
 				Debug.WriteLine(shoppingRecipeListView.SelectedIndex);
-				//((Button)shoppingRecipeListView.SelectedItem).Background = (SolidColorBrush)FindResource("MyRed");
-			}
-		}
 
-		private void shoppingCardContainer_Click(object sender, RoutedEventArgs e)
-		{
-			if (_deleteRecipeID == -1)
-            {
-				var selectedButton = (Button)sender;
-
-				if (!_shoppingButtonItems.Contains(selectedButton))
+				if (_deleteRecipeID == -1)
 				{
-					_shoppingButtonItems.Add(selectedButton);
-				}
+					var selectedRecipe = (Recipe)shoppingRecipeListView.SelectedItem;
 
-				foreach (var button in _shoppingButtonItems)
+					var recipe = from r in _shoppingRecipes
+								 where r.ID_RECIPE == selectedRecipe.ID_RECIPE
+								 select r;
+
+					shoppingIgredientListView.ItemsSource = recipe.First().IGREDIENT_LIST_FOR_BINDING;
+				}
+				else
 				{
-					button.Background = (SolidColorBrush)FindResource("MyOrange");
+					//Do nothing
 				}
-
-				selectedButton.Background = (SolidColorBrush)FindResource("MyRed");
-
-				var selectID = int.Parse(selectedButton.Tag.ToString());
-
-				var recipe = from r in _shoppingRecipes
-							 where r.ID_RECIPE == selectID
-							 select r;
-
-				shoppingIgredientListView.ItemsSource = recipe.First().IGREDIENT_LIST_FOR_BINDING;
 			}
-			else
-            {
-				//Do nothing
-            }
-		
 		}
 
 		private string getConditionInQuery()
@@ -224,33 +205,75 @@ namespace FoodRecipes.Pages
 		private void deleteShoppingRecipeButton_Click(object sender, RoutedEventArgs e)
 		{
 			//Test Show snack bar
+			var isChangeSelected = false;
             var selectedButton = (Button)sender;
-            _deleteRecipeID = int.Parse(selectedButton.Tag.ToString());
+			int currentSelectedID = -1;
+
+			while (currentSelectedID == -1)
+			{
+				currentSelectedID = ((Recipe)shoppingRecipeListView.SelectedItem).ID_RECIPE;
+			}	
+
+			_deleteRecipeID = int.Parse(selectedButton.Tag.ToString());
 
             var deleteRecipeName = (from r in _shoppingRecipes
                         where r.ID_RECIPE == _deleteRecipeID
 						select r).Single().NAME;
 
-			notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_appUtilities.getStandardName(deleteRecipeName, true)}", "UNDO", () => { UndoDeleteShoppingItem(); });
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_appUtilities.getStandardName(deleteRecipeName, true)}", "UNDO", () => { UndoDeleteShoppingItem(currentSelectedID); });
 
 			_dbUtilities.TurnShoppingFlagOff(_deleteRecipeID);
 
+			if (_deleteRecipeID == currentSelectedID)
+			{
+				isChangeSelected = true;
+			}
+
 			loadRecipes();
+
+			if (isChangeSelected)
+			{
+				shoppingRecipeListView.SelectedIndex = 0;
+			}
+			else
+			{
+				for (int i = 0; i < _shoppingRecipes.Count; i++)
+				{
+					if (_shoppingRecipes[i].ID_RECIPE == currentSelectedID)
+					{
+						shoppingRecipeListView.SelectedIndex = i;
+						shoppingIgredientListView.ItemsSource = _shoppingRecipes[i].IGREDIENT_LIST_FOR_BINDING;
+						break;
+					}	
+				}	
+			}	
 		}
 
-		private void UndoDeleteShoppingItem()
+		private void UndoDeleteShoppingItem(int currentSelectedID)
 		{
 			_dbUtilities.TurnShoppingFlagOn(_deleteRecipeID);
-			_deleteRecipeID = -1;
+
 			loadRecipes();
+
+			for (int i = 0; i < _shoppingRecipes.Count; i++)
+			{
+				var selectedID = (_deleteRecipeID == currentSelectedID) ? _deleteRecipeID : currentSelectedID;
+
+				if (_shoppingRecipes[i].ID_RECIPE == selectedID)
+				{
+					shoppingRecipeListView.SelectedIndex = i;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[i].IGREDIENT_LIST_FOR_BINDING;
+					break;
+				}
+			}
+
+			_deleteRecipeID = -1;
 		}
 
 		private void loadRecipes()
         {
 			if (!_startFlag)
             {
-				//_shoppingButtonItems[0].Background = (SolidColorBrush)FindResource("MyRed");
-
 				string condition = getConditionInQuery();
 				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 				
@@ -262,7 +285,7 @@ namespace FoodRecipes.Pages
 				if (_shoppingRecipes.Count > 0)
                 {
 					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
-					//shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
 				}
 				else
                 {

@@ -261,6 +261,8 @@
     <Style x:Key="ShoppingListViewItem" TargetType="ListBoxItem">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MyOrange}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -272,7 +274,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource MyRed}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="BorderBrush" Value="{DynamicResource MyOrange}"/>
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
