@@ -32,7 +32,6 @@ namespace FoodRecipes.Pages
 		private List<Recipe> _shoppingRecipes = new List<Recipe>();
 
 		private int _deleteRecipeID = -1;
-		private bool _startFlag = true;
 
 		private int _sortedBy = 0;
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
@@ -46,8 +45,6 @@ namespace FoodRecipes.Pages
 
 			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByShoppingPage"]);
 			sortTypeComboBox.SelectedIndex = _sortedBy;
-
-			_startFlag = false;
 
 			_shoppingButtonItems = new List<Button>();
 
@@ -63,7 +60,7 @@ namespace FoodRecipes.Pages
 				selectedButton.Background = (SolidColorBrush)FindResource("MyYellow");
 			}
 
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				loadRecipes();
 			}
@@ -124,7 +121,7 @@ namespace FoodRecipes.Pages
 
 			foodGroupListBox.SelectedItems.Clear();
 
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				loadRecipes();
 			}
@@ -132,7 +129,7 @@ namespace FoodRecipes.Pages
 
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				_sortedBy = sortTypeComboBox.SelectedIndex;
 
@@ -272,7 +269,7 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes()
 		{
-			if (!_startFlag)
+			if (this.IsLoaded)
 			{
 				string condition = getConditionInQuery();
 				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
