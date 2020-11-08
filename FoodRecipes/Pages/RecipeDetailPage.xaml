@@ -92,13 +92,13 @@
                     Orientation="Horizontal"
               Grid.Column="1"
               Grid.Row="1">
-            
+
             <Image Name="iconClock"
                    Width="12"
                    Height="12"
                    Source="{StaticResource IconOrangeClock}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
-            
+
             <!-- Binding data -->
             <TextBlock Name="timeRecipeTextBlock"
                        Margin="6, 0, 8, 0"
@@ -169,7 +169,7 @@
                 <materialDesign:ColorZone.Effect>
                     <DropShadowEffect BlurRadius="10" 
                                           ShadowDepth="1" 
-                                          Color="Orange" 
+                                          Color="Red" 
                                           Opacity="0.4" 
                                           RenderingBias="Performance" />
                 </materialDesign:ColorZone.Effect>
@@ -177,7 +177,7 @@
                 <Button Name="addShoppingButton"
                         Click="addShoppingButton_Click"
                         Width="110"
-                        Style="{StaticResource RecipeButton}"
+                        Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="14"
                         Height="28"                        
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
@@ -192,7 +192,7 @@
                 </Button>
             </materialDesign:ColorZone>
         </Grid>
-        
+
         <ListView Name="igredientsListView"
                   ItemsSource="{Binding IGREDIENT_LIST_FOR_BINDING}"
                   Grid.Column="1"
@@ -229,9 +229,9 @@
                    Style="{StaticResource MediumHeaderText}"
                    Text="{x:Static loc:Resources.title_image_video}"/>
 
-
-        <!-- Image recipe list view -->
+            <!-- Image recipe list view -->
         <ListView Name="imageRecipeListView"
+                  SelectionChanged="imageRecipeListView_SelectionChanged"
                   ItemsSource="{Binding IMAGES_LIST_FOR_BINDING}"
                   Margin="0, -8, 0, 0"
                   ItemContainerStyle="{StaticResource ImageRecipeListViewItem}"
@@ -246,11 +246,15 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
+
                     <!-- Binding data -->
                     <Image Name="foodRecipeImage"
-                           Width="92"
-                           Height="92"
-                           Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
+                       Width="92"
+                       Height="92"
+                       Stretch="UniformToFill"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
+                     
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -272,9 +276,8 @@
                                  HorizontalAlignment="Left"
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="0, 0, 0, 8"
-                                 Width="200"
                                  IsActive="False"
-                                 Grid.Column="1"
+                                 Grid.Column="3"
                                  Grid.Row="7"
                                  Grid.RowSpan="3">
         </materialDesign:Snackbar>
@@ -370,6 +373,8 @@
                                     <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Stretch="UniformToFill"
                                            Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

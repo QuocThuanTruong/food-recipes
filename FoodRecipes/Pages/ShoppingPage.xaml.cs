@@ -269,8 +269,7 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes()
 		{
-			if (this.IsLoaded)
-			{
+			
 				string condition = getConditionInQuery();
 				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 
@@ -289,12 +288,6 @@ namespace FoodRecipes.Pages
 					shoppingRecipeListView.ItemsSource = null;
 					shoppingIgredientListView.ItemsSource = null;
 				}
-			}
-			else
-			{
-				//Do Nothing
-			}
-		}
-
+		}		
 	}
 }
