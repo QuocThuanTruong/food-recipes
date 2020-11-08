@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
 using System.IO;
 using FoodRecipes.Converter;
+using System.Diagnostics;
 
 namespace FoodRecipes.Utilities
 {
@@ -63,7 +64,14 @@ namespace FoodRecipes.Utilities
         public void createIDDirectory(int ID) {
             string path = (string)(_absolutePathConverter.Convert($"Images/{ID}", null, null, null));
 
-            Directory.CreateDirectory(path);
+            if (Directory.Exists(path))
+            {
+                Array.ForEach(Directory.GetFiles(path), delegate(string filePath) { File.Delete(filePath); });
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile) {
@@ -113,7 +121,7 @@ namespace FoodRecipes.Utilities
             Recipe result = new Recipe();
 
             result.ID_RECIPE = recipe.ID_RECIPE;
-            result.NAME = recipe.NAME;
+            result.NAME = recipe.NAME.ToUpper();
             result.DESCRIPTION = recipe.DESCRIPTION;
             result.LINK_VIDEO = recipe.LINK_VIDEO;
             result.LINK_AVATAR = $"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}";

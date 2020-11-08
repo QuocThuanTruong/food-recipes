@@ -51,7 +51,7 @@ namespace FoodRecipes.Pages
 			recipe = _appUtilities.getRecipeForBindingInRecipeDetail(recipe);
 
 			playVideoTutorial(recipe.LINK_VIDEO);
-	
+
 			mainContainer.DataContext = recipe;
 		}
 

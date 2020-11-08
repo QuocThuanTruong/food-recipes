@@ -45,15 +45,23 @@ namespace FoodRecipes
 			InitializeComponent();
 
 			int maxID = _dbUtilities.GetMaxIDRecipe();
-			int randomIndex = _rng.Next(maxID) + 1;
 
-			Recipe recipe = _dbUtilities.GetRecipeById(randomIndex);
-			recipe = _appUtilities.getRecipeForBindingInHomePage(recipe);
+			if (maxID > 0)
+            {
+				int randomIndex = _rng.Next(maxID) + 1;
 
-			recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
-			recipe.LINK_AVATAR = $"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}";
+				Recipe recipe = _dbUtilities.GetRecipeById(randomIndex);
+				recipe = _appUtilities.getRecipeForBindingInHomePage(recipe);
 
-			DataContext = recipe;
+				recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
+				recipe.LINK_AVATAR = $"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}";
+
+				DataContext = recipe;
+			}
+			else
+            {
+				//Do nothing
+            }
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -378,6 +378,7 @@ namespace FoodRecipes.Pages
                 }
 
 				(List<Recipe> recipes, int totalRecipeResult) resultQuery = _dbUtilities.ExecQureyToGetRecipes(condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
+				List<Recipe> recipes = resultQuery.recipes;
 
 				_maxPage = getMaxPage(resultQuery.totalRecipeResult);
 				if (_maxPage == 0)
@@ -392,16 +393,22 @@ namespace FoodRecipes.Pages
 
 				currentPageTextBlock.Text = $"{_currentPage} of {_maxPage}";
 
-				List<Recipe> recipes = resultQuery.recipes;
+				if (recipes.Count() > 0)
+                {
+					for (int i = 0; i < recipes.Count; ++i)
+					{
+						recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
+					}
 
-				for (int i = 0; i < recipes.Count; ++i)
-				{
-					recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
+					recipesListView.ItemsSource = recipes;
+
+					notiMessageSnackbar.MessageQueue.Enqueue($"Có {resultQuery.totalRecipeResult} kết quả phù hợp", "OK", () => { });
 				}
-
-				recipesListView.ItemsSource = recipes;
-
-				notiMessageSnackbar.MessageQueue.Enqueue($"Có {resultQuery.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+				else
+                {
+					recipesListView.ItemsSource = null;
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không kết quả phù hợp", "OK", () => { });
+				}
 			}
 
 			else
