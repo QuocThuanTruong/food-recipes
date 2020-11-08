@@ -244,6 +244,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CarouselDialog.xaml.cs">
+      <DependentUpon>CarouselDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recipe.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -267,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddRecipePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CarouselDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
