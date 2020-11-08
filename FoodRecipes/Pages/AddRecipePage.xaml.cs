@@ -21,6 +21,7 @@ using FoodRecipes.Converter;
 using System.IO;
 using System.Globalization;
 using System.ComponentModel;
+using System.Data.SqlClient;
 
 namespace FoodRecipes.Pages
 {
@@ -315,86 +316,95 @@ namespace FoodRecipes.Pages
 			} 
 			else
             {
-				_appUtilities.createIDDirectory(recipe.ID_RECIPE);
-
-				var srcAvatar = avatarImage.Source.ToString().Substring(8);
-
-				_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcAvatar, "avatar");
-
-				recipe.LINK_AVATAR = _appUtilities.getTypeOfImage(srcAvatar);
-
-				var today = DateTime.Now;
-
 				try
 				{
-					_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today);
+					var srcAvatar = avatarImage.Source.ToString().Substring(8);
+					recipe.LINK_AVATAR = _appUtilities.getTypeOfImage(srcAvatar);
+
+					var today = DateTime.Now;
+
+					if (_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today) == 1)
+                    {
+						_appUtilities.createIDDirectory(recipe.ID_RECIPE);
+
+						_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcAvatar, "avatar");
+
+						foreach (var igredient in recipe.Igredients)
+						{
+							try
+							{
+								_dbUtilitiesInstance.InsertIgredient(recipe.ID_RECIPE, igredient.NAME, igredient.QUANTITY);
+
+							}
+							catch (Exception excep)
+							{
+								Debug.WriteLine(excep.Message);
+							}
+
+							var steps = recipe.Steps.ToList();
+
+							for (int no_step = 1; no_step <= steps.Count; ++no_step)
+							{
+								var step = steps[no_step - 1];
+
+								step.ID_RECIPE = recipe.ID_RECIPE;
+
+								try
+								{
+									_dbUtilitiesInstance.InsertStep(recipe.ID_RECIPE, no_step, step.DETAIL);
+								}
+								catch (Exception excep)
+								{
+									Debug.WriteLine(excep.Message);
+								}
+
+								var images = step.StepImages.ToList();
+
+								for (int no_image = 1; no_image <= images.Count; ++no_image)
+								{
+									var image = images[no_image - 1];
+
+									image.ID_RECIPE = recipe.ID_RECIPE;
+
+									var srcImage = image.LINK_IMAGES;
+									var linkImage = $"{no_step}_{no_image}";
+
+									try
+									{
+										_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcImage, linkImage);
+									}
+									catch (Exception excep)
+									{
+										Debug.WriteLine(excep.Message);
+									}
+
+									try
+									{
+										_dbUtilitiesInstance.InsertStepImages(recipe.ID_RECIPE, no_step, $"{linkImage}.{_appUtilities.getTypeOfImage(srcImage)}");
+									}
+									catch (Exception excep)
+									{
+										Debug.WriteLine(excep.Message);
+									}
+								}
+
+								notiMessageSnackbar.MessageQueue.Enqueue("Thêm món ăn thành công", "BACK HOME", BackHome);
+							}
+						}
+					}
+					else
+                    {
+						notiMessageSnackbar.MessageQueue.Enqueue($"Đã tồn tại {recipe.NAME}", "BACK HOME", BackHome);
+					}
 				}
 				catch (Exception excep) 
 				{
 					Debug.WriteLine(excep.Message);
 				}
-
-				foreach (var igredient in recipe.Igredients) {
-					try
-					{
-						_dbUtilitiesInstance.InsertIgredient(recipe.ID_RECIPE, igredient.NAME, igredient.QUANTITY);
-
-					}
-					catch (Exception excep) 
-					{
-						Debug.WriteLine(excep.Message);
-					}
-				}
-
-				var steps = recipe.Steps.ToList();
-
-				for (int no_step = 1; no_step <= steps.Count; ++no_step) {
-					var step = steps[no_step - 1];
-
-					step.ID_RECIPE = recipe.ID_RECIPE;
-
-					try
-					{
-						_dbUtilitiesInstance.InsertStep(recipe.ID_RECIPE, no_step, step.DETAIL);
-					}
-					catch (Exception excep)
-					{
-						Debug.WriteLine(excep.Message);
-					}
-
-					var images = step.StepImages.ToList();
-
-					for (int no_image = 1; no_image <= images.Count; ++no_image) {
-						var image = images[no_image - 1];
-
-						image.ID_RECIPE = recipe.ID_RECIPE;
-
-						var srcImage = image.LINK_IMAGES;
-						var linkImage = $"{no_step}_{no_image}";
-
-						try
-						{
-							_appUtilities.copyImageToIDDirectory(recipe.ID_RECIPE, srcImage, linkImage);
-						}
-						catch (Exception excep)
-						{
-							Debug.WriteLine(excep.Message);
-						}
-
-						try
-						{
-							_dbUtilitiesInstance.InsertStepImages(recipe.ID_RECIPE, no_step, $"{linkImage}.{_appUtilities.getTypeOfImage(srcImage)}");
-						}
-						catch (Exception excep)
-						{
-							Debug.WriteLine(excep.Message);
-						}
-					}
-				}
             }
 
 			clearForm();
-			notiMessageSnackbar.MessageQueue.Enqueue("Thêm món ăn thành công", "BACK HOME", BackHome);
+			
 
 			recipe = new Recipe();
 			totalStep = 0;
