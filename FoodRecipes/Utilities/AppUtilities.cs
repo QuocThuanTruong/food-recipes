@@ -12,7 +12,7 @@ namespace FoodRecipes.Utilities
     public class AppUtilities
     {
         const int MAX_NAME_LENGTH_IN_SPLASH_SCREEN = 53;
-        const int MAX_NAME_LENGTH_IN_CARD_VIEW = 26;
+        const int MAX_NAME_LENGTH_IN_CARD_VIEW = 15;
 
         private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
         private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
@@ -69,7 +69,7 @@ namespace FoodRecipes.Utilities
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile) {
             var destSrc = (string)_absolutePathConverter.Convert($"Images/{ID}/{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
 
-            File.Copy(srcPath, destSrc);
+            File.Copy(srcPath, destSrc, true);
         }
 
         //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
