@@ -36,7 +36,7 @@ namespace FoodRecipes.Pages
 		private int _sortedBy = 0;
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
 																	 ("NAME", "ASC"), ("NAME", "DESC")};
-
+		private bool _isSearching = false;
 		private int _selectedID = 0;
 
 		public ShoppingPage()
@@ -275,46 +275,123 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes()
 		{
-			string condition = getConditionInQuery();
-			_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
+			if (!_isSearching)
+            {
+				string condition = getConditionInQuery();
+				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 
-			for (int i = 0; i < _shoppingRecipes.Count; ++i)
-			{
-				_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i]);
-			}
+				for (int i = 0; i < _shoppingRecipes.Count; ++i)
+				{
+					_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i], true);
+				}
 
-			if (_shoppingRecipes.Count > 0)
-			{
-				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+				if (_shoppingRecipes.Count > 0)
+				{
+					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
 
-				bool indexFlag = false;
-				int index;
+					bool indexFlag = false;
+					int index;
 
-				for (index = 0; index < _shoppingRecipes.Count; ++index)
-                {
-					if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
-                    {
-						indexFlag = true;
-						break;
-					} 
-                }
+					for (index = 0; index < _shoppingRecipes.Count; ++index)
+					{
+						if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
+						{
+							indexFlag = true;
+							break;
+						}
+					}
 
-				if (indexFlag)
-                {
-					shoppingRecipeListView.SelectedIndex = index;
-					shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
+					if (indexFlag)
+					{
+						shoppingRecipeListView.SelectedIndex = index;
+						shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
+					}
+					else
+					{
+						shoppingRecipeListView.SelectedIndex = 0;
+						shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+					}
 				}
 				else
-                {
-					shoppingRecipeListView.SelectedIndex = 0;
-					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+				{
+					shoppingRecipeListView.ItemsSource = null;
+					shoppingIgredientListView.ItemsSource = null;
 				}
 			}
 			else
 			{
-				shoppingRecipeListView.ItemsSource = null;
-				shoppingIgredientListView.ItemsSource = null;
+				searchTextBox_TextChanged(null, null);
 			}
-		}		
+		}
+
+		private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			string search_text = searchTextBox.Text;
+
+			if (search_text.Length != 0)
+			{
+				_isSearching = true;
+
+				string condition = getConditionInQuery();
+
+				if (condition == "")
+                {
+					condition = "SHOPPING_FLAG = 1";
+                }
+				else
+                {
+					condition += " AND SHOPPING_FLAG = 1";
+                }
+
+				(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(search_text, condition, _conditionSortedBy[_sortedBy], 1, _dbUtilities.GetMaxIDRecipe());
+
+				_shoppingRecipes = recipesSearchResults.recipes;
+				if (_shoppingRecipes.Count > 0)
+				{
+					for (int i = 0; i < _shoppingRecipes.Count; ++i)
+					{
+						_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i], true);
+					}
+
+					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+
+					bool indexFlag = false;
+					int index;
+
+					for (index = 0; index < _shoppingRecipes.Count; ++index)
+					{
+						if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
+						{
+							indexFlag = true;
+							break;
+						}
+					}
+
+					if (indexFlag)
+					{
+						shoppingRecipeListView.SelectedIndex = index;
+						shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
+					}
+					else
+					{
+						shoppingRecipeListView.SelectedIndex = 0;
+						shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+					}
+
+					notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+				}
+				else
+				{
+					shoppingRecipeListView.ItemsSource = null;
+				}
+
+			}
+			else
+			{
+				_isSearching = false;
+
+				loadRecipes();
+			}
+		}
 	}
 }

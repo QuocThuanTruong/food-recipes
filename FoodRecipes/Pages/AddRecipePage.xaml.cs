@@ -96,37 +96,39 @@ namespace FoodRecipes.Pages
 
 		private void relativeImagePickerButton_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+				openFileDialog.Multiselect = true;
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
 
-			openFileDialog.Multiselect = true;
-			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-			openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					var imageIdx = 0;
 
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				var imageIdx = 0;
+					if (myImages.Count > 0)
+					{
+						myImages.Clear();
+					}
+					else
+					{
+						//Do nothing
+					}
 
-				if (myImages.Count > 0) 
-				{ 
-					myImages.Clear();
+					foreach (var fileName in openFileDialog.FileNames)
+					{
+						MyImage myImage = new MyImage();
+
+						myImage.ImageSource = fileName;
+						myImage.ImageIndex = imageIdx++;
+						Debug.WriteLine(imageIdx);
+
+						myImages.Add(myImage);
+					}
+
+					relativeImageStepListView.Visibility = Visibility.Visible;
+					relativeImageStepListView.ItemsSource = myImages;
 				}
-				else
-                {
-					//Do nothing
-                }
-
-				foreach (var fileName in openFileDialog.FileNames) {
-					MyImage myImage = new MyImage();
-
-					myImage.ImageSource = fileName;
-					myImage.ImageIndex = imageIdx++;
-					Debug.WriteLine(imageIdx);
-
-					myImages.Add(myImage);
-				}
-
-				relativeImageStepListView.Visibility = Visibility.Visible;
-				relativeImageStepListView.ItemsSource = myImages;
 			}
 		}
 
@@ -203,6 +205,8 @@ namespace FoodRecipes.Pages
 				relativeImageStepListView.ItemsSource = null;
 
 				detailStepTextBox.Text = "";
+
+				relativeImageStepListView.Visibility = Visibility.Collapsed;
 			}
 		}
 
@@ -318,7 +322,7 @@ namespace FoodRecipes.Pages
             {
 				try
 				{
-					var srcAvatar = avatarImage.Source.ToString().Substring(8);
+					var srcAvatar = avatarImage.Source.ToString();
 					recipe.LINK_AVATAR = _appUtilities.getTypeOfImage(srcAvatar);
 
 					var today = DateTime.Now;
@@ -404,7 +408,6 @@ namespace FoodRecipes.Pages
             }
 
 			clearForm();
-			
 
 			recipe = new Recipe();
 			totalStep = 0;
@@ -412,15 +415,22 @@ namespace FoodRecipes.Pages
 
 		private void avatarPickerFrameButton_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
 
-			openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-			openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.ico)|*.png;*.jpeg;*.jpg;*.ico";
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{ 
+					BitmapImage bitmap = new BitmapImage();
 
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				Uri avatarUri = new Uri(openFileDialog.FileName);
-				avatarImage.Source = new BitmapImage(avatarUri);
+					bitmap.BeginInit();
+					bitmap.CacheOption = BitmapCacheOption.OnLoad;
+					bitmap.UriSource = new Uri(openFileDialog.FileName, UriKind.Relative);
+					bitmap.EndInit();
+
+					avatarImage.Source = bitmap;
+				}
 			}
 		}
 
@@ -457,6 +467,7 @@ namespace FoodRecipes.Pages
 			recipeNameTextBox.Text = "";
 			recipeDescriptionTextBox.Text = "";
 			linkVideoTextBox.Text = "";
+			
 			avatarImage.Source = new BitmapImage(new Uri(FindResource("IconEmptyAvt").ToString()));
 			hourTextBox.Text = "";
 			minuteTextBox.Text = "";
@@ -469,6 +480,5 @@ namespace FoodRecipes.Pages
 			relativeImageStepListView.ItemsSource = null;
 			stepsPreviewListView.ItemsSource = null;
 		}
-
 	}
 }

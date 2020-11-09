@@ -48,7 +48,7 @@ namespace FoodRecipes.Pages
 
 			Recipe recipe = _dbUtilities.GetRecipeById(recipeID);
 
-			recipe = _appUtilities.getRecipeForBindingInRecipeDetail(recipe);
+			recipe = _appUtilities.getRecipeForBindingInRecipeDetail(recipe, false);
 
 			playVideoTutorial(recipe.LINK_VIDEO);
 
