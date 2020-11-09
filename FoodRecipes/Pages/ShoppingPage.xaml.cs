@@ -37,6 +37,8 @@ namespace FoodRecipes.Pages
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
 																	 ("NAME", "ASC"), ("NAME", "DESC")};
 
+		private int _selectedID = 0;
+
 		public ShoppingPage()
 		{
 			InitializeComponent();
@@ -145,6 +147,8 @@ namespace FoodRecipes.Pages
 			var selectedItemIndex = shoppingRecipeListView.SelectedIndex;
 			Debug.WriteLine(selectedItemIndex);
 
+			
+
 			//Get Id recipe base on item clikced
 			if (shoppingRecipeListView.SelectedIndex != -1)
 			{
@@ -157,6 +161,8 @@ namespace FoodRecipes.Pages
 					var recipe = from r in _shoppingRecipes
 								 where r.ID_RECIPE == selectedRecipe.ID_RECIPE
 								 select r;
+
+					_selectedID = selectedRecipe.ID_RECIPE;
 
 					shoppingIgredientListView.ItemsSource = recipe.First().IGREDIENT_LIST_FOR_BINDING;
 				}
@@ -269,25 +275,46 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes()
 		{
-			
-				string condition = getConditionInQuery();
-				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
+			string condition = getConditionInQuery();
+			_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 
-				for (int i = 0; i < _shoppingRecipes.Count; ++i)
-				{
-					_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i]);
-				}
+			for (int i = 0; i < _shoppingRecipes.Count; ++i)
+			{
+				_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i]);
+			}
 
-				if (_shoppingRecipes.Count > 0)
-				{
-					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
-					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+			if (_shoppingRecipes.Count > 0)
+			{
+				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+
+				bool indexFlag = false;
+				int index;
+
+				for (index = 0; index < _shoppingRecipes.Count; ++index)
+                {
+					if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
+                    {
+						indexFlag = true;
+						break;
+					} 
+                }
+
+				if (indexFlag)
+                {
+					shoppingRecipeListView.SelectedIndex = index;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
 				}
 				else
-				{
-					shoppingRecipeListView.ItemsSource = null;
-					shoppingIgredientListView.ItemsSource = null;
+                {
+					shoppingRecipeListView.SelectedIndex = 0;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
 				}
+			}
+			else
+			{
+				shoppingRecipeListView.ItemsSource = null;
+				shoppingIgredientListView.ItemsSource = null;
+			}
 		}		
 	}
 }

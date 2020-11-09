@@ -6,13 +6,14 @@ using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
 using System.IO;
 using FoodRecipes.Converter;
+using System.Diagnostics;
 
 namespace FoodRecipes.Utilities
 {
     public class AppUtilities
     {
         const int MAX_NAME_LENGTH_IN_SPLASH_SCREEN = 53;
-        const int MAX_NAME_LENGTH_IN_CARD_VIEW = 26;
+        const int MAX_NAME_LENGTH_IN_CARD_VIEW = 15;
 
         private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
         private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
@@ -63,13 +64,20 @@ namespace FoodRecipes.Utilities
         public void createIDDirectory(int ID) {
             string path = (string)(_absolutePathConverter.Convert($"Images/{ID}", null, null, null));
 
-            Directory.CreateDirectory(path);
+            if (Directory.Exists(path))
+            {
+                Array.ForEach(Directory.GetFiles(path), delegate(string filePath) { File.Delete(filePath); });
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile) {
             var destSrc = (string)_absolutePathConverter.Convert($"Images/{ID}/{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
 
-            File.Copy(srcPath, destSrc);
+            File.Copy(srcPath, destSrc, true);
         }
 
         //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
@@ -113,7 +121,7 @@ namespace FoodRecipes.Utilities
             Recipe result = new Recipe();
 
             result.ID_RECIPE = recipe.ID_RECIPE;
-            result.NAME = recipe.NAME;
+            result.NAME = recipe.NAME.ToUpper();
             result.DESCRIPTION = recipe.DESCRIPTION;
             result.LINK_VIDEO = recipe.LINK_VIDEO;
             result.LINK_AVATAR = $"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}";
