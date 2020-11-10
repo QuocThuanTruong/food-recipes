@@ -460,9 +460,9 @@
             <ListView Name="relativeImageStepListView"
                       Visibility="Collapsed"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  Margin="0, 0, 14, 0"
-                  Width="{Binding ActualWidth, ElementName=relativeImageStepTitleTextBlock}"
-                  ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+                      Margin="0, 0, 14, 0"
+                      Width="{Binding ActualWidth, ElementName=relativeImageStepTitleTextBlock}"
+                      ItemContainerStyle="{StaticResource ImageStepListViewItem}">
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -473,14 +473,17 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Name="relativeImageListItem">
-
                             <!-- Binding data -->
                             <Image Name="relativeStepImage"
-                           Width="110"
-                           Height="110"
-                           Stretch="UniformToFill"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="{Binding ImageSource}"/>
+                                   Width="110"
+                                   Height="110"
+                                   Stretch="UniformToFill"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+                                <Image.Source>
+                                    <BitmapImage CacheOption="OnLoad"
+                                                 UriSource="{Binding ImageSource}"/>
+                                </Image.Source>
+                            </Image>
 
                             <Button Name="deleteRelativeImageInListButton"
                                     Click="deleteRelativeImageInListButton_Click"
@@ -636,8 +639,14 @@
                                            Width="144"
                                            Height="144"
                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                           Stretch="UniformToFill"
-                                           Source="{Binding LINK_IMAGES}"/>
+                                           Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage CacheOption="OnLoad"
+                                                 UriSource="{Binding LINK_IMAGES}"/>
+                                        </Image.Source>
+                                    </Image>
+
+
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>

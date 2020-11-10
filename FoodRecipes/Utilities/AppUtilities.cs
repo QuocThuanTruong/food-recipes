@@ -75,9 +75,39 @@ namespace FoodRecipes.Utilities
         }
 
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile) {
-            var destSrc = (string)_absolutePathConverter.Convert($"Images/{ID}/{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
+            var destPath = (string)_absolutePathConverter.Convert($"Images/{ID}/{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
 
-            File.Copy(srcPath, destSrc, true);
+            //using (FileStream srcFile = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
+            //{
+            //    // Read the source file into a byte array.
+            //    byte[] bytes = new byte[srcFile.Length];
+
+            //    int numBytesToRead = (int)srcFile.Length;
+
+            //    int numBytesRead = 0;
+            //    while (numBytesToRead > 0)
+            //    {
+            //        // Read may return anything from 0 to numBytesToRead.
+            //        int n = srcFile.Read(bytes, numBytesRead, numBytesToRead);
+
+            //        // Break when the end of the file is reached.
+            //        if (n == 0)
+            //            break;
+
+            //        numBytesRead += n;
+            //        numBytesToRead -= n;
+            //    }
+            //    numBytesToRead = bytes.Length;
+
+            //    // Write the byte array to the other FileStream.
+            //    using (FileStream destFile = new FileStream(destPath, FileMode.Create, FileAccess.Write))
+            //    {
+            //        destFile.Write(bytes, 0, numBytesToRead);
+            //    }
+            //}
+
+            File.Copy(srcPath, destPath, true);
+
         }
 
         //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
@@ -121,7 +151,7 @@ namespace FoodRecipes.Utilities
             Recipe result = new Recipe();
 
             result.ID_RECIPE = recipe.ID_RECIPE;
-            result.NAME = recipe.NAME.ToUpper();
+            result.NAME = recipe.NAME;
             result.DESCRIPTION = recipe.DESCRIPTION;
             result.LINK_VIDEO = recipe.LINK_VIDEO;
             result.LINK_AVATAR = $"Images/{recipe.ID_RECIPE}/avatar.{recipe.LINK_AVATAR}";
@@ -141,9 +171,18 @@ namespace FoodRecipes.Utilities
             return result;
         }
 
-        public Recipe getRecipeForBindingInRecipeDetail(Recipe recipe)
+        public Recipe getRecipeForBindingInRecipeDetail(Recipe recipe, bool shoppingFlag)
         {
             Recipe result = getRecipeForBindingInHomePage(recipe);
+
+            if (!shoppingFlag)
+            {
+                result.NAME = result.NAME.ToUpper();
+            }
+            else
+            {
+                //Do Nothing
+            }
 
             var igredients = _dbUtilities.GetIgredientByIDRecipe(recipe.ID_RECIPE);
             foreach (var igredient in igredients.ToList())
