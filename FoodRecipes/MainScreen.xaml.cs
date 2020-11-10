@@ -128,7 +128,7 @@ namespace FoodRecipes
 
 		private void MainScreen_BackToHome()
 		{
-			pageNavigation.NavigationService.Navigate(new HomePage());
+			pageNavigation.NavigationService.Navigate(getPageFromButton(homePageButton));
 
 			//Clear selected button
 			foreach (var button in _mainScreenButtons)
@@ -161,7 +161,7 @@ namespace FoodRecipes
 
 		private void RecipeDetailPage_GoShopping()
 		{
-			pageNavigation.NavigationService.Navigate(new ShoppingPage());
+			pageNavigation.NavigationService.Navigate(getPageFromButton(shoppingPageButton));
 
 			//Clear selected button
 			foreach (var button in _mainScreenButtons)

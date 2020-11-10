@@ -383,6 +383,7 @@ namespace FoodRecipes.Pages
 				else
 				{
 					shoppingRecipeListView.ItemsSource = null;
+					shoppingIgredientListView.ItemsSource = null;
 				}
 
 			}
