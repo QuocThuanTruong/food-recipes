@@ -674,6 +674,7 @@
                   ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
                   SelectionMode="Single"
                   SelectionChanged="recipesListView_SelectionChanged"
+                  VerticalAlignment="Top"
                   Grid.Column="1"
                   Grid.Row="2">
 
@@ -904,6 +905,7 @@
                             <Image Name="recipeImage"
                                    Width="95"
                                    Height="95"
+                                   Stretch="UniformToFill"
                                    RenderOptions.BitmapScalingMode="HighQuality"
                                    Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"/>
                         </materialDesign:Card>

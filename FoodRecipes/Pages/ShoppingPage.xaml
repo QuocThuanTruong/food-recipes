@@ -529,6 +529,7 @@
             <!-- Shopping recipe list view-->
             <ListView Name="shoppingRecipeListView"
                       Margin="0, 16, 0, 0"
+                      VerticalAlignment="Top"
                       SelectionChanged="shoppingRecipeListView_SelectionChanged"
                       SelectionMode="Single"
                       SelectedIndex="0"
