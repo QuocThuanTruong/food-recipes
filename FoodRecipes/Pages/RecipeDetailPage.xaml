@@ -5,50 +5,53 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FoodRecipes.Pages"
       xmlns:loc="clr-namespace:FoodRecipes.Properties"
+      xmlns:custom="clr-namespace:FoodRecipes.CustomView"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Background="White"
       d:DesignHeight="728" d:DesignWidth="1126" Loaded="Page_Loaded"
       Title="HelpPage">
 
-    <Grid Name="mainContainer">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="370*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="636*"/>
-            <ColumnDefinition Width="30*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="34*"/>
-            <RowDefinition Height="86*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="80*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="116*"/>
-            <RowDefinition Height="238*"/>
-            <RowDefinition Height="36*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Name="headerContainer"
-              Grid.Column="1">
+    <Grid>
+        <Grid Name="mainContainer">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="370*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="636*"/>
+                <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Binding data -->
-            <TextBlock Name="recipeNameTextBlock"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="34*"/>
+                <RowDefinition Height="86*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="116*"/>
+                <RowDefinition Height="238*"/>
+                <RowDefinition Height="36*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Name="headerContainer"
+              Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Binding data -->
+                <TextBlock Name="recipeNameTextBlock"
+                           VerticalAlignment="Center"
                        Style="{StaticResource MediumHeaderText}"
                        Text="{Binding NAME}"/>
 
-            <Grid Name="favContainer"
+                <Grid Name="favContainer"
                   Grid.Column="2">
 
-                <Border Name="favBackground"
+                    <Border Name="favBackground"
                         VerticalAlignment="Center"
                         Width="30"
                         Height="30"
@@ -56,8 +59,8 @@
                         Opacity="0.4"
                         CornerRadius="6"/>
 
-                <!-- Binding ischecked -->
-                <ToggleButton Name="favButton"
+                    <!-- Binding ischecked -->
+                    <ToggleButton Name="favButton"
                               Click="favButton_Checked"
                               VerticalAlignment="Center"
                               Width="35"
@@ -67,114 +70,114 @@
                               BorderThickness="0"
                               Style="{StaticResource MaterialDesignActionToggleButton}" Checked="favButton_Checked">
 
-                    <materialDesign:ToggleButtonAssist.OnContentTemplate>
-                        <DataTemplate>
-                            <Image Width="13.5"
+                        <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                            <DataTemplate>
+                                <Image Width="13.5"
                                    Height="13.5"
                                    Margin="0, 1, 0, 0"
                                    RenderOptions.BitmapScalingMode="HighQuality"
                                    Source="{StaticResource IconActiveFav}"/>
-                        </DataTemplate>
-                    </materialDesign:ToggleButtonAssist.OnContentTemplate>
+                            </DataTemplate>
+                        </materialDesign:ToggleButtonAssist.OnContentTemplate>
 
-                    <Image Width="13.5"
+                        <Image Width="13.5"
                            Height="13.5"
                            Margin="0, 1, 0, 0"
                            RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconPassiveFav}"/>
-                </ToggleButton>
+                    </ToggleButton>
+                </Grid>
             </Grid>
-        </Grid>
 
-        <StackPanel Name="timeGroupLevelContainer"
+            <StackPanel Name="timeGroupLevelContainer"
                     Margin="0, 2, 0, 0"
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
               Grid.Column="1"
               Grid.Row="1">
 
-            <Image Name="iconClock"
+                <Image Name="iconClock"
                    Width="12"
                    Height="12"
                    Source="{StaticResource IconOrangeClock}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-            <!-- Binding data -->
-            <TextBlock Name="timeRecipeTextBlock"
+                <!-- Binding data -->
+                <TextBlock Name="timeRecipeTextBlock"
                        Margin="6, 0, 8, 0"
                        VerticalAlignment="Center"
                        Style="{StaticResource DetailTextBlock}"
                        Text="{Binding TIME_FOR_BINDING}"/>
 
-            <Image Name="iconGroup"
+                <Image Name="iconGroup"
                    Margin="8, -1, 0, 0"
                    Width="12"
                    Height="12"
                    Source="{StaticResource IconOrangeGroup}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-            <!-- Binding data -->
-            <TextBlock Name="groupRecipeTextBlock"
+                <!-- Binding data -->
+                <TextBlock Name="groupRecipeTextBlock"
                        Margin="6, 0, 8, 0"
                        VerticalAlignment="Center"
                        Style="{StaticResource DetailTextBlock}"
                        Text="{Binding FOOD_GROUP}"/>
 
-            <Image Name="iconLevel"
+                <Image Name="iconLevel"
                    Margin="8, 0, 0, 0"
                    Width="12"
                    Height="12"
                    Source="{StaticResource IconOrangeLevel}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-            <!-- Binding data -->
-            <TextBlock Name="levelRecipeTextBlock"
+                <!-- Binding data -->
+                <TextBlock Name="levelRecipeTextBlock"
                        Margin="4, 0, 8, 0"
                        VerticalAlignment="Center"
                        Style="{StaticResource DetailTextBlock}"
                        Text="{Binding FOOD_LEVEL}"/>
-        </StackPanel>
+            </StackPanel>
 
-        <ScrollViewer Name="descriptionContainer"
+            <ScrollViewer Name="descriptionContainer"
                       Grid.Column="1"
                       Grid.Row="2">
-            <!-- Binding data -->
-            <TextBlock Name="descriptionRecipeTextBlock"
+                <!-- Binding data -->
+                <TextBlock Name="descriptionRecipeTextBlock"
                    Style="{StaticResource DetailTextBlock}"
                    Margin="0, 0, 10, 0"
                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                    Text="{Binding DESCRIPTION}"/>
-        </ScrollViewer>
+            </ScrollViewer>
 
-        <Grid Name="igredientContainer"
+            <Grid Name="igredientContainer"
               Margin="0, 4, 0, 0"
               Grid.Column="1"
               Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="4*"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Name="igredientTitleTextBlock"
+                <TextBlock Name="igredientTitleTextBlock"
                        VerticalAlignment="Center"
                        Style="{StaticResource MediumHeaderText}"
                        Text="{x:Static loc:Resources.title_igredient}"/>
 
-            <materialDesign:ColorZone Mode="Custom"
+                <materialDesign:ColorZone Mode="Custom"
                                       HorizontalAlignment="Right"
                                       Width="130"
                                       Grid.Column="1"
                                       Height="{Binding ActualHeight, ElementName=igredientContainer}">
 
-                <materialDesign:ColorZone.Effect>
-                    <DropShadowEffect BlurRadius="10" 
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
                                           ShadowDepth="1" 
                                           Color="Red" 
                                           Opacity="0.4" 
                                           RenderingBias="Performance" />
-                </materialDesign:ColorZone.Effect>
+                    </materialDesign:ColorZone.Effect>
 
-                <Button Name="addShoppingButton"
+                    <Button Name="addShoppingButton"
                         Click="addShoppingButton_Click"
                         Width="110"
                         Style="{StaticResource StepButton}"
@@ -182,47 +185,47 @@
                         Height="28"                        
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
 
-                    <TextBlock Name="addShoppingTextBlock"
+                        <TextBlock Name="addShoppingTextBlock"
                                    Text="{x:Static loc:Resources.text_add_shopping}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Foreground="White"
                                    FontSize="12"
                                    Style="{StaticResource DetailTextBlock}"/>
-                </Button>
-            </materialDesign:ColorZone>
-        </Grid>
+                    </Button>
+                </materialDesign:ColorZone>
+            </Grid>
 
-        <ListView Name="igredientsListView"
+            <ListView Name="igredientsListView"
                   ItemsSource="{Binding IGREDIENT_LIST_FOR_BINDING}"
                   Grid.Column="1"
                   Grid.Row="4"
                   Margin="0, 4, 0, 0"
                   ItemContainerStyle="{StaticResource LinearColorHoverListBox}">
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <UniformGrid Columns="2"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="2"
                                  Margin="2, 0, 10, 0">
 
-                        <!-- Binding data -->
-                        <TextBlock Name="nameIgredientTextBlock"
+                            <!-- Binding data -->
+                            <TextBlock Name="nameIgredientTextBlock"
                                    Text="{Binding NAME}"
                                    Style="{StaticResource DetailTextBlock}"/>
 
-                        <!-- Binding data -->
-                        <TextBlock Name="quantityIgredientTextBlock"
+                            <!-- Binding data -->
+                            <TextBlock Name="quantityIgredientTextBlock"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right"
                                    Text="{Binding QUANTITY}"
                                    Style="{StaticResource DetailTextBlock}"/>
-                    </UniformGrid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
 
-        <TextBlock Name="imageVideoTitleTextBlock"
+            <TextBlock Name="imageVideoTitleTextBlock"
                    VerticalAlignment="Center"
                    Grid.Column="1"
                    Grid.Row="5"
@@ -230,7 +233,7 @@
                    Text="{x:Static loc:Resources.title_image_video}"/>
 
             <!-- Image recipe list view -->
-        <ListView Name="imageRecipeListView"
+            <ListView Name="imageRecipeListView"
                   SelectionChanged="imageRecipeListView_SelectionChanged"
                   ItemsSource="{Binding IMAGES_LIST_FOR_BINDING}"
                   Margin="0, -8, 0, 0"
@@ -238,41 +241,51 @@
                   Grid.Column="1"
                   Grid.Row="6">
 
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
 
-                    <!-- Binding data -->
-                    <Image Name="foodRecipeImage"
+                        <!-- Binding data -->
+                        <Image Name="foodRecipeImage"
                        Width="92"
                        Height="92"
                        Stretch="UniformToFill"
                        RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
-                     
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                       Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
 
-        <WebBrowser x:Name="videoContainerFromWeb"
-                      Visibility="Hidden"
-                      Margin="0, 10, 0, 0"
-                      Grid.Column="1"
-                      Grid.Row="7" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-        <MediaElement Name="videoContainerFromLocal"
+            <custom:YoutubeWebView x:Name="youtubeWebView"
+                                   Visibility="Hidden"
+                                   Margin="0, 10, 0, 0"
+                                   Grid.Column="1"
+                                   Grid.Row="7"/>
+
+            <custom:LocalMediaPlayer x:Name="localMediaPlayer"
                       Visibility="Hidden"
                       Margin="0, 10, 0, 0"
                       Grid.Column="1"
                       Grid.Row="7"/>
 
-        <!-- Post mesage to notification to user here (active = true) -->
-        <materialDesign:Snackbar Name="notiMessageSnackbar"
+            <!-- Post mesage to notification to user here (active = true) -->
+            <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Left"
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="0, 0, 0, 8"
@@ -280,16 +293,16 @@
                                  Grid.Column="3"
                                  Grid.Row="7"
                                  Grid.RowSpan="3">
-        </materialDesign:Snackbar>
+            </materialDesign:Snackbar>
 
-        <TextBlock Name="tutorialTitleTextBlock"
+            <TextBlock Name="tutorialTitleTextBlock"
                    VerticalAlignment="Center"
                    Grid.Column="3"
                    Grid.Row="0"
                    Style="{StaticResource MediumHeaderText}"
                    Text="{x:Static loc:Resources.title_tutorial}"/>
 
-        <ListView Name="stepsListView"
+            <ListView Name="stepsListView"
                   ItemsSource="{Binding STEP_LIST_FOR_BINDING}"
                   ItemContainerStyle="{StaticResource StepListBoxItem}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -297,55 +310,55 @@
                   Grid.Row="1"
                   Grid.RowSpan="7">
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical"
                                 Width="{Binding ActualWidth, ElementName=stepsListView}"
                                 Margin="4, 4, 4, 8">
-                        <Grid Name="stepButtonContainer"
+                            <Grid Name="stepButtonContainer"
                               Margin="0, 4, 0, 0"
                               HorizontalAlignment="Left">
 
-                            <!-- Shadow button -->
-                            <Border Width="80"
+                                <!-- Shadow button -->
+                                <Border Width="80"
                                     Height="24"
-                                    Margin="0, 0, 5, 0"
+                                    Margin="0, 0, 4, 0"
                                     BorderThickness="4"
                                     CornerRadius="0"
                                     BorderBrush="Red">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="15"
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="15"
                                                       Direction="0"
                                                       Color="Red"
                                                       Opacity="1"/>
-                                </Border.Effect>
-                            </Border>
+                                    </Border.Effect>
+                                </Border>
 
-                            <Button Name="stepButton"
+                                <Button Name="stepButton"
                                     Style="{StaticResource StepButton}">
 
-                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal">
 
-                                    <TextBlock Name="stepTitle"
+                                        <TextBlock Name="stepTitle"
                                            Text="{x:Static loc:Resources.title_step}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                               Margin="0, 2, 4, 0"
                                            Style="{StaticResource StepRegularText}"/>
 
-                                    <!-- Binding data -->
-                                    <TextBlock Name="noStepTextBlock"
+                                        <!-- Binding data -->
+                                        <TextBlock Name="noStepTextBlock"
                                                Margin="0, 0, 0, 2"
                                                Text="{Binding NO_STEP_FOR_BINDING}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Style="{StaticResource StepLargeText}"/>
-                                </StackPanel>
-                            </Button>
-                        </Grid>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
 
-                        <!-- Binding data -->
-                        <TextBlock Name="detailStepTextBlock"
+                            <!-- Binding data -->
+                            <TextBlock Name="detailStepTextBlock"
                                    Margin="0, 8, 0, 0"
                                    Padding="0, 0, 30, 0"
                                    Width="{Binding ActualWidth, ElementName=stepsListView}"
@@ -355,33 +368,48 @@
                                    Text="{Binding DETAIL}"/>
 
 
-                        <ListView Name="imageStepListView"
+                            <ListView Name="imageStepListView"
                                   ItemsSource="{Binding STEP_IMAGES_LIST_FOR_BINDING}"
                                   Margin="0, 8, 30, 0"
                                   Width="{Binding ActualWidth, ElementName=detailStepTextBlock}"
                                   ItemContainerStyle="{StaticResource ImageStepListViewItem}">
 
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
 
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <!-- Binding data -->
-                                    <Image Name="foodRecipeImage"
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Binding data -->
+                                        <Button Name="foodRecipeImageContainer"
+                                                Click="foodRecipeImageContainer_Click"
+                                                Margin="0, 0, 8, 0"
+                                                Tag="{Binding LINK_IMAGES}"
+                                                Width="144"
+                                                Height="144"
+                                                materialDesign:ButtonAssist.CornerRadius="0"
+                                                Style="{StaticResource GroupButton}">
+                                            
+                                            <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
                                            RenderOptions.BitmapScalingMode="HighQuality"
                                            Stretch="UniformToFill"
                                            Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                        </Button>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <custom:CarouselDialog x:Name="carouselDialog"
+                               CloseCarouselDialog="CarouselDialog_CloseCarouselDialog"
+                               Visibility="Collapsed"/>
     </Grid>
 </Page>

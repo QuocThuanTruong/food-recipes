@@ -209,6 +209,13 @@
     </ApplicationDefinition>
     <Compile Include="Converter\AbsolutePathConverter.cs" />
     <Compile Include="Converter\BrushOpacityConverter.cs" />
+    <Compile Include="CustomView\CarouselControl.cs" />
+    <Compile Include="CustomView\LocalMediaPlayer.xaml.cs">
+      <DependentUpon>LocalMediaPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomView\YoutubeWebView.xaml.cs">
+      <DependentUpon>YoutubeWebView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GetAllFromRecipe_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -245,7 +252,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CarouselDialog.xaml.cs">
+    <Compile Include="CustomView\CarouselDialog.xaml.cs">
       <DependentUpon>CarouselDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recipe.cs">
@@ -262,6 +269,14 @@
     </Compile>
     <Compile Include="Utilities\AppUtilities.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
+    <Page Include="CustomView\LocalMediaPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomView\YoutubeWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -274,7 +289,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\CarouselDialog.xaml">
+    <Page Include="CustomView\CarouselDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,6 +372,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Assets\icon_blue_next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\icon_blue_previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -367,7 +388,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Assets\icon_empty_avt.png" />
+    <Content Include="Assets\icon_empty_avt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -442,7 +465,9 @@
     <Content Include="Assets\icon_asc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Assets\icon_black_eraser.png" />
+    <Content Include="Assets\icon_black_eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\icon_blue_add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

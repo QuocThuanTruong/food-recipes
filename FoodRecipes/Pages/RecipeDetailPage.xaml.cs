@@ -19,6 +19,8 @@ using FoodRecipes.Utilities;
 using System.Diagnostics;
 using System.Media;
 using System.Windows.Controls.Primitives;
+using System.Security.Policy;
+using System.CodeDom;
 
 namespace FoodRecipes.Pages
 {
@@ -34,25 +36,30 @@ namespace FoodRecipes.Pages
 		private AppUtilities _appUtilities = new AppUtilities();
 		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 		private int _recipeID;
+		private Recipe _recipe;
 
 		public RecipeDetailPage()
 		{
 			InitializeComponent();
+
+			carouselDialog.SetParent(mainContainer);
 		}
 
 		public RecipeDetailPage(int recipeID)
 		{
-			InitializeComponent();
+			InitializeComponent();			
+
+			carouselDialog.SetParent(mainContainer);
 
 			_recipeID = recipeID;
 
-			Recipe recipe = _dbUtilities.GetRecipeById(recipeID);
+			_recipe = _dbUtilities.GetRecipeById(recipeID);
 
-			recipe = _appUtilities.getRecipeForBindingInRecipeDetail(recipe, false);
+			_recipe = _appUtilities.getRecipeForBindingInRecipeDetail(_recipe, false);
 
-			playVideoTutorial(recipe.LINK_VIDEO);
+			playVideoTutorial(_recipe.LINK_VIDEO);
 
-			mainContainer.DataContext = recipe;
+			mainContainer.DataContext = _recipe;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -63,64 +70,25 @@ namespace FoodRecipes.Pages
         {
 			if (url.IndexOf("http") != -1 || url.IndexOf("https") != -1)
             {
-				try
+				youtubeWebView.Visibility = Visibility.Visible;
+
+				var errorMessage = youtubeWebView.PlayVideoFromUrl(url);
+
+				if (errorMessage != "")
 				{
-					videoContainerFromWeb.Visibility = Visibility.Visible;
-
-					string html = "<html><head>";
-					html += "<meta content='IE=Edge' http-equiv='X-UA-Compatible'/>";
-					html += "<iframe id='video' src= 'https://www.youtube.com/embed/{0}' frameborder='0' height='205' width='345' allowfullscreen></iframe>";
-					html += "</body></html>";
-
-					string[] urlParams = url.Split('=');
-
-					string urlID = "";
-
-					if (url.IndexOf("=") != -1)
-                    {
-
-						string urlParamsIDAndFeture = urlParams[1];
-						string[] rawUrl = urlParamsIDAndFeture.Split('&');
-
-						if (rawUrl.Length > 0)
-						{
-							urlID = rawUrl[0];
-						}
-						else
-						{
-							urlID = urlParams[1];
-						}
-					}
-					else
-                    {
-						urlParams = url.Split('/');
-						urlID = urlParams[3];
-                    }
-
-					videoContainerFromWeb.NavigateToString(string.Format(html, urlID));
-
-				}
-				catch (Exception e)
-				{
-					string noti = $"\"{url}\"";
-					Debug.WriteLine(noti);
-					notiMessageSnackbar.MessageQueue.Enqueue(noti, "OK", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
 				}
 			} 
 			else
             {
-				try
-                {
-					videoContainerFromLocal.Visibility = Visibility.Visible;
-					videoContainerFromLocal.Source = new Uri(url);
+				localMediaPlayer.Visibility = Visibility.Visible;
+
+				var errorMessage = localMediaPlayer.PlayVideoFromUri(url);
+
+				if (errorMessage != "")
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
 				}
-				catch (Exception e)
-                {
-					string noti = $"Không thể phát video với đường dẫn \"{url}\"";
-					Debug.WriteLine(noti);
-					notiMessageSnackbar.MessageQueue.Enqueue(noti, "OK", () => { });
-				}
-				
 			}
 		}
 
@@ -163,8 +131,53 @@ namespace FoodRecipes.Pages
 		private void imageRecipeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			Debug.WriteLine(imageRecipeListView.SelectedIndex);
-			CarouselDialog carouselDialog = new CarouselDialog();
-			carouselDialog.Show();
+
+			youtubeWebView.Visibility = Visibility.Hidden;
+			carouselDialog.ShowDialog(_recipe.IMAGES_LIST_FOR_BINDING, imageRecipeListView.SelectedIndex);
+
+			imageRecipeListView.SelectedIndex = -1;
+		}
+
+		private void CarouselDialog_CloseCarouselDialog()
+		{
+			playVideoTutorial(_recipe.LINK_VIDEO);
+		}
+
+		private void foodRecipeImageContainer_Click(object sender, RoutedEventArgs e)
+		{
+			//var selectedButton = (Button)sender;
+			//StepImage selectedImage = null;
+			//var selectedStep = 0;
+			//var selectedIndex = 0;
+			//List<StepImage> selectedStepImages = new List<StepImage>();
+
+
+			//for (int i = 0; i < _recipe.IMAGES_LIST_FOR_BINDING.Count; i++)
+			//{
+			//	if (_recipe.IMAGES_LIST_FOR_BINDING[i].LINK_IMAGES == selectedButton.Tag.ToString())
+			//	{
+			//		selectedStep = _recipe.IMAGES_LIST_FOR_BINDING[i].NO_STEP;
+			//		selectedImage = _recipe.IMAGES_LIST_FOR_BINDING[i];
+			//		break;
+			//	}
+			//}
+
+			//foreach (var image in _recipe.IMAGES_LIST_FOR_BINDING)
+			//{
+			//	if (image.NO_STEP == selectedStep)
+			//	{
+			//		selectedStepImages.Add(image);
+			//	}
+			//}
+
+			//selectedIndex = selectedStepImages.IndexOf(selectedImage);
+
+
+			//youtubeWebView.Visibility = Visibility.Hidden;
+			//carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
+
+			//selectedIndex = -1;
+			//selectedStepImages.Clear();
 		}
 	}
 }

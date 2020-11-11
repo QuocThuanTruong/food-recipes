@@ -18,6 +18,7 @@
     <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
     <SolidColorBrush x:Key="MyLightGray3" Color="#d6d6d6"/>
     <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
+    <SolidColorBrush x:Key="BlurBlue" Color="#408fa2e2"/>
     <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
     <SolidColorBrush x:Key="RedHover" Color="#e5173a"/>
     <SolidColorBrush x:Key="LightRedHover" Color="#ff6666"/>
