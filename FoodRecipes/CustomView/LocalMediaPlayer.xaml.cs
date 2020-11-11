@@ -26,27 +26,21 @@ namespace FoodRecipes.CustomView
 			InitializeComponent();
 		}
 
-		public string PlayeVideoFromUrl(string url)
+		public string PlayVideoFromUri(string uri)
 		{
 			var errorMessage = "";
 
 			try
 			{
-				videoContainerFromLocal.Visibility = Visibility.Visible;
-				videoContainerFromLocal.Source = new Uri(url);
+				videoContainerFromLocal.Source = new Uri(uri);
 			}
 			catch (Exception e)
 			{
-				errorMessage = $"Không thể phát video với đường dẫn \"{url}\"";
+				errorMessage = $"Không thể phát video với đường dẫn \"{uri}\"";
 				Debug.WriteLine(errorMessage);
 			}
 
 			return errorMessage;
-		}
-
-		private void play_Click(object sender, RoutedEventArgs e)
-		{
-			videoContainerFromLocal.Play();
 		}
 	}
 }

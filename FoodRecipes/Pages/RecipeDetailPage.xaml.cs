@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Media;
 using System.Windows.Controls.Primitives;
 using System.Security.Policy;
+using System.CodeDom;
 
 namespace FoodRecipes.Pages
 {
@@ -82,7 +83,7 @@ namespace FoodRecipes.Pages
             {
 				localMediaPlayer.Visibility = Visibility.Visible;
 
-				var errorMessage = localMediaPlayer.PlayeVideoFromUrl(url);
+				var errorMessage = localMediaPlayer.PlayVideoFromUri(url);
 
 				if (errorMessage != "")
 				{
@@ -132,13 +133,51 @@ namespace FoodRecipes.Pages
 			Debug.WriteLine(imageRecipeListView.SelectedIndex);
 
 			youtubeWebView.Visibility = Visibility.Hidden;
-
 			carouselDialog.ShowDialog(_recipe.IMAGES_LIST_FOR_BINDING, imageRecipeListView.SelectedIndex);
+
+			imageRecipeListView.SelectedIndex = -1;
 		}
 
 		private void CarouselDialog_CloseCarouselDialog()
 		{
 			playVideoTutorial(_recipe.LINK_VIDEO);
+		}
+
+		private void foodRecipeImageContainer_Click(object sender, RoutedEventArgs e)
+		{
+			//var selectedButton = (Button)sender;
+			//StepImage selectedImage = null;
+			//var selectedStep = 0;
+			//var selectedIndex = 0;
+			//List<StepImage> selectedStepImages = new List<StepImage>();
+
+
+			//for (int i = 0; i < _recipe.IMAGES_LIST_FOR_BINDING.Count; i++)
+			//{
+			//	if (_recipe.IMAGES_LIST_FOR_BINDING[i].LINK_IMAGES == selectedButton.Tag.ToString())
+			//	{
+			//		selectedStep = _recipe.IMAGES_LIST_FOR_BINDING[i].NO_STEP;
+			//		selectedImage = _recipe.IMAGES_LIST_FOR_BINDING[i];
+			//		break;
+			//	}
+			//}
+
+			//foreach (var image in _recipe.IMAGES_LIST_FOR_BINDING)
+			//{
+			//	if (image.NO_STEP == selectedStep)
+			//	{
+			//		selectedStepImages.Add(image);
+			//	}
+			//}
+
+			//selectedIndex = selectedStepImages.IndexOf(selectedImage);
+
+
+			//youtubeWebView.Visibility = Visibility.Hidden;
+			//carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
+
+			//selectedIndex = -1;
+			//selectedStepImages.Clear();
 		}
 	}
 }

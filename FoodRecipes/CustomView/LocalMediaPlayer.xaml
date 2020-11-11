@@ -7,10 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <MediaElement Name="videoContainerFromLocal" LoadedBehavior="Manual"/>
-        <Button Name="play"
-            Width="40"
-                Click="play_Click"
-                Height="40"/>
+        <MediaElement x:Name="videoContainerFromLocal"/>
+        
     </Grid>
 </UserControl>

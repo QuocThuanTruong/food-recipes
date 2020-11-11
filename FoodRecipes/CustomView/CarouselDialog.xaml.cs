@@ -40,26 +40,29 @@ namespace FoodRecipes.CustomView
 
 		public void ShowDialog(List<StepImage> recipeImages, int selectedIndex)
 		{
-			_recipeImages = recipeImages;
-			carouselRecipeImages.ItemsSource = _recipeImages;
-			carouselRecipeImages.SelectedItem = _recipeImages[selectedIndex];
-			currentImagePosTextBlock.Text = $"{selectedIndex + 1} of {_recipeImages.Count}";
-
-			_parent.IsEnabled = false;
-			_hideRequest = false;
-
-			Visibility = Visibility.Visible;
-
-			while (!_hideRequest)
+			if (selectedIndex != -1)
 			{
-				//Stop if app close
-				if (this.Dispatcher.HasShutdownStarted || this.Dispatcher.HasShutdownFinished)
-				{
-					break;
-				}
+				_recipeImages = recipeImages;
+				carouselRecipeImages.ItemsSource = _recipeImages;
+				carouselRecipeImages.SelectedItem = _recipeImages[selectedIndex];
+				currentImagePosTextBlock.Text = $"{selectedIndex + 1} of {_recipeImages.Count}";
 
-				this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
-				Thread.Sleep(20);
+				_parent.IsEnabled = false;
+				_hideRequest = false;
+
+				Visibility = Visibility.Visible;
+
+				while (!_hideRequest)
+				{
+					//Stop if app close
+					if (this.Dispatcher.HasShutdownStarted || this.Dispatcher.HasShutdownFinished)
+					{
+						break;
+					}
+
+					this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
+					Thread.Sleep(20);
+				}
 			}
 		}
 

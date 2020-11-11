@@ -256,7 +256,17 @@
                        Height="92"
                        Stretch="UniformToFill"
                        RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
+                       Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
 
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -373,12 +383,22 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <!-- Binding data -->
-                                        <Image Name="foodRecipeImage"
+                                        <Button Name="foodRecipeImageContainer"
+                                                Click="foodRecipeImageContainer_Click"
+                                                Margin="0, 0, 8, 0"
+                                                Tag="{Binding LINK_IMAGES}"
+                                                Width="144"
+                                                Height="144"
+                                                materialDesign:ButtonAssist.CornerRadius="0"
+                                                Style="{StaticResource GroupButton}">
+                                            
+                                            <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
                                            RenderOptions.BitmapScalingMode="HighQuality"
                                            Stretch="UniformToFill"
                                            Source="{Binding LINK_IMAGES, Converter={StaticResource PathConverter}}"/>
+                                        </Button>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
