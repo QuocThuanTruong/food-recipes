@@ -13,6 +13,11 @@
     <ImageSource x:Key="IconBlueAdd">pack://application:,,,/Assets/icon_blue_add.png</ImageSource>
     <ImageSource x:Key="IconBlueClose">pack://application:,,,/Assets/icon_blue_close.png</ImageSource>
     <ImageSource x:Key="IconBlueDelete">pack://application:,,,/Assets/icon_blue_delete.png</ImageSource>
+    <ImageSource x:Key="IconBlueExitFullScr">pack://application:,,,/Assets/icon_blue_exit_fullscr.png</ImageSource>
+    <ImageSource x:Key="IconBlueFullScr">pack://application:,,,/Assets/icon_blue_full_src.png</ImageSource>
+    <ImageSource x:Key="IconBlueMute">pack://application:,,,/Assets/icon_blue_mute.png</ImageSource>
+    <ImageSource x:Key="IconBlueSoundOn">pack://application:,,,/Assets/icon_blue_sound_on.png</ImageSource>
+    <ImageSource x:Key="IconBluePause">pack://application:,,,/Assets/icon_blue_pause.png</ImageSource>
     <ImageSource x:Key="IconBlueNext">pack://application:,,,/Assets/icon_blue_next.png</ImageSource>
     <ImageSource x:Key="IconBluePrevious">pack://application:,,,/Assets/icon_blue_previous.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
