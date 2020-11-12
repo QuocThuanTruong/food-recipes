@@ -276,7 +276,8 @@
                                    Visibility="Hidden"
                                    Margin="0, 10, 0, 0"
                                    Grid.Column="1"
-                                   Grid.Row="7"/>
+                                   Grid.Row="7">
+            </custom:YoutubeWebView>
 
             <custom:LocalMediaPlayer x:Name="localMediaPlayer"
                                      FullScreenClick="localMediaPlayer_FullScreenClick"
@@ -392,7 +393,7 @@
                                                 Height="144"
                                                 materialDesign:ButtonAssist.CornerRadius="0"
                                                 Style="{StaticResource GroupButton}">
-                                            
+
                                             <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
