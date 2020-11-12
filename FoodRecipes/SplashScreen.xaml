@@ -99,7 +99,6 @@
                         <custom:OutlineTextControl
                             Text="{x:Static loc:Resources.app_name}"
                             Style="{StaticResource LargeText}"
-                            Font="Oswald Bold"
                             Height="50"
                             Fill="{x:Null}"
                             Stroke="{DynamicResource MyRed}"
@@ -108,14 +107,12 @@
                         <custom:OutlineTextControl
                             Text="{x:Static loc:Resources.app_name}"
                             Style="{StaticResource LargeText}"
-                            Font="Oswald Bold"
                             Height="50"
                             Fill="{DynamicResource MyRed}"/>
 
                         <custom:OutlineTextControl
                             Text="{x:Static loc:Resources.app_name}"
                             Style="{StaticResource LargeText}"
-                            Font="Oswald Bold"
                             Height="50"
                             Fill="{x:Null}"
                             Stroke="{DynamicResource MyRed}"
