@@ -11,23 +11,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace FoodRecipes.CustomView
 {
 	/// <summary>
-	/// Interaction logic for CarouselDialog.xaml
+	/// Interaction logic for FullScreenVideoDialog.xaml
 	/// </summary>
-	public partial class CarouselDialog : UserControl
+	public partial class FullScreenVideoDialog : UserControl
 	{
 		private bool _hideRequest = false;
 		private UIElement _parent;
-		private List<StepImage> _recipeImages;
 
-		public delegate void CloseCarouselDialogHandler();
-		public event CloseCarouselDialogHandler CloseCarouselDialog;
-		public CarouselDialog()
+		public delegate void CloseFullScreenVideoDialogHandler();
+		public event CloseFullScreenVideoDialogHandler CloseFullScreenVideoDialog;
+		public FullScreenVideoDialog()
 		{
 			InitializeComponent();
 			Visibility = Visibility.Collapsed;
@@ -38,12 +38,11 @@ namespace FoodRecipes.CustomView
 			_parent = parent;
 		}
 
-		public void ShowDialog(List<StepImage> recipeImages, int selectedIndex)
+		//Params will define depend on your need
+		public void ShowDialog()
 		{
-			_recipeImages = recipeImages;
-			carouselRecipeImages.ItemsSource = _recipeImages;
-			carouselRecipeImages.SelectedItem = _recipeImages[selectedIndex];
-			currentImagePosTextBlock.Text = $"{selectedIndex + 1} of {_recipeImages.Count}";
+			//TO DO: Implement code here
+			localMediaPlayer.PlayVideoFromUri(@"D:\Temporary\a.mkv");
 
 			_parent.IsEnabled = false;
 			_hideRequest = false;
@@ -71,25 +70,13 @@ namespace FoodRecipes.CustomView
 			_parent.IsEnabled = true;
 		}
 
-		private void closeWindowButton_Click(object sender, RoutedEventArgs e)
+		private void localMediaPlayer_FullScreenClick(bool isFullScreen)
 		{
-			CloseCarouselDialog?.Invoke();
-			HideDialog();		
-		}
-
-		private void nextImageButton_Click(object sender, RoutedEventArgs e)
-		{
-			carouselRecipeImages.RotateLeft();
-		}
-
-		private void prevImageButton_Click(object sender, RoutedEventArgs e)
-		{
-			carouselRecipeImages.RotateRight();
-		}
-
-		private void carouselRecipeImages_SelectionChanged(FrameworkElement selectedElement)
-		{
-			currentImagePosTextBlock.Text = $"{_recipeImages.IndexOf((StepImage)carouselRecipeImages.SelectedItem) + 1} of {_recipeImages.Count}";
+			if (!isFullScreen)
+			{
+				CloseFullScreenVideoDialog?.Invoke();
+				HideDialog();
+			}	
 		}
 	}
 }

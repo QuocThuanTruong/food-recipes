@@ -146,6 +146,7 @@ namespace FoodRecipes
 		private void MainScreen_ShowRecipeDetailPage(int recipeID)
 		{
 			var recipeDetailPage = new RecipeDetailPage(recipeID);
+			recipeDetailPage.ReloadRecipePage += RecipeDetailPage_ReloadRecipePage;
 
 			recipeDetailPage.GoShopping += RecipeDetailPage_GoShopping;
 			pageNavigation.NavigationService.Navigate(recipeDetailPage);
@@ -157,6 +158,11 @@ namespace FoodRecipes
 				button.BorderThickness = (Thickness)new ThicknessConverter().ConvertFromString(DEFAULT_BORDERTHICKNESS);
 				button.IsEnabled = true;
 			}
+		}
+
+		private void RecipeDetailPage_ReloadRecipePage(int recipeID)
+		{
+			MainScreen_ShowRecipeDetailPage(recipeID);
 		}
 
 		private void RecipeDetailPage_GoShopping()

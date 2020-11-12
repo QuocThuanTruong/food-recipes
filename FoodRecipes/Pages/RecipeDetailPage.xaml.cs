@@ -32,6 +32,9 @@ namespace FoodRecipes.Pages
 		public delegate void GoShoppingHandler();
 		public event GoShoppingHandler GoShopping;
 
+		public delegate void ReloadRecipePageHandler(int recipeID);
+		public event ReloadRecipePageHandler ReloadRecipePage;
+
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private AppUtilities _appUtilities = new AppUtilities();
 		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
@@ -43,6 +46,7 @@ namespace FoodRecipes.Pages
 			InitializeComponent();
 
 			carouselDialog.SetParent(mainContainer);
+			fullScreenVideoDialog.SetParent(mainContainer);
 		}
 
 		public RecipeDetailPage(int recipeID)
@@ -50,6 +54,7 @@ namespace FoodRecipes.Pages
 			InitializeComponent();			
 
 			carouselDialog.SetParent(mainContainer);
+			fullScreenVideoDialog.SetParent(mainContainer);
 
 			_recipeID = recipeID;
 
@@ -134,50 +139,57 @@ namespace FoodRecipes.Pages
 
 			youtubeWebView.Visibility = Visibility.Hidden;
 			carouselDialog.ShowDialog(_recipe.IMAGES_LIST_FOR_BINDING, imageRecipeListView.SelectedIndex);
-
-			imageRecipeListView.SelectedIndex = -1;
 		}
 
 		private void CarouselDialog_CloseCarouselDialog()
 		{
-			playVideoTutorial(_recipe.LINK_VIDEO);
+			ReloadRecipePage?.Invoke(_recipeID);
 		}
 
 		private void foodRecipeImageContainer_Click(object sender, RoutedEventArgs e)
 		{
-			//var selectedButton = (Button)sender;
-			//StepImage selectedImage = null;
-			//var selectedStep = 0;
-			//var selectedIndex = 0;
-			//List<StepImage> selectedStepImages = new List<StepImage>();
+			var selectedButton = (Button)sender;
+			StepImage selectedImage = null;
+			var selectedStep = 0;
+			var selectedIndex = 0;
+			List<StepImage> selectedStepImages = new List<StepImage>();
 
+			for (int i = 0; i < _recipe.IMAGES_LIST_FOR_BINDING.Count; i++)
+			{
+				if (_recipe.IMAGES_LIST_FOR_BINDING[i].LINK_IMAGES == selectedButton.Tag.ToString())
+				{
+					selectedStep = _recipe.IMAGES_LIST_FOR_BINDING[i].NO_STEP;
+					selectedImage = _recipe.IMAGES_LIST_FOR_BINDING[i];
+					break;
+				}
+			}
 
-			//for (int i = 0; i < _recipe.IMAGES_LIST_FOR_BINDING.Count; i++)
-			//{
-			//	if (_recipe.IMAGES_LIST_FOR_BINDING[i].LINK_IMAGES == selectedButton.Tag.ToString())
-			//	{
-			//		selectedStep = _recipe.IMAGES_LIST_FOR_BINDING[i].NO_STEP;
-			//		selectedImage = _recipe.IMAGES_LIST_FOR_BINDING[i];
-			//		break;
-			//	}
-			//}
+			foreach (var image in _recipe.IMAGES_LIST_FOR_BINDING)
+			{
+				if (image.NO_STEP == selectedStep)
+				{
+					selectedStepImages.Add(image);
+				}
+			}
 
-			//foreach (var image in _recipe.IMAGES_LIST_FOR_BINDING)
-			//{
-			//	if (image.NO_STEP == selectedStep)
-			//	{
-			//		selectedStepImages.Add(image);
-			//	}
-			//}
+			selectedIndex = selectedStepImages.IndexOf(selectedImage);
 
-			//selectedIndex = selectedStepImages.IndexOf(selectedImage);
+			youtubeWebView.Visibility = Visibility.Hidden;
+			carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
+		}
 
+		private void fullScreenVideoDialog_CloseFullScreenVideoDialog()
+		{
+			ReloadRecipePage?.Invoke(_recipeID);
+		}
 
-			//youtubeWebView.Visibility = Visibility.Hidden;
-			//carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
-
-			//selectedIndex = -1;
-			//selectedStepImages.Clear();
+		private void localMediaPlayer_FullScreenClick(bool isFullScreen)
+		{
+			if (isFullScreen)
+			{
+				//Params will define depend on your need
+				fullScreenVideoDialog.ShowDialog();
+			}	
 		}
 	}
 }
