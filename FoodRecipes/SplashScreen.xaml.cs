@@ -40,6 +40,8 @@ namespace FoodRecipes
 		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 		private Random _rng = new Random();
 
+		private bool _showSplashScreenFlag = true;
+
 		public SplashScreen()
 		{
 			InitializeComponent();
@@ -48,38 +50,47 @@ namespace FoodRecipes
 
 			if (maxID > 0)
             {
+				_showSplashScreenFlag = true;
+
 				int randomIndex = _rng.Next(maxID) + 1;
 
 				Recipe recipe = _dbUtilities.GetRecipeById(randomIndex);
 				recipe = _appUtilities.getRecipeForBindingInHomePage(recipe);
 
 				recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
-				recipe.LINK_AVATAR = $"Images/{randomIndex}/ avatar.{recipe.LINK_AVATAR}";
+				recipe.LINK_AVATAR = $"Images/{randomIndex}/avatar.{recipe.LINK_AVATAR}";
 
 				DataContext = recipe;
 			}
 			else
             {
-				//Do nothing
-            }
+				_showSplashScreenFlag = false;
+			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			//Get splash screen config value
-			_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			var appSettingValue = ConfigurationManager.AppSettings["ShowSplashScreen"];
-			var isSplashScreenShow = bool.Parse(appSettingValue);
-			Debug.WriteLine(isSplashScreenShow);
+			if (_showSplashScreenFlag)
+            {
+				//Get splash screen config value
+				_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+				var appSettingValue = ConfigurationManager.AppSettings["ShowSplashScreen"];
+				var isSplashScreenShow = bool.Parse(appSettingValue);
+				Debug.WriteLine(isSplashScreenShow);
 
-			if (isSplashScreenShow)
-			{
-				_loadingTmer = new Timer(TIME_LOAD_UNIT);
-				_loadingTmer.Elapsed += LoadingTmer_Elapsed;
-				_loadingTmer.Start();
-			}
+				if (isSplashScreenShow)
+				{
+					_loadingTmer = new Timer(TIME_LOAD_UNIT);
+					_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+					_loadingTmer.Start();
+				}
+				else
+				{
+					showMainScreen();
+				}
+			} 
 			else
-			{
+            {
 				showMainScreen();
 			}
 		}
@@ -98,7 +109,7 @@ namespace FoodRecipes
 
 		private void LoadingTmer_Elapsed(object sender, ElapsedEventArgs e)
 		{
-			Dispatcher.Invoke(() =>
+			Dispatcher.Invoke(() => 
 			{
 				_timeCounter++;
 

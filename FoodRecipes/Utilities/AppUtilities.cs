@@ -77,41 +77,9 @@ namespace FoodRecipes.Utilities
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile) {
             var destPath = (string)_absolutePathConverter.Convert($"Images/{ID}/{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
 
-            //using (FileStream srcFile = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
-            //{
-            //    // Read the source file into a byte array.
-            //    byte[] bytes = new byte[srcFile.Length];
-
-            //    int numBytesToRead = (int)srcFile.Length;
-
-            //    int numBytesRead = 0;
-            //    while (numBytesToRead > 0)
-            //    {
-            //        // Read may return anything from 0 to numBytesToRead.
-            //        int n = srcFile.Read(bytes, numBytesRead, numBytesToRead);
-
-            //        // Break when the end of the file is reached.
-            //        if (n == 0)
-            //            break;
-
-            //        numBytesRead += n;
-            //        numBytesToRead -= n;
-            //    }
-            //    numBytesToRead = bytes.Length;
-
-            //    // Write the byte array to the other FileStream.
-            //    using (FileStream destFile = new FileStream(destPath, FileMode.Create, FileAccess.Write))
-            //    {
-            //        destFile.Write(bytes, 0, numBytesToRead);
-            //    }
-            //}
-
             File.Copy(srcPath, destPath, true);
 
         }
-
-        //hàm chuẩn hóa chuỗi. Đáng lẽ phải có thêm 1 cái Utilities nữa mà lười.
-       
 
         public (int hour, int minute) convertTime(int minutes)
         {

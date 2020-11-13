@@ -32,12 +32,11 @@ namespace FoodRecipes.Pages
 		public delegate void GoShoppingHandler();
 		public event GoShoppingHandler GoShopping;
 
-		public delegate void ReloadRecipePageHandler(int recipeID);
+		public delegate void ReloadRecipePageHandler(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime);
 		public event ReloadRecipePageHandler ReloadRecipePage;
 
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private AppUtilities _appUtilities = new AppUtilities();
-		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 		private int _recipeID;
 		private Recipe _recipe;
 
@@ -49,7 +48,7 @@ namespace FoodRecipes.Pages
 			fullScreenVideoDialog.SetParent(mainContainer);
 		}
 
-		public RecipeDetailPage(int recipeID)
+		public RecipeDetailPage(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime)
 		{
 			InitializeComponent();			
 
@@ -62,7 +61,7 @@ namespace FoodRecipes.Pages
 
 			_recipe = _appUtilities.getRecipeForBindingInRecipeDetail(_recipe, false);
 
-			playVideoTutorial(_recipe.LINK_VIDEO);
+			playVideoTutorial(_recipe.LINK_VIDEO, isPlay, isMute, currentVolume, currentTime);
 
 			mainContainer.DataContext = _recipe;
 		}
@@ -71,7 +70,7 @@ namespace FoodRecipes.Pages
 		{
 
 		}
-		private void playVideoTutorial(string url)
+		private void playVideoTutorial(string url, bool isPlay, bool isMute, double currentVolume, double currentTime)
         {
 			if (url.IndexOf("http") != -1 || url.IndexOf("https") != -1)
             {
@@ -87,6 +86,11 @@ namespace FoodRecipes.Pages
 			else
             {
 				localMediaPlayer.Visibility = Visibility.Visible;
+
+				localMediaPlayer.IsPlay = isPlay;
+				localMediaPlayer.IsMute = isMute;
+				localMediaPlayer.CurrentVolume = currentVolume;
+				localMediaPlayer.CurrentTime = currentTime;
 
 				var errorMessage = localMediaPlayer.PlayVideoFromUri(url);
 
@@ -109,16 +113,6 @@ namespace FoodRecipes.Pages
 		{
 			GoShopping?.Invoke();
 		}
-
-        private void videoContainer_MediaOpened(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void videoContainer_MediaFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-
-        }
 
         private void favButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -143,7 +137,7 @@ namespace FoodRecipes.Pages
 
 		private void CarouselDialog_CloseCarouselDialog()
 		{
-			ReloadRecipePage?.Invoke(_recipeID);
+			ReloadRecipePage?.Invoke(_recipeID, localMediaPlayer.IsPlay, localMediaPlayer.IsMute, localMediaPlayer.CurrentVolume, localMediaPlayer.CurrentTime);
 		}
 
 		private void foodRecipeImageContainer_Click(object sender, RoutedEventArgs e)
@@ -178,18 +172,38 @@ namespace FoodRecipes.Pages
 			carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
 		}
 
-		private void fullScreenVideoDialog_CloseFullScreenVideoDialog()
+		private void fullScreenVideoDialog_CloseFullScreenVideoDialog(bool isPlay, bool isMute, double currentVolume, double currentTime)
 		{
-			ReloadRecipePage?.Invoke(_recipeID);
+			ReloadRecipePage?.Invoke(_recipeID, isPlay, isMute, currentVolume, currentTime);
 		}
+
+		private void getStatusVideo(bool isPlay, bool isMute, double currentVolume, double currentTime)
+        {
+
+        }
 
 		private void localMediaPlayer_FullScreenClick(bool isFullScreen)
 		{
 			if (isFullScreen)
 			{
 				//Params will define depend on your need
-				fullScreenVideoDialog.ShowDialog();
+
+				fullScreenVideoDialog.ShowDialog(_recipe.LINK_VIDEO, localMediaPlayer.IsPlay, localMediaPlayer.IsMute, localMediaPlayer.CurrentVolume, localMediaPlayer.CurrentTime);
+
+				if (localMediaPlayer.IsPlay)
+				{
+					localMediaPlayer.IsPlay = false;
+				}
+				else
+				{
+					//Do Nothing
+				}
 			}	
+		}
+
+		public void playUnfinishedVideo()
+        {
+			localMediaPlayer.playUnfinishedVideo();
 		}
 	}
 }
