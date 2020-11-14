@@ -27,7 +27,7 @@ namespace FoodRecipes.Pages
 	/// </summary>
 	public partial class HomePage : Page
 	{
-		public delegate void ShowRecipeDetailPageHandler(int recipeID);
+		public delegate void ShowRecipeDetailPageHandler(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime);
 		public event ShowRecipeDetailPageHandler ShowRecipeDetailPage;
 
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
@@ -217,7 +217,7 @@ namespace FoodRecipes.Pages
 
 			//Get Id recipe base on item clikced
 
-			ShowRecipeDetailPage?.Invoke(selectedID);	
+			ShowRecipeDetailPage?.Invoke(selectedID, false, false, 1, 0);	
 		}
 
 		private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
