@@ -58,7 +58,6 @@ namespace FoodRecipes
 				recipe = _appUtilities.getRecipeForBindingInHomePage(recipe);
 
 				recipe.NAME = _appUtilities.getStandardName(recipe.NAME, true);
-				recipe.LINK_AVATAR = $"Images/{randomIndex}/avatar.{recipe.LINK_AVATAR}";
 
 				DataContext = recipe;
 			}
@@ -119,7 +118,7 @@ namespace FoodRecipes
 					showMainScreen();
 				}
 
-				Debug.WriteLine(_timeCounter);
+				//Debug.WriteLine(_timeCounter);
 			});
 		}
 
