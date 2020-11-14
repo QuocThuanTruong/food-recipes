@@ -327,6 +327,9 @@ namespace FoodRecipes.Pages
 
 					var today = DateTime.Now;
 
+					Debug.WriteLine(recipe.NAME);
+			
+
 					if (_dbUtilitiesInstance.InsertRecipe(recipe.ID_RECIPE, recipe.NAME, recipe.DESCRIPTION, recipe.LINK_VIDEO, recipe.LINK_AVATAR, recipe.TIME, recipe.FOOD_GROUP, recipe.FOOD_LEVEL, false, false, today) == 1)
                     {
 						_appUtilities.createIDDirectory(recipe.ID_RECIPE);
