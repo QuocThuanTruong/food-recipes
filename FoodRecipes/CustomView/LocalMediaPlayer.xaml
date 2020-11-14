@@ -9,10 +9,14 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Name="mainContainer">
         <MediaElement x:Name="videoContainerFromLocal"
+                      MediaOpened="videoContainerFromLocal_Opened"
+                      MediaEnded="videoContainerFromLocal_Ended"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Stop"
                       MediaFailed="videoContainerFromLocal_MediaFailed"
                       Width="{Binding ActualWidth, ElementName=mainContainer}"
-                      Height="{Binding ActualHeight, ElementName=mainContainer}"/>
-        
+                      Height="{Binding ActualHeight, ElementName=mainContainer}" Volume="1"/>
+
         <Button Name="mediaControlContainer"
                 Style="{StaticResource ImagePickerFrameButton}"
                 BorderBrush="Transparent"
@@ -31,13 +35,15 @@
                 </Grid.RowDefinitions>
 
                 <Slider Name="videoProgressSlider"
-                        ValueChanged="videoProgressSlider_ValueChanged"
+                        LostMouseCapture="videoProgressSlider_LostMouseCapture"
                         Grid.RowSpan="2"
                         Minimum="{Binding StartTime}"
-                        Maximum="{Binding EndTime}"
+                        Maximum="86400"
                         Value="{Binding CurrentTime}"
                         VerticalAlignment="Top"
                         Margin="8, 8, 8, 0"/>
+
+                   
 
                 <StackPanel Name="leftControlContainer"
                             Grid.Row="1"
@@ -78,8 +84,8 @@
                             Width="100"
                             Margin="4, 0, 0, 0"
                             Minimum="0"
-                            Maximum="100"
-                            Value="{Binding CurrentVolume}"
+                            Maximum="1"
+                            Value="1"
                             Orientation="Horizontal"/>
                 </StackPanel>
 

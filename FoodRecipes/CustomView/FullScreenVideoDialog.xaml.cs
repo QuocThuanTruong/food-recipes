@@ -25,8 +25,9 @@ namespace FoodRecipes.CustomView
 		private bool _hideRequest = false;
 		private UIElement _parent;
 
-		public delegate void CloseFullScreenVideoDialogHandler();
+		public delegate void CloseFullScreenVideoDialogHandler(bool isPlay, bool isMute, double currentVolume, double currentTime);
 		public event CloseFullScreenVideoDialogHandler CloseFullScreenVideoDialog;
+
 		public FullScreenVideoDialog()
 		{
 			InitializeComponent();
@@ -39,10 +40,15 @@ namespace FoodRecipes.CustomView
 		}
 
 		//Params will define depend on your need
-		public void ShowDialog()
+		public void ShowDialog(string url, bool isPlay, bool isMute, double currentVolume, double currentTime)
 		{
 			//TO DO: Implement code here
-			localMediaPlayer.PlayVideoFromUri(@"D:\Temporary\a.mkv");
+			localMediaPlayer.IsPlay = isPlay;
+			localMediaPlayer.IsMute = isMute;
+			localMediaPlayer.CurrentVolume = currentVolume;
+			localMediaPlayer.CurrentTime = currentTime;
+
+			localMediaPlayer.PlayVideoFromUri(url);
 
 			_parent.IsEnabled = false;
 			_hideRequest = false;
@@ -57,10 +63,9 @@ namespace FoodRecipes.CustomView
 					break;
 				}
 
-				this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
+				this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {}));
 				Thread.Sleep(20);
 			}
-
 		}
 
 		public void HideDialog()
@@ -74,9 +79,9 @@ namespace FoodRecipes.CustomView
 		{
 			if (!isFullScreen)
 			{
-				CloseFullScreenVideoDialog?.Invoke();
 				HideDialog();
-			}	
+				CloseFullScreenVideoDialog?.Invoke(localMediaPlayer.IsPlay, localMediaPlayer.IsMute, localMediaPlayer.CurrentVolume, localMediaPlayer.CurrentTime);
+			}
 		}
-	}
+    }
 }
