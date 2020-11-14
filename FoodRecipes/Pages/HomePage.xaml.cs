@@ -40,6 +40,7 @@ namespace FoodRecipes.Pages
 		private int _typeGridCard = 0;
 		private bool _isSearching = false;
 		private string _prevCondition = "init";
+		private bool _isFirstSearch = true;
 		private int _sortedBy = 0;
 
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
@@ -368,6 +369,8 @@ namespace FoodRecipes.Pages
             {
 				string condition = getConditionInQuery();
 
+				_isFirstSearch = true;
+
 				if (_prevCondition != condition) {
 					_currentPage = 1;
 					_prevCondition = condition;
@@ -424,6 +427,12 @@ namespace FoodRecipes.Pages
 			if (search_text.Length != 0)
 			{
 				_isSearching = true;
+				
+				if (_isFirstSearch)
+                {
+					_currentPage = 1;
+					_isFirstSearch = false;
+				}
 
 				string condition = getConditionInQuery();
 
