@@ -19,6 +19,7 @@ using FoodRecipes.Utilities;
 using FoodRecipes.Converter;
 using System.Windows.Controls.Primitives;
 using System.Configuration;
+using System.Timers;
 
 namespace FoodRecipes.Pages
 {
@@ -34,6 +35,12 @@ namespace FoodRecipes.Pages
 		private AppUtilities _appUtilities = new AppUtilities();
 		private Configuration _configuration;
 
+		private Timer _loadingTmer;
+		private int _timeCounter = 0;
+
+		private const int TIME_LOAD_UNIT = 100;
+		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
+
 		private int _currentPage;
 		private int _maxPage = 0;
 		private bool _isFavorite = false;
@@ -42,6 +49,11 @@ namespace FoodRecipes.Pages
 		private string _prevCondition = "init";
 		private bool _isFirstSearch = true;
 		private int _sortedBy = 0;
+		private bool _canSearchRequest = false;
+		private string _search_text = "";
+		private string _condition = "";
+
+		private (List<Recipe> recipes, int totalRecipeResult) _recipesSearchResults = (new List<Recipe>(), 0); 
 
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
 																	 ("NAME", "ASC"), ("NAME", "DESC"),
@@ -59,6 +71,10 @@ namespace FoodRecipes.Pages
 
 			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByHomePage"]);
 			sortTypeComboBox.SelectedIndex = _sortedBy;
+
+			_loadingTmer = new Timer(TIME_LOAD_UNIT);
+			_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+			_loadingTmer.Start();
 
 			_isFavorite = false;
 
@@ -81,6 +97,10 @@ namespace FoodRecipes.Pages
 				_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByHomePage"]);
 				sortTypeComboBox.SelectedIndex = _sortedBy;
 
+				_loadingTmer = new Timer(TIME_LOAD_UNIT);
+				_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+				_loadingTmer.Start();
+
 				_isFavorite = true;
 
 				_currentPage = 1;
@@ -89,6 +109,28 @@ namespace FoodRecipes.Pages
 
 				loadRecipes();
 			}	
+		}
+		private void LoadingTmer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				if (_isSearching)
+                {
+					++_timeCounter;
+
+					if (_timeCounter % TOTAL_TIME_LOAD_IN_SECOND == 0 && _canSearchRequest)
+					{
+						_timeCounter = 0;
+
+						loadRecipesSearch();
+					}
+				}
+				else
+                {
+					_timeCounter = 0;
+                }
+				
+			});
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -367,6 +409,9 @@ namespace FoodRecipes.Pages
 		private void loadRecipes() {
 			if (!_isSearching)
             {
+				_search_text = "";
+				_condition = "";
+
 				string condition = getConditionInQuery();
 
 				_isFirstSearch = true;
@@ -423,11 +468,11 @@ namespace FoodRecipes.Pages
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 			string search_text = searchTextBox.Text;
-
+			
 			if (search_text.Length != 0)
 			{
 				_isSearching = true;
-				
+
 				if (_isFirstSearch)
                 {
 					_currentPage = 1;
@@ -435,6 +480,16 @@ namespace FoodRecipes.Pages
 				}
 
 				string condition = getConditionInQuery();
+
+				if (_search_text != search_text || _condition != condition)
+				{
+					_search_text = search_text;
+					_condition = condition;
+
+					_canSearchRequest = true;
+				}
+
+				_condition = condition;
 
 				if (_prevCondition != condition)
 				{
@@ -445,39 +500,6 @@ namespace FoodRecipes.Pages
 				{
 					//Do Nothing
 				}
-
-				(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(search_text, condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
-
-				_maxPage = getMaxPage(recipesSearchResults.totalRecipeResult);
-				if (_maxPage == 0)
-				{
-					_maxPage = 1;
-					_currentPage = 1;
-				}
-				else
-                {
-					//Do nothing
-                }
-
-				currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
-
-				List<Recipe> recipes = recipesSearchResults.recipes;
-				if (recipes.Count > 0)
-				{
-					for (int i = 0; i < recipes.Count; ++i)
-					{
-						recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
-					}
-
-					recipesListView.ItemsSource = recipes;
-
-					notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
-				}
-				else
-				{
-					recipesListView.ItemsSource = null;
-				}
-
 			}
 			else
 			{
@@ -485,6 +507,43 @@ namespace FoodRecipes.Pages
 
 				loadRecipes();
 			}
+		}
+
+		private void loadRecipesSearch()
+        {
+			_recipesSearchResults = _dbUtilities.GetRecipesSearchResult(_search_text, _condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
+
+			_maxPage = getMaxPage(_recipesSearchResults.totalRecipeResult);
+			if (_maxPage == 0)
+			{
+				_maxPage = 1;
+				_currentPage = 1;
+			}
+			else
+			{
+				//Do nothing
+			}
+
+			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+
+			List<Recipe> recipes = _recipesSearchResults.recipes;
+			if (recipes.Count > 0)
+			{
+				for (int i = 0; i < recipes.Count; ++i)
+				{
+					recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
+				}
+
+				recipesListView.ItemsSource = recipes;
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Có {_recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+			}
+			else
+			{
+				recipesListView.ItemsSource = null;
+			}
+
+			_canSearchRequest = false;
 		}
     }
 }
