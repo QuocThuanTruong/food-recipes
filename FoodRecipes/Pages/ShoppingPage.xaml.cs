@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FoodRecipes.Utilities;
 using System.Configuration;
+using System.Timers;
 
 namespace FoodRecipes.Pages
 {
@@ -29,6 +30,12 @@ namespace FoodRecipes.Pages
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private Configuration _configuration;
 
+		private Timer _loadingTmer;
+		private int _timeCounter = 0;
+
+		private const int TIME_LOAD_UNIT = 100;
+		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
+
 		private List<Recipe> _shoppingRecipes = new List<Recipe>();
 
 		private int _deleteRecipeID = -1;
@@ -39,6 +46,10 @@ namespace FoodRecipes.Pages
 		private bool _isSearching = false;
 		private int _selectedID = 0;
 
+		private bool _canSearchRequest = false;
+		private string _search_text = "";
+		private string _condition = "";
+
 		public ShoppingPage()
 		{
 			InitializeComponent();
@@ -48,9 +59,36 @@ namespace FoodRecipes.Pages
 			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByShoppingPage"]);
 			sortTypeComboBox.SelectedIndex = _sortedBy;
 
+			_loadingTmer = new Timer(TIME_LOAD_UNIT);
+			_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+			_loadingTmer.Start();
+
 			_shoppingButtonItems = new List<Button>();
 
 			loadRecipes();
+		}
+
+		private void LoadingTmer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				if (_isSearching)
+				{
+					++_timeCounter;
+
+					if (_timeCounter % TOTAL_TIME_LOAD_IN_SECOND == 0 && _canSearchRequest)
+					{
+						_timeCounter = 0;
+
+						loadRecipesSearch();
+					}
+				}
+				else
+				{
+					_timeCounter = 0;
+				}
+
+			});
 		}
 
 		private void foodGroupListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -277,6 +315,9 @@ namespace FoodRecipes.Pages
 		{
 			if (!_isSearching)
             {
+				_search_text = "";
+				_condition = "";
+
 				string condition = getConditionInQuery();
 				_shoppingRecipes = _dbUtilities.GetShoppingRecipes(condition, _conditionSortedBy[_sortedBy]);
 
@@ -343,49 +384,15 @@ namespace FoodRecipes.Pages
 					condition += " AND SHOPPING_FLAG = 1";
                 }
 
-				(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(search_text, condition, _conditionSortedBy[_sortedBy], 1, _dbUtilities.GetMaxIDRecipe());
-
-				_shoppingRecipes = recipesSearchResults.recipes;
-				if (_shoppingRecipes.Count > 0)
+				if (_search_text != search_text || _condition != condition)
 				{
-					for (int i = 0; i < _shoppingRecipes.Count; ++i)
-					{
-						_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i], true);
-					}
+					_search_text = search_text;
+					_condition = condition;
 
-					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
-
-					bool indexFlag = false;
-					int index;
-
-					for (index = 0; index < _shoppingRecipes.Count; ++index)
-					{
-						if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
-						{
-							indexFlag = true;
-							break;
-						}
-					}
-
-					if (indexFlag)
-					{
-						shoppingRecipeListView.SelectedIndex = index;
-						shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
-					}
-					else
-					{
-						shoppingRecipeListView.SelectedIndex = 0;
-						shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
-					}
-
-					notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
-				}
-				else
-				{
-					shoppingRecipeListView.ItemsSource = null;
-					shoppingIgredientListView.ItemsSource = null;
+					_canSearchRequest = true;
 				}
 
+				_condition = condition;
 			}
 			else
 			{
@@ -393,6 +400,54 @@ namespace FoodRecipes.Pages
 
 				loadRecipes();
 			}
+		}
+
+		private void loadRecipesSearch()
+		{
+			(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(_search_text, _condition, _conditionSortedBy[_sortedBy], 1, _dbUtilities.GetMaxIDRecipe());
+
+			_shoppingRecipes = recipesSearchResults.recipes;
+			if (_shoppingRecipes.Count > 0)
+			{
+				for (int i = 0; i < _shoppingRecipes.Count; ++i)
+				{
+					_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i], true);
+				}
+
+				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+
+				bool indexFlag = false;
+				int index;
+
+				for (index = 0; index < _shoppingRecipes.Count; ++index)
+				{
+					if (_shoppingRecipes[index].ID_RECIPE == _selectedID)
+					{
+						indexFlag = true;
+						break;
+					}
+				}
+
+				if (indexFlag)
+				{
+					shoppingRecipeListView.SelectedIndex = index;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[index].IGREDIENT_LIST_FOR_BINDING;
+				}
+				else
+				{
+					shoppingRecipeListView.SelectedIndex = 0;
+					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
+				}
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+			}
+			else
+			{
+				shoppingRecipeListView.ItemsSource = null;
+				shoppingIgredientListView.ItemsSource = null;
+			}
+
+			_canSearchRequest = false;
 		}
 	}
 }

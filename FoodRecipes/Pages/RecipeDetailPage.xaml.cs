@@ -74,14 +74,49 @@ namespace FoodRecipes.Pages
         {
 			if (url.IndexOf("http") != -1 || url.IndexOf("https") != -1)
             {
-				youtubeWebView.Visibility = Visibility.Visible;
+				youtubeThumbnail.Visibility = Visibility.Visible;
 
-				var errorMessage = youtubeWebView.PlayVideoFromUrl(url);
+				string[] urlParams = url.Split('=');
 
-				if (errorMessage != "")
+				string urlID = "";
+
+				if (url.IndexOf("=") != -1)
 				{
-					notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
+
+					string urlParamsIDAndFeture = urlParams[1];
+					string[] rawUrl = urlParamsIDAndFeture.Split('&');
+
+					if (rawUrl.Length > 0)
+					{
+						urlID = rawUrl[0];
+					}
+					else
+					{
+						urlID = urlParams[1];
+					}
 				}
+				else
+				{
+					urlParams = url.Split('/');
+					urlID = urlParams[3];
+				}
+
+				var sourceThumbnail = $"https://img.youtube.com/vi/{urlID}/0.jpg";
+				BitmapImage bitmap = new BitmapImage();
+
+				bitmap.BeginInit();
+				bitmap.CacheOption = BitmapCacheOption.OnLoad;
+				bitmap.UriSource = new Uri(sourceThumbnail);
+				bitmap.EndInit();
+
+				youtubeThumbnail.Source = bitmap;
+
+				//var errorMessage = youtubeWebView.PlayVideoFromUrl(url);
+
+				//if (errorMessage != "")
+				//{
+				//	notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
+				//}
 			} 
 			else
             {
@@ -131,7 +166,7 @@ namespace FoodRecipes.Pages
 		{
 			Debug.WriteLine(imageRecipeListView.SelectedIndex);
 
-			youtubeWebView.Visibility = Visibility.Hidden;
+			youtubeThumbnail.Visibility = Visibility.Hidden;
 			carouselDialog.ShowDialog(_recipe.IMAGES_LIST_FOR_BINDING, imageRecipeListView.SelectedIndex);
 		}
 
@@ -168,7 +203,7 @@ namespace FoodRecipes.Pages
 
 			selectedIndex = selectedStepImages.IndexOf(selectedImage);
 
-			youtubeWebView.Visibility = Visibility.Hidden;
+			youtubeThumbnail.Visibility = Visibility.Hidden;
 			carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
 		}
 

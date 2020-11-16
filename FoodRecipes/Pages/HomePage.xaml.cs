@@ -53,8 +53,6 @@ namespace FoodRecipes.Pages
 		private string _search_text = "";
 		private string _condition = "";
 
-		private (List<Recipe> recipes, int totalRecipeResult) _recipesSearchResults = (new List<Recipe>(), 0); 
-
 		private (string column, string type)[] _conditionSortedBy = {("ADD_DATE", "DESC"), ("ADD_DATE", "ASC"),
 																	 ("NAME", "ASC"), ("NAME", "DESC"),
 																	 ("TIME", "DESC"), ("TIME", "ASC"),
@@ -511,9 +509,9 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipesSearch()
         {
-			_recipesSearchResults = _dbUtilities.GetRecipesSearchResult(_search_text, _condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
+			(List<Recipe> recipes, int totalRecipeResult) recipesSearchResults = _dbUtilities.GetRecipesSearchResult(_search_text, _condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
 
-			_maxPage = getMaxPage(_recipesSearchResults.totalRecipeResult);
+			_maxPage = getMaxPage(recipesSearchResults.totalRecipeResult);
 			if (_maxPage == 0)
 			{
 				_maxPage = 1;
@@ -526,7 +524,7 @@ namespace FoodRecipes.Pages
 
 			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
 
-			List<Recipe> recipes = _recipesSearchResults.recipes;
+			List<Recipe> recipes = recipesSearchResults.recipes;
 			if (recipes.Count > 0)
 			{
 				for (int i = 0; i < recipes.Count; ++i)
@@ -536,7 +534,7 @@ namespace FoodRecipes.Pages
 
 				recipesListView.ItemsSource = recipes;
 
-				notiMessageSnackbar.MessageQueue.Enqueue($"Có {_recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
 			}
 			else
 			{
