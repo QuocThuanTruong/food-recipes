@@ -272,7 +272,14 @@ namespace FoodRecipes.Pages
 				--_currentPage;
             }
 
-			loadRecipes();
+			if (_isSearching)
+            {
+				loadRecipesSearch();
+            } 
+			else
+            {
+				loadRecipes();
+			}
 		}
 
 		private void nextPageButton_Click(object sender, RoutedEventArgs e)
@@ -282,21 +289,42 @@ namespace FoodRecipes.Pages
 				++_currentPage;
 			}
 
-			loadRecipes();
+			if (_isSearching)
+			{
+				loadRecipesSearch();
+			}
+			else
+			{
+				loadRecipes();
+			}
 		}
 
 		private void firstPageButton_Click(object sender, RoutedEventArgs e)
 		{
 			_currentPage = 1;
 
-			loadRecipes();
+			if (_isSearching)
+			{
+				loadRecipesSearch();
+			}
+			else
+			{
+				loadRecipes();
+			}
 		}
 
 		private void lastPageButton_Click(object sender, RoutedEventArgs e)
 		{
 			_currentPage = _maxPage;
 
-			loadRecipes();
+			if (_isSearching)
+			{
+				loadRecipesSearch();
+			}
+			else
+			{
+				loadRecipes();
+			}
 		}
 
 		private void favButton_Click(object sender, RoutedEventArgs e) {
