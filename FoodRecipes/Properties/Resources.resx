@@ -186,6 +186,9 @@
   <data name="shopping_page_upper" xml:space="preserve">
     <value>SHOPPING</value>
   </data>
+  <data name="status_add_step_list_empty" xml:space="preserve">
+    <value>Hiện tại chưa có bước nào được thêm vào</value>
+  </data>
   <data name="status_list_load_fail" xml:space="preserve">
     <value>Rất tiếc không thể load danh sách</value>
   </data>
