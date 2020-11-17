@@ -213,6 +213,9 @@
     <Compile Include="CustomView\FullScreenVideoDialog.xaml.cs">
       <DependentUpon>FullScreenVideoDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomView\FullScreenYoutubeDialog.xaml.cs">
+      <DependentUpon>FullScreenYoutubeDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomView\LocalMediaPlayer.xaml.cs">
       <DependentUpon>LocalMediaPlayer.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,10 @@
     <Compile Include="Utilities\AppUtilities.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
     <Page Include="CustomView\FullScreenVideoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomView\FullScreenYoutubeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -379,6 +386,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Assets\404_not_found.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\icon_blue_exit_fullscr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -391,13 +401,25 @@
     <Content Include="Assets\icon_blue_next.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\icon_blue_open_file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\icon_blue_pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\icon_blue_previous.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\icon_blue_replay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\icon_blue_sound_on.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\icon_red_play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\icon_white_open_file.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Model1.Context.tt">

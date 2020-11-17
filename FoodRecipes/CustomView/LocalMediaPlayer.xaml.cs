@@ -27,11 +27,13 @@ namespace FoodRecipes.CustomView
 		public bool IsPlay { get; set; }
 		public bool IsMute { get; set; }
 		public double CurrentVolume { get; set; }
+		public bool IsHideController { get; set; } = true;
 
 		public delegate void FullScreenClickHandler(bool isFullScreen); //, double currentTime, double startTime, double endTime, bool isPlay, bool isMute, double currentVolume);
 		public event FullScreenClickHandler FullScreenClick;
 
 		private Timer _loadingTmer;
+		private Timer _loadFrameTimer;
 
 		private const int TIME_LOAD_UNIT = 1000;
 
@@ -44,9 +46,9 @@ namespace FoodRecipes.CustomView
 			InitializeComponent();
 		}
 
-		public string PlayVideoFromUri(string uri)
+		public bool PlayVideoFromUri(string uri)
 		{
-			var errorMessage = "";
+			var isSuccessful = true;
 
 			try
 			{
@@ -54,20 +56,23 @@ namespace FoodRecipes.CustomView
 			}
 			catch (Exception e)
 			{
-				errorMessage = $"Không thể phát video với đường dẫn \"{uri}\"";
-				Debug.WriteLine(errorMessage);
+				isSuccessful = false;
+				Debug.WriteLine(e.Message);
 			}
 
 			InitControl();
 
-			return errorMessage;
+			return isSuccessful;
 		}
 
 		private void InitControl()
 		{
+			_loadFrameTimer = new Timer(TIME_LOAD_UNIT/2);
+			_loadFrameTimer.Elapsed += _loadFrameTimer_Elapsed;
+
 			videoContainerFromLocal.IsMuted = true;
 			videoContainerFromLocal.Play();
-			videoContainerFromLocal.Pause();
+			_loadFrameTimer.Start();
 			videoContainerFromLocal.IsMuted = false;
 
 			if (IsFullScreen)
@@ -97,6 +102,15 @@ namespace FoodRecipes.CustomView
 			{
 				iconMute.Source = new BitmapImage(new Uri(FindResource("IconBlueSoundOn").ToString()));
 			}
+
+			if (IsHideController)
+			{
+				mediaControlContainer.Visibility = Visibility.Hidden;
+			}
+			else
+			{
+				mediaControlContainer.Visibility = Visibility.Visible;
+			}				
 
 			videoContainerFromLocal.Volume = CurrentVolume;
 			volumeSlider.Value = CurrentVolume;
@@ -132,6 +146,16 @@ namespace FoodRecipes.CustomView
             {
 				//Do Nothing
             }			
+		}
+
+		private void _loadFrameTimer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				videoContainerFromLocal.Pause();
+				iconPause.Source = new BitmapImage(new Uri(FindResource("IconBlueNext").ToString()));
+				_loadFrameTimer.Stop();
+			});
 		}
 
 		private void videoContainerFromLocal_MediaFailed(object sender, ExceptionRoutedEventArgs e)

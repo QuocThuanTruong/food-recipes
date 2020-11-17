@@ -1014,12 +1014,48 @@
             </StackPanel>
         </Grid>
 
-        <!-- Post mesage to notification to user here (active = true) -->
+        <TextBlock Name="currentResultTextBlock"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   Margin="8, 0, 0, 0"
+                   VerticalAlignment="Center"
+                   Text="Hiển thị 12 trong tổng số 72 kết quả"
+                   Foreground="{StaticResource MyLightGray4}"
+                   Style="{StaticResource RegularText}"/>
+        
+        <!-- List not found -->
+        <Grid Name="messageNotFoundContainer"
+              Visibility="Visible"
+              Grid.Column="1"
+              Grid.Row="2">
+
+            <Border Background="{DynamicResource MyLightGray2}"/>
+
+            <StackPanel Name="videoStatusContent"
+                                VerticalAlignment="Center">
+
+                <Image Name="videoStatusImage"
+                               Width="100"
+                               Height="100"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource 404NotFound}"/>
+
+                <TextBlock Name="videoStatusTextBlock"
+                                   Margin="0, 12, 0, 0"
+                                   HorizontalAlignment="Center"
+                                   Text="{x:Static loc:Resources.status_list_recipe_empty}"
+                                   Style="{StaticResource StepRegularText}"
+                                   Foreground="{StaticResource MyLightGray4}"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- Post mesage to notification to user here -->
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Left"
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="24, 0, 0, 8"
-                                 MaxWidth="600"
+                                 MaxWidth="1000"
                                  IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2"
