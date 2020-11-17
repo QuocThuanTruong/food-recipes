@@ -268,6 +268,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hiện tại chưa có bước nào được thêm vào.
+        /// </summary>
+        public static string status_add_step_list_empty {
+            get {
+                return ResourceManager.GetString("status_add_step_list_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rất tiếc không thể load danh sách.
         /// </summary>
         public static string status_list_load_fail {

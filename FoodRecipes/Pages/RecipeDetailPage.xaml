@@ -327,8 +327,9 @@
                                  HorizontalAlignment="Left"
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="0, 0, 0, 8"
+                                 Width="370"
                                  IsActive="False"
-                                 Grid.Column="3"
+                                 Grid.Column="1"
                                  Grid.Row="7"
                                  Grid.RowSpan="3">
             </materialDesign:Snackbar>
