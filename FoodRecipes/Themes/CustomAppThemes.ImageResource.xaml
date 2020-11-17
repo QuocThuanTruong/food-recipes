@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FoodRecipes">
 
+    <ImageSource x:Key="404NotFound">pack://application:,,,/Assets/404_not_found.png</ImageSource>
     <ImageSource x:Key="BottomRightRibbon">pack://application:,,,/Assets/bottom_right_ribbon.png</ImageSource>
     <ImageSource x:Key="BrushTornPaper">pack://application:,,,/Assets/brush_torn_paper.png</ImageSource>
     <ImageSource x:Key="FoodRecipeLogo">pack://application:,,,/Assets/food_recipe_logo.png</ImageSource>
@@ -20,6 +21,9 @@
     <ImageSource x:Key="IconBluePause">pack://application:,,,/Assets/icon_blue_pause.png</ImageSource>
     <ImageSource x:Key="IconBlueNext">pack://application:,,,/Assets/icon_blue_next.png</ImageSource>
     <ImageSource x:Key="IconBluePrevious">pack://application:,,,/Assets/icon_blue_previous.png</ImageSource>
+    <ImageSource x:Key="IconBlueReplay">pack://application:,,,/Assets/icon_blue_replay.png</ImageSource>
+    <ImageSource x:Key="IconBlueOpenFile">pack://application:,,,/Assets/icon_blue_open_file.png</ImageSource>
+    <ImageSource x:Key="IconWhiteOpenFile">pack://application:,,,/Assets/icon_white_open_file.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
     <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
     <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>
@@ -48,6 +52,7 @@
     <ImageSource x:Key="IconOrangeLevel">pack://application:,,,/Assets/icon_orange_level.png</ImageSource>
     <ImageSource x:Key="IconPassiveFav">pack://application:,,,/Assets/icon_passive_fav.png</ImageSource>
     <ImageSource x:Key="IconPrevious">pack://application:,,,/Assets/icon_previous.png</ImageSource>
+    <ImageSource x:Key="IconRedPlay">pack://application:,,,/Assets/icon_red_play.png</ImageSource>
     <ImageSource x:Key="IconRestoreDown">pack://application:,,,/Assets/icon_restore_down.png</ImageSource>
     <ImageSource x:Key="IconSearch">pack://application:,,,/Assets/icon_search.png</ImageSource>
     <ImageSource x:Key="IconShopping">pack://application:,,,/Assets/icon_shopping.png</ImageSource>

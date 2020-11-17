@@ -142,20 +142,15 @@ namespace FoodRecipes
 			homePageButton.IsEnabled = false;
 		}
 
-		private void MainScreen_ShowRecipeDetailPage(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime)
+		private void MainScreen_ShowRecipeDetailPage(int recipeID)
 		{
-			var recipeDetailPage = new RecipeDetailPage(recipeID, isPlay, isMute, currentVolume, currentTime);
+			var recipeDetailPage = new RecipeDetailPage(recipeID);
 
 			recipeDetailPage.ReloadRecipePage += RecipeDetailPage_ReloadRecipePage;
 
 			recipeDetailPage.GoShopping += RecipeDetailPage_GoShopping;
 
 			pageNavigation.NavigationService.Navigate(recipeDetailPage);
-
-            if (isPlay)
-            {
-                recipeDetailPage.playUnfinishedVideo();
-            }
 
             //Clear selected button
             foreach (var button in _mainScreenButtons)
@@ -166,9 +161,9 @@ namespace FoodRecipes
 			}
 		}
 
-		private void RecipeDetailPage_ReloadRecipePage(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime)
+		private void RecipeDetailPage_ReloadRecipePage(int recipeID)
 		{
-			MainScreen_ShowRecipeDetailPage(recipeID, isPlay, isMute, currentVolume, currentTime);
+			MainScreen_ShowRecipeDetailPage(recipeID);
 		}
 
 		private void RecipeDetailPage_GoShopping()

@@ -186,6 +186,18 @@
   <data name="shopping_page_upper" xml:space="preserve">
     <value>SHOPPING</value>
   </data>
+  <data name="status_add_step_list_empty" xml:space="preserve">
+    <value>Hiện tại chưa có bước nào được thêm vào</value>
+  </data>
+  <data name="status_list_load_fail" xml:space="preserve">
+    <value>Rất tiếc không thể load danh sách</value>
+  </data>
+  <data name="status_list_recipe_empty" xml:space="preserve">
+    <value>Danh sách hiện tại chưa có món ăn</value>
+  </data>
+  <data name="status_video_load_fail" xml:space="preserve">
+    <value>Rất tiếc không thể load video</value>
+  </data>
   <data name="test_description" xml:space="preserve">
     <value>Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu là món salad vừa thơm ngon lại rất bổ dưỡng. Một món ăn chứa đầy đủ chất dinh dưỡng từ các loại rau xanh, dưa hấu, nho khô, thịt gà ăn kèm cùng với sốt giấm đặc biệt sẽ khiến cho bạn càng ăn càng mê. Bạn hãy lưu lại ngay công thức bên dưới để làm món salad này nhé.</value>
   </data>

@@ -18,9 +18,9 @@ using System.Windows.Threading;
 namespace FoodRecipes.CustomView
 {
 	/// <summary>
-	/// Interaction logic for FullScreenVideoDialog.xaml
+	/// Interaction logic for FullScreenYoutubeDialog.xaml
 	/// </summary>
-	public partial class FullScreenVideoDialog : UserControl
+	public partial class FullScreenYoutubeDialog : UserControl
 	{
 		private bool _hideRequest = false;
 		private UIElement _parent;
@@ -28,7 +28,7 @@ namespace FoodRecipes.CustomView
 		public delegate void CloseFullScreenVideoDialogHandler();
 		public event CloseFullScreenVideoDialogHandler CloseFullScreenVideoDialog;
 
-		public FullScreenVideoDialog()
+		public FullScreenYoutubeDialog()
 		{
 			InitializeComponent();
 			Visibility = Visibility.Collapsed;
@@ -39,13 +39,10 @@ namespace FoodRecipes.CustomView
 			_parent = parent;
 		}
 
-		//Params will define depend on your need
 		public void ShowDialog(string url)
 		{
-			localMediaPlayer.IsHideController = false;
-			localMediaPlayer.IsPlay = true;
-			localMediaPlayer.IsMute = false;
-			localMediaPlayer.PlayVideoFromUri(url);
+			//TO DO: Implement code here
+			youtubeWebView.PlayVideoFromUrl(url);
 
 			_parent.IsEnabled = false;
 			_hideRequest = false;
@@ -60,7 +57,7 @@ namespace FoodRecipes.CustomView
 					break;
 				}
 
-				this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {}));
+				this.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
 				Thread.Sleep(20);
 			}
 		}
@@ -75,6 +72,7 @@ namespace FoodRecipes.CustomView
 		private void closeDialogButton_Click(object sender, RoutedEventArgs e)
 		{
 			HideDialog();
+			youtubeWebView.CloseYoutube();
 			CloseFullScreenVideoDialog?.Invoke();
 		}
 	}
