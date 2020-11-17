@@ -32,13 +32,14 @@ namespace FoodRecipes.Pages
 		public delegate void GoShoppingHandler();
 		public event GoShoppingHandler GoShopping;
 
-		public delegate void ReloadRecipePageHandler(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime);
+		public delegate void ReloadRecipePageHandler(int recipeID);
 		public event ReloadRecipePageHandler ReloadRecipePage;
 
 		private DBUtilities _dbUtilities = DBUtilities.GetDBInstance();
 		private AppUtilities _appUtilities = new AppUtilities();
 		private int _recipeID;
 		private Recipe _recipe;
+		private bool _isYoutubeWebView = true;
 
 		public RecipeDetailPage()
 		{
@@ -46,14 +47,16 @@ namespace FoodRecipes.Pages
 
 			carouselDialog.SetParent(mainContainer);
 			fullScreenVideoDialog.SetParent(mainContainer);
+			fullScreenYoutubeDialog.SetParent(mainContainer);
 		}
 
-		public RecipeDetailPage(int recipeID, bool isPlay, bool isMute, double currentVolume, double currentTime)
+		public RecipeDetailPage(int recipeID)
 		{
 			InitializeComponent();			
 
 			carouselDialog.SetParent(mainContainer);
 			fullScreenVideoDialog.SetParent(mainContainer);
+			fullScreenYoutubeDialog.SetParent(mainContainer);
 
 			_recipeID = recipeID;
 
@@ -61,7 +64,7 @@ namespace FoodRecipes.Pages
 
 			_recipe = _appUtilities.getRecipeForBindingInRecipeDetail(_recipe, false);
 
-			playVideoTutorial(_recipe.LINK_VIDEO, isPlay, isMute, currentVolume, currentTime);
+			loadVideoTutorial(_recipe.LINK_VIDEO);
 
 			mainContainer.DataContext = _recipe;
 		}
@@ -70,7 +73,7 @@ namespace FoodRecipes.Pages
 		{
 
 		}
-		private void playVideoTutorial(string url, bool isPlay, bool isMute, double currentVolume, double currentTime)
+		private void loadVideoTutorial(string url)
         {
 			if (url.IndexOf("http") != -1 || url.IndexOf("https") != -1)
             {
@@ -101,8 +104,15 @@ namespace FoodRecipes.Pages
 					urlID = urlParams[3];
 				}
 
+				//bắt ngoại lệ
 				var sourceThumbnail = $"https://img.youtube.com/vi/{urlID}/0.jpg";
 				BitmapImage bitmap = new BitmapImage();
+
+				statusVideoContainer.Visibility = Visibility.Collapsed;
+				playVideoButton.Visibility = Visibility.Visible;
+
+				_isYoutubeWebView = true;
+				//nếu không load được thì hiện statusVideoContainer
 
 				bitmap.BeginInit();
 				bitmap.CacheOption = BitmapCacheOption.OnLoad;
@@ -110,29 +120,23 @@ namespace FoodRecipes.Pages
 				bitmap.EndInit();
 
 				youtubeThumbnail.Source = bitmap;
-
-				//var errorMessage = youtubeWebView.PlayVideoFromUrl(url);
-
-				//if (errorMessage != "")
-				//{
-				//	notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
-				//}
 			} 
 			else
             {
 				localMediaPlayer.Visibility = Visibility.Visible;
+				statusVideoContainer.Visibility = Visibility.Collapsed;
+				playVideoButton.Visibility = Visibility.Visible;
 
-				localMediaPlayer.IsPlay = isPlay;
-				localMediaPlayer.IsMute = isMute;
-				localMediaPlayer.CurrentVolume = currentVolume;
-				localMediaPlayer.CurrentTime = currentTime;
+				localMediaPlayer.IsPlay = true;
 
-				var errorMessage = localMediaPlayer.PlayVideoFromUri(url);
+				_isYoutubeWebView = false;
 
-				if (errorMessage != "")
+				//không load được thì hiện status video
+				if (!localMediaPlayer.PlayVideoFromUri(url))
 				{
-					notiMessageSnackbar.MessageQueue.Enqueue(errorMessage, "OK", () => { });
-				}
+
+				}	
+
 			}
 		}
 
@@ -172,7 +176,7 @@ namespace FoodRecipes.Pages
 
 		private void CarouselDialog_CloseCarouselDialog()
 		{
-			ReloadRecipePage?.Invoke(_recipeID, localMediaPlayer.IsPlay, localMediaPlayer.IsMute, localMediaPlayer.CurrentVolume, localMediaPlayer.CurrentTime);
+			ReloadRecipePage?.Invoke(_recipeID);
 		}
 
 		private void foodRecipeImageContainer_Click(object sender, RoutedEventArgs e)
@@ -207,38 +211,26 @@ namespace FoodRecipes.Pages
 			carouselDialog.ShowDialog(selectedStepImages, selectedIndex);
 		}
 
-		private void fullScreenVideoDialog_CloseFullScreenVideoDialog(bool isPlay, bool isMute, double currentVolume, double currentTime)
+		private void fullScreenVideoDialog_CloseFullScreenVideoDialog()
 		{
-			ReloadRecipePage?.Invoke(_recipeID, isPlay, isMute, currentVolume, currentTime);
+			ReloadRecipePage?.Invoke(_recipeID);
 		}
 
-		private void getStatusVideo(bool isPlay, bool isMute, double currentVolume, double currentTime)
-        {
-
-        }
-
-		private void localMediaPlayer_FullScreenClick(bool isFullScreen)
+		private void fullScreenYoutubeDialog_CloseFullScreenVideoDialog()
 		{
-			if (isFullScreen)
+			ReloadRecipePage?.Invoke(_recipeID);
+		}
+
+		private void playVideoButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (_isYoutubeWebView)
 			{
-				//Params will define depend on your need
-
-				fullScreenVideoDialog.ShowDialog(_recipe.LINK_VIDEO, localMediaPlayer.IsPlay, localMediaPlayer.IsMute, localMediaPlayer.CurrentVolume, localMediaPlayer.CurrentTime);
-
-				if (localMediaPlayer.IsPlay)
-				{
-					localMediaPlayer.IsPlay = false;
-				}
-				else
-				{
-					//Do Nothing
-				}
-			}	
-		}
-
-		public void playUnfinishedVideo()
-        {
-			localMediaPlayer.playUnfinishedVideo();
+				fullScreenYoutubeDialog.ShowDialog(_recipe.LINK_VIDEO);
+			}
+			else
+			{
+				fullScreenVideoDialog.ShowDialog(_recipe.LINK_VIDEO);
+			}
 		}
 	}
 }

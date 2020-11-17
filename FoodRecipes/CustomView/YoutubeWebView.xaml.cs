@@ -21,21 +21,19 @@ namespace FoodRecipes.CustomView
 	/// </summary>
 	public partial class YoutubeWebView : UserControl
 	{
-
 		public YoutubeWebView()
 		{
 			InitializeComponent();
 		}
 
-		public string PlayVideoFromUrl(string url)
+		public void PlayVideoFromUrl(string url)
 		{
-			var errorMessage = "";
-
 			try
 			{
 				string html = "<html><head>";
 				html += "<meta content='IE=Edge' http-equiv='X-UA-Compatible'/>";
-				html += "<iframe id='video' src= 'https://www.youtube.com/embed/{0}' frameborder='0' height='205' width='345' allowfullscreen></iframe>";
+				html += "</head><body>";
+				html += "<div style='overflow: hidden;'><iframe id='video' src= 'https://www.youtube.com/embed/{0}?autoplay=1' frameborder='0' width='968' height='526' allowfullscreen></iframe></div>";
 				html += "</body></html>";
 
 				string[] urlParams = url.Split('=');
@@ -68,11 +66,13 @@ namespace FoodRecipes.CustomView
 			}
 			catch (Exception e)
 			{
-				errorMessage = $"Không thể phát video với đường dẫn \"{url}\"";
-				Debug.WriteLine(errorMessage);
+				Debug.WriteLine(e.Message);
 			}
+		}
 
-			return errorMessage;
+		public void CloseYoutube()
+		{
+			videoContainerFromWeb.NavigateToString("<html></html>");
 		}
 	}
 }

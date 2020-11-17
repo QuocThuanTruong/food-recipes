@@ -449,5 +449,13 @@ namespace FoodRecipes.Pages
 
 			_canSearchRequest = false;
 		}
+
+		private void shoppingIgredientListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (shoppingIgredientListView.SelectedItems.Count == ((Recipe)shoppingRecipeListView.SelectedItem).Igredients.Count)
+			{
+				notiMessageSnackbar.MessageQueue.Enqueue($"Shopping hoàn tất", "OK", () => { });
+			}
+		}
 	}
 }

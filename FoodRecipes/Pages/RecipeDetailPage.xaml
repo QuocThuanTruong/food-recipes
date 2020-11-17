@@ -277,23 +277,45 @@
                   Grid.Row="7"
                   Margin="0, 10, 0, 0">
 
+                <Grid Name="statusVideoContainer"
+                      Visibility="Visible">
+                    <Border Background="{DynamicResource MyLightGray2}"/>
+                    
+                    <StackPanel Name="videoStatusContent"
+                                VerticalAlignment="Center">
+                        
+                        <Image Name="videoStatusImage"
+                               Width="80"
+                               Height="80"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource 404NotFound}"/>
+
+                        <TextBlock Name="videoStatusTextBlock"
+                                   Margin="0, 12, 0, 0"
+                                   HorizontalAlignment="Center"
+                                   Text="{x:Static loc:Resources.status_video_load_fail}"
+                                   Style="{StaticResource StepRegularText}"
+                                   Foreground="{StaticResource MyLightGray4}"/>
+
+                    </StackPanel>
+                </Grid>
+
                 <Image x:Name="youtubeThumbnail"
                     Visibility="Hidden"
                     RenderOptions.BitmapScalingMode="HighQuality"
                     Stretch="Fill"/>
 
                 <custom:LocalMediaPlayer x:Name="localMediaPlayer"
-                                     FullScreenClick="localMediaPlayer_FullScreenClick"
                                      Visibility="Hidden"/>
 
                 <Button Name="playVideoButton"
-                        Style="{StaticResource StepButton}"
-                        Background="Transparent"
-                        Width="200"
-                        Height="200">
+                        Click="playVideoButton_Click"
+                        Visibility="Hidden"
+                        Style="{StaticResource PlayVideoButton}"
+                        Background="{DynamicResource MyRed}">
 
-                    <Image Width="200"
-                           Height="200"
+                    <Image Width="80"
+                           Height="80"
                            RenderOptions.BitmapScalingMode="HighQuality"
                            Source="{StaticResource IconRedPlay}"/>
                 </Button>
@@ -431,5 +453,9 @@
         <custom:FullScreenVideoDialog x:Name="fullScreenVideoDialog"
                                       CloseFullScreenVideoDialog="fullScreenVideoDialog_CloseFullScreenVideoDialog"
                                       Visibility="Collapsed"/>
+
+        <custom:FullScreenYoutubeDialog x:Name="fullScreenYoutubeDialog"
+                                        CloseFullScreenVideoDialog="fullScreenYoutubeDialog_CloseFullScreenVideoDialog"
+                                        Visibility="Collapsed"/>
     </Grid>
 </Page>

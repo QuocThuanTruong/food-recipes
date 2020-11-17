@@ -268,6 +268,33 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rất tiếc không thể load danh sách.
+        /// </summary>
+        public static string status_list_load_fail {
+            get {
+                return ResourceManager.GetString("status_list_load_fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách hiện tại chưa có món ăn.
+        /// </summary>
+        public static string status_list_recipe_empty {
+            get {
+                return ResourceManager.GetString("status_list_recipe_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rất tiếc không thể load video.
+        /// </summary>
+        public static string status_video_load_fail {
+            get {
+                return ResourceManager.GetString("status_video_load_fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gà lăn hồ đào mỹ chiên giòn với salad nho khô dưa hấu là món salad vừa thơm ngon lại rất bổ dưỡng. Một món ăn chứa đầy đủ chất dinh dưỡng từ các loại rau xanh, dưa hấu, nho khô, thịt gà ăn kèm cùng với sốt giấm đặc biệt sẽ khiến cho bạn càng ăn càng mê. Bạn hãy lưu lại ngay công thức bên dưới để làm món salad này nhé..
         /// </summary>
         public static string test_description {

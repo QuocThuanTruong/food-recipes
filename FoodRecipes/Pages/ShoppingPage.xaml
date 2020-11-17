@@ -19,8 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60*"/>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="570*"/>
-            <RowDefinition Height="38*"/>
+            <RowDefinition Height="550*"/>
+            <RowDefinition Height="58*"/>
         </Grid.RowDefinitions>
 
         <Grid Name="searchContainer"
@@ -594,41 +594,46 @@
                                 </materialDesign:Card>
 
                                 <Grid Name="recipeInfoContainer"
-                                      Margin="0, 0, 14, 0"
+                                      Margin="8, 0, 14, 0"
                                       Grid.Column="1">
 
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="8*"/>
-                                        <RowDefinition Height="4*"/>
+                                        <RowDefinition Height="6*"/>
+                                        <RowDefinition Height="6*"/>
                                         <RowDefinition Height="2*"/>
                                     </Grid.RowDefinitions>
 
                                     <!-- Binding data -->
-                                    <TextBlock Name="recipeNameTextBlock"
-                                               Grid.Row="1"
+                                    <StackPanel Name="recipeContentContainer"
+                                                VerticalAlignment="Center"
+                                                Grid.RowSpan="2"
+                                                Grid.Row="1">
+
+                                        <TextBlock Name="recipeNameTextBlock"
+                                               VerticalAlignment="Center"
                                                Text="{Binding NAME}"
                                                Style="{StaticResource StepRegularText}"/>
 
-                                    <Grid Grid.Row="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="8*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Grid Margin="0, 8, 0, 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="8*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <StackPanel Name="subInfoContainer"
+                                            <StackPanel Name="subInfoContainer"
                                                 Orientation="Horizontal">
 
 
-                                            <Image Name="iconGroup"
+                                                <Image Name="iconGroup"
                                                VerticalAlignment="Center"                                              
                                                Width="11"
                                                Height="11"
                                                Source="{StaticResource IconGrayGroup}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                                            <!-- Binding data -->
-                                            <TextBlock Name="groupTextBlock"
+                                                <!-- Binding data -->
+                                                <TextBlock Name="groupTextBlock"
                                            VerticalAlignment="Center"
                                            Margin="4, 0, 0, 0"
                                            Grid.Column="4"
@@ -637,8 +642,10 @@
                                            FontSize="12"
                                            Foreground="{DynamicResource MyLightGray2}"
                                            Text="{Binding FOOD_GROUP}"/>
-                                        </StackPanel>
-                                    </Grid>
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </StackPanel>
 
                                     <Button Name="deleteShoppingRecipeButton"
                                             Click="deleteShoppingRecipeButton_Click"
@@ -669,6 +676,7 @@
 
             <!-- Shopping igredient list view-->
             <ListView Name="shoppingIgredientListView"
+                      SelectionChanged="shoppingIgredientListView_SelectionChanged"
                       SelectionMode="Multiple"
                       Grid.Column="2"
                       Margin="8, 16, 0, 0"
@@ -736,12 +744,48 @@
             </ListView>
         </Grid>
 
-        <!-- Post mesage to notification to user here (active = true) -->
+        <TextBlock Name="currentResultTextBlock"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   Margin="8, 0, 0, 0"
+                   VerticalAlignment="Center"
+                   Text="Hiển thị 12 trong tổng số 72 kết quả"
+                   Foreground="{StaticResource MyLightGray4}"
+                   Style="{StaticResource RegularText}"/>
+
+        <!-- List not found -->
+        <Grid Name="messageNotFoundContainer"
+              Visibility="Collapsed"
+              Grid.Column="1"
+              Grid.Row="2">
+
+            <Border Background="{DynamicResource MyLightGray2}"/>
+
+            <StackPanel Name="videoStatusContent"
+                                VerticalAlignment="Center">
+
+                <Image Name="videoStatusImage"
+                               Width="100"
+                               Height="100"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource 404NotFound}"/>
+
+                <TextBlock Name="videoStatusTextBlock"
+                                   Margin="0, 12, 0, 0"
+                                   HorizontalAlignment="Center"
+                                   Text="{x:Static loc:Resources.status_list_recipe_empty}"
+                                   Style="{StaticResource StepRegularText}"
+                                   Foreground="{StaticResource MyLightGray4}"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- Post mesage to notification to user here -->
         <materialDesign:Snackbar Name="notiMessageSnackbar"
                                  HorizontalAlignment="Left"
                                  MessageQueue="{materialDesign:MessageQueue}"
                                  Margin="10, 0, 0, 8"
-                                 MaxWidth="600"
+                                 MaxWidth="1000"
                                  IsActive="False"
                                  Grid.Column="1"
                                  Grid.Row="2" 

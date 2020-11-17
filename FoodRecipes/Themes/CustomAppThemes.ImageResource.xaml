@@ -22,6 +22,8 @@
     <ImageSource x:Key="IconBlueNext">pack://application:,,,/Assets/icon_blue_next.png</ImageSource>
     <ImageSource x:Key="IconBluePrevious">pack://application:,,,/Assets/icon_blue_previous.png</ImageSource>
     <ImageSource x:Key="IconBlueReplay">pack://application:,,,/Assets/icon_blue_replay.png</ImageSource>
+    <ImageSource x:Key="IconBlueOpenFile">pack://application:,,,/Assets/icon_blue_open_file.png</ImageSource>
+    <ImageSource x:Key="IconWhiteOpenFile">pack://application:,,,/Assets/icon_white_open_file.png</ImageSource>
     <ImageSource x:Key="IconBreakfast">pack://application:,,,/Assets/icon_breakfast.png</ImageSource>
     <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/icon_desc.png</ImageSource>
     <ImageSource x:Key="IconDrink">pack://application:,,,/Assets/icon_drink.png</ImageSource>
