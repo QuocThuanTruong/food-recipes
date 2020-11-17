@@ -392,7 +392,7 @@
                                                 Height="144"
                                                 materialDesign:ButtonAssist.CornerRadius="0"
                                                 Style="{StaticResource GroupButton}">
-                                            
+
                                             <Image Name="foodRecipeImage"
                                            Width="144"
                                            Height="144"
