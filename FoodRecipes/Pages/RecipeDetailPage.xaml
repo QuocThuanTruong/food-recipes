@@ -272,18 +272,33 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Image x:Name="youtubeThumbnail"
-                    Visibility="Hidden"
-                    Margin="0, 10, 0, 0"
-                    Grid.Column="1"
-                    Grid.Row="7"/>
+            <Grid Name="videoThumnailContainer"
+                  Grid.Column="1"
+                  Grid.Row="7"
+                  Margin="0, 10, 0, 0">
 
-            <custom:LocalMediaPlayer x:Name="localMediaPlayer"
+                <Image x:Name="youtubeThumbnail"
+                    Visibility="Hidden"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Stretch="Fill"/>
+
+                <custom:LocalMediaPlayer x:Name="localMediaPlayer"
                                      FullScreenClick="localMediaPlayer_FullScreenClick"
-                                     Visibility="Hidden"
-                                     Margin="0, 10, 0, 0"
-                                     Grid.Column="1"
-                                     Grid.Row="7"/>    
+                                     Visibility="Hidden"/>
+
+                <Button Name="playVideoButton"
+                        Style="{StaticResource StepButton}"
+                        Background="Transparent"
+                        Width="200"
+                        Height="200">
+
+                    <Image Width="200"
+                           Height="200"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconRedPlay}"/>
+                </Button>
+
+            </Grid>
 
             <!-- Post mesage to notification to user here (active = true) -->
             <materialDesign:Snackbar Name="notiMessageSnackbar"
