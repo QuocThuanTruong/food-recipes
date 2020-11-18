@@ -753,6 +753,40 @@
                    Foreground="{StaticResource MyLightGray4}"
                    Style="{StaticResource RegularText}"/>
 
+        <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Top"
+                                  Margin="0, 0, 16, 0"
+                                  Padding="0, 0, 4, 0"
+                                  HorizontalAlignment="Right"
+                                  Height="50"
+                                  Width="140"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="Red" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+            <Button Name="clearSelectedIgredientsButton"
+                    HorizontalAlignment="Center"
+                        Click="clearSelectedIgredientsButton_Click"
+                        Width="136"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <TextBlock Name="saveRecipeTextBlock"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="{x:Static loc:Resources.text_clear_select_shopping}"/>
+            </Button>
+        </materialDesign:ColorZone>
+
         <!-- List not found -->
         <Grid Name="messageNotFoundContainer"
               Visibility="Collapsed"

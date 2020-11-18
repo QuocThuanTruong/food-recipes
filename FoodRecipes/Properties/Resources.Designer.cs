@@ -394,6 +394,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CLEAR SELECTED.
+        /// </summary>
+        public static string text_clear_select_shopping {
+            get {
+                return ResourceManager.GetString("text_clear_select_shopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mọi thắc mắc về ứng dụng xin vui lòng liên hệ foodrecipes.hcmus@gmail.com.
         ///Copy right © 2020.
         /// </summary>
