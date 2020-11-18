@@ -233,7 +233,8 @@
   </data>
   <data name="text_contact" xml:space="preserve">
     <value>Mọi thắc mắc về ứng dụng xin vui lòng liên hệ foodrecipes.hcmus@gmail.com.
-Copy right © 2020</value>
+The MIT License (MIT).
+Copy right © 2020 Quoc Thuan Truong, Le Nhat Tuan, Hoang Thi Thuy Trang.</value>
   </data>
   <data name="text_drink_group" xml:space="preserve">
     <value>Thức uống</value>
@@ -242,7 +243,7 @@ Copy right © 2020</value>
     <value>Ăn vặt</value>
   </data>
   <data name="text_github" xml:space="preserve">
-    <value>https://github.com/</value>
+    <value>https://github.com/QuocThuanTruong/FoodRecipes</value>
   </data>
   <data name="text_healthy_group" xml:space="preserve">
     <value>Healthy</value>
@@ -333,17 +334,50 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
   <data name="text_save_recipe" xml:space="preserve">
     <value>SAVE RECIPE</value>
   </data>
+  <data name="text_social_media" xml:space="preserve">
+    <value>Social media</value>
+  </data>
   <data name="text_vegetarian_group" xml:space="preserve">
     <value>Món chay</value>
+  </data>
+  <data name="tip_add_fav" xml:space="preserve">
+    <value>Add to your favorite food recipes</value>
+  </data>
+  <data name="tip_add_igredient" xml:space="preserve">
+    <value>Add igredients</value>
   </data>
   <data name="tip_app_logo" xml:space="preserve">
     <value>Let's explore and create your food recipes.</value>
   </data>
+  <data name="tip_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="tip_clear_filter" xml:space="preserve">
+    <value>Clear all filter</value>
+  </data>
   <data name="tip_close_window_button" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="tip_delete_shopping" xml:space="preserve">
+    <value>Delete your shopping item</value>
+  </data>
   <data name="tip_eraser_all_filter" xml:space="preserve">
     <value>Eraser all selected filter</value>
+  </data>
+  <data name="tip_fb" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="tip_filter" xml:space="preserve">
+    <value>Filter food recipes</value>
+  </data>
+  <data name="tip_first_page" xml:space="preserve">
+    <value>First page</value>
+  </data>
+  <data name="tip_ig" xml:space="preserve">
+    <value>Instagram</value>
+  </data>
+  <data name="tip_last_page" xml:space="preserve">
+    <value>Last page</value>
   </data>
   <data name="tip_maximize_window_button" xml:space="preserve">
     <value>Maximize</value>
@@ -351,8 +385,29 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
   <data name="tip_minimize_window_button" xml:space="preserve">
     <value>Minimize</value>
   </data>
+  <data name="tip_next_page" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="tip_open_file" xml:space="preserve">
+    <value>Open your file</value>
+  </data>
+  <data name="tip_pick_avt" xml:space="preserve">
+    <value>Pick up recipe avatar</value>
+  </data>
+  <data name="tip_pick_image" xml:space="preserve">
+    <value>Pick up step images</value>
+  </data>
+  <data name="tip_previous_page" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
+  </data>
+  <data name="tip_tt" xml:space="preserve">
+    <value>Tiktok</value>
+  </data>
+  <data name="tip_yt" xml:space="preserve">
+    <value>Youtube</value>
   </data>
   <data name="title_about_app" xml:space="preserve">
     <value>VỀ ỨNG DỤNG FOOD RECIPES</value>

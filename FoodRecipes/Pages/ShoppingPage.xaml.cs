@@ -261,7 +261,7 @@ namespace FoodRecipes.Pages
 									where r.ID_RECIPE == _deleteRecipeID
 									select r).Single().NAME;
 
-			notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_appUtilities.getStandardName(deleteRecipeName, true)}", "UNDO", () => { UndoDeleteShoppingItem(currentSelectedID); });
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_appUtilities.getStandardName(deleteRecipeName, true)} khỏi Shopping list", "UNDO", () => { UndoDeleteShoppingItem(currentSelectedID); });
 
 			_dbUtilities.TurnShoppingFlagOff(_deleteRecipeID);
 
@@ -347,7 +347,7 @@ namespace FoodRecipes.Pages
 
 					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
 
-					currentResultTextBlock.Text = $"Có tổng cộng {_shoppingRecipes.Count} kết quả";
+					currentResultTextBlock.Text = $"Hiển thị tổng cộng {_shoppingRecipes.Count} món ăn";
 
 					bool indexFlag = false;
 					int index;
@@ -439,7 +439,7 @@ namespace FoodRecipes.Pages
 
 				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
 
-				currentResultTextBlock.Text = $"Có tổng cộng {_shoppingRecipes.Count} kết quả";
+				currentResultTextBlock.Text = $"Hiển thị tổng cộng {_shoppingRecipes.Count} món ăn";
 
 				bool indexFlag = false;
 				int index;
@@ -467,7 +467,7 @@ namespace FoodRecipes.Pages
 			else
 			{
 				messageNotFoundContainer.Visibility = Visibility.Visible;
-
+				currentResultTextBlock.Text = "Không tìm thấy món ăn thỏa yêu cầu";
 				shoppingRecipeListView.ItemsSource = null;
 				shoppingIgredientListView.ItemsSource = null;
 			}
