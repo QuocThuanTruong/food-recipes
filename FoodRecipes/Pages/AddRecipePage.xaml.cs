@@ -169,6 +169,8 @@ namespace FoodRecipes.Pages
 				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống chi tiết thực hiện", "Cancel", () => { });
 			}
 			else {
+				messageNotFoundContainer.Visibility = Visibility.Collapsed;
+
 				++totalStep;
 
 				Step step = new Step();
@@ -467,6 +469,8 @@ namespace FoodRecipes.Pages
 
 		private void clearForm()
         {
+			messageNotFoundContainer.Visibility = Visibility.Visible;
+
 			recipeNameTextBox.Text = "";
 			recipeDescriptionTextBox.Text = "";
 			linkVideoTextBox.Text = "";
@@ -483,5 +487,19 @@ namespace FoodRecipes.Pages
 			relativeImageStepListView.ItemsSource = null;
 			stepsPreviewListView.ItemsSource = null;
 		}
-	}
+
+        private void openLocalVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			{
+				openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+				openFileDialog.Filter = "Video files (*.mkv)|*.mkv";
+
+				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					linkVideoTextBox.Text = openFileDialog.FileName;
+				}
+			}
+		}
+    }
 }

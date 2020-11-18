@@ -1017,7 +1017,7 @@
         <TextBlock Name="currentResultTextBlock"
                    Grid.Column="1"
                    Grid.Row="3"
-                   Margin="8, 0, 0, 0"
+                   Margin="8, 0, 200, 0"
                    VerticalAlignment="Center"
                    Text="Hiển thị 12 trong tổng số 72 kết quả"
                    Foreground="{StaticResource MyLightGray4}"

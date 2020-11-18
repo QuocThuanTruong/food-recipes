@@ -45,6 +45,7 @@ namespace FoodRecipes.CustomView
 			localMediaPlayer.IsHideController = false;
 			localMediaPlayer.IsPlay = true;
 			localMediaPlayer.IsMute = false;
+
 			localMediaPlayer.PlayVideoFromUri(url);
 
 			_parent.IsEnabled = false;
@@ -75,6 +76,7 @@ namespace FoodRecipes.CustomView
 		private void closeDialogButton_Click(object sender, RoutedEventArgs e)
 		{
 			HideDialog();
+			localMediaPlayer.IsFullScreen = false;
 			CloseFullScreenVideoDialog?.Invoke();
 		}
 	}
