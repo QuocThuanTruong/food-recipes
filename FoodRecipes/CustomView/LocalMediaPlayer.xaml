@@ -99,7 +99,7 @@
 
                     <!-- Binding here-->
                     <TextBlock Name="currentTimeTextBlock"
-                               Text="10:22"
+                               Text="0:0"
                                FontSize="16"
                                Style="{StaticResource RegularText}"/>
 

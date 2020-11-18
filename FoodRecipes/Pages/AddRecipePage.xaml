@@ -98,6 +98,7 @@
             </materialDesign:ColorZone.Effect>
 
             <Button Name="openLocalVideoButton"
+                    Click="openLocalVideoButton_Click"
                         Width="Auto"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"

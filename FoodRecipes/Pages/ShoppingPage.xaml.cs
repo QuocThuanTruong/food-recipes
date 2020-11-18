@@ -270,7 +270,15 @@ namespace FoodRecipes.Pages
 				isChangeSelected = true;
 			}
 
-			loadRecipes();
+			if (_isSearching)
+            {
+				loadRecipesSearch();
+            } 
+			else 
+			{
+				loadRecipes();
+			}
+		
 
 			if (isChangeSelected)
 			{
@@ -294,7 +302,14 @@ namespace FoodRecipes.Pages
 		{
 			_dbUtilities.TurnShoppingFlagOn(_deleteRecipeID);
 
-			loadRecipes();
+			if (_isSearching)
+			{
+				loadRecipesSearch();
+			}
+			else
+			{
+				loadRecipes();
+			}
 
 			for (int i = 0; i < _shoppingRecipes.Count; i++)
 			{
@@ -328,7 +343,11 @@ namespace FoodRecipes.Pages
 
 				if (_shoppingRecipes.Count > 0)
 				{
+					messageNotFoundContainer.Visibility = Visibility.Collapsed;
+
 					shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+
+					currentResultTextBlock.Text = $"Có tổng cộng {_shoppingRecipes.Count} kết quả";
 
 					bool indexFlag = false;
 					int index;
@@ -355,6 +374,8 @@ namespace FoodRecipes.Pages
 				}
 				else
 				{
+					messageNotFoundContainer.Visibility = Visibility.Visible;
+
 					shoppingRecipeListView.ItemsSource = null;
 					shoppingIgredientListView.ItemsSource = null;
 				}
@@ -409,12 +430,16 @@ namespace FoodRecipes.Pages
 			_shoppingRecipes = recipesSearchResults.recipes;
 			if (_shoppingRecipes.Count > 0)
 			{
+				messageNotFoundContainer.Visibility = Visibility.Collapsed;
+
 				for (int i = 0; i < _shoppingRecipes.Count; ++i)
 				{
 					_shoppingRecipes[i] = _appUtilities.getRecipeForBindingInRecipeDetail(_shoppingRecipes[i], true);
 				}
 
 				shoppingRecipeListView.ItemsSource = _shoppingRecipes;
+
+				currentResultTextBlock.Text = $"Có tổng cộng {_shoppingRecipes.Count} kết quả";
 
 				bool indexFlag = false;
 				int index;
@@ -438,11 +463,11 @@ namespace FoodRecipes.Pages
 					shoppingRecipeListView.SelectedIndex = 0;
 					shoppingIgredientListView.ItemsSource = _shoppingRecipes[0].IGREDIENT_LIST_FOR_BINDING;
 				}
-
-				notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
 			}
 			else
 			{
+				messageNotFoundContainer.Visibility = Visibility.Visible;
+
 				shoppingRecipeListView.ItemsSource = null;
 				shoppingIgredientListView.ItemsSource = null;
 			}

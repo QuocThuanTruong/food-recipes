@@ -67,13 +67,20 @@ namespace FoodRecipes.CustomView
 
 		private void InitControl()
 		{
-			_loadFrameTimer = new Timer(TIME_LOAD_UNIT/2);
-			_loadFrameTimer.Elapsed += _loadFrameTimer_Elapsed;
+			if (IsFullScreen)
+            {
+                _loadingTmer = new Timer(TIME_LOAD_UNIT);
+                _loadingTmer.Elapsed += LoadingTmer_Elapsed;
+            }
+			else
+            {
+				_loadFrameTimer = new Timer(200);
+				_loadFrameTimer.Elapsed += _loadFrameTimer_Elapsed;
+				_loadFrameTimer.Start();
 
-			videoContainerFromLocal.IsMuted = true;
-			videoContainerFromLocal.Play();
-			_loadFrameTimer.Start();
-			videoContainerFromLocal.IsMuted = false;
+				videoContainerFromLocal.IsMuted = true;
+				videoContainerFromLocal.Play();
+			}
 
 			if (IsFullScreen)
 			{
@@ -112,51 +119,49 @@ namespace FoodRecipes.CustomView
 				mediaControlContainer.Visibility = Visibility.Visible;
 			}				
 
-			videoContainerFromLocal.Volume = CurrentVolume;
-			volumeSlider.Value = CurrentVolume;
+			videoContainerFromLocal.Volume = 0;
+			volumeSlider.Value = 1;
 
 			videoContainerFromLocal.IsMuted = IsMute;
 
 			videoProgressSlider.Value = CurrentTime;
 
-			_loadingTmer = new Timer(TIME_LOAD_UNIT);
-			_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+            if (IsFullScreen)
+			{ 
 
-			if (IsFullScreen)
-            {
 				if (IsPlay)
-				{
-					_isFirstTimePlay = false;
+                {
+					videoContainerFromLocal.Volume = 1;
 
 					var SliderValue = videoProgressSlider.Value;
-					TimeSpan ts = new TimeSpan(0, 0, 0, (int)SliderValue, 0);
+                    TimeSpan ts = new TimeSpan(0, 0, 0, (int)SliderValue, 0);
 
-					videoContainerFromLocal.Position = ts;
+                    videoContainerFromLocal.Position = ts;
 
-					videoContainerFromLocal.Play();
+                    videoContainerFromLocal.Play();
 
-					_loadingTmer.Start();
-				}
-				else
-                {
-					//Do Nothing
+                    _loadingTmer.Start();
                 }
-			}
-			else
+                else
+                {
+                    //Do Nothing
+                }
+            }
+            else
             {
-				//Do Nothing
-            }			
-		}
+                //Do Nothing
+            }
+        }
 
-		private void _loadFrameTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void _loadFrameTimer_Elapsed(object sender, ElapsedEventArgs e)
 		{
-			Dispatcher.Invoke(() =>
-			{
-				videoContainerFromLocal.Pause();
-				iconPause.Source = new BitmapImage(new Uri(FindResource("IconBlueNext").ToString()));
-				_loadFrameTimer.Stop();
-			});
-		}
+            Dispatcher.Invoke(() =>
+            {
+                videoContainerFromLocal.Stop();
+                iconPause.Source = new BitmapImage(new Uri(FindResource("IconBluePause").ToString()));
+                _loadFrameTimer.Stop();
+            });
+        }
 
 		private void videoContainerFromLocal_MediaFailed(object sender, ExceptionRoutedEventArgs e)
 		{
@@ -165,17 +170,15 @@ namespace FoodRecipes.CustomView
 
         private void pauseButon_Click(object sender, RoutedEventArgs e)
 		{
-			if (_endVideo)
+			if (_endVideo && videoProgressSlider.Value == videoProgressSlider.Maximum)
             {
 				_endVideo = false;
-
 				videoProgressSlider.Value = 0;
             }
-
 			else
             {
-				//Do nothing
-            }
+				_endVideo = false;
+			}
 
 			if (IsPlay)
 			{
@@ -217,6 +220,10 @@ namespace FoodRecipes.CustomView
 				if (!_isChangedPosition)
 				{
 					++videoProgressSlider.Value; // = CurrentTime;
+
+					var currentTime = (int)Math.Ceiling(videoProgressSlider.Value);
+
+					currentTimeTextBlock.Text = $"{currentTime / 60} : {currentTime % 60}";
 				}
 				else
                 {
@@ -260,9 +267,13 @@ namespace FoodRecipes.CustomView
 
 		private void videoContainerFromLocal_Opened(object sender, RoutedEventArgs e)
 		{
-			videoProgressSlider.Maximum = videoContainerFromLocal.NaturalDuration.TimeSpan.TotalSeconds;
+			var maxTime = (int)Math.Ceiling(videoContainerFromLocal.NaturalDuration.TimeSpan.TotalSeconds);
 
-			//EndTime = videoProgressSlider.Maximum;
+			Debug.WriteLine(maxTime);
+
+			videoProgressSlider.Maximum = maxTime;
+
+			totalTimeTextBlock.Text = $"{maxTime / 60} : {maxTime % 60}";
 		}
 
 		// When the media playback is finished. Stop() the media to seek to media start.
@@ -272,7 +283,7 @@ namespace FoodRecipes.CustomView
 
 			_loadingTmer.Stop();
 
-			iconPause.Source = new BitmapImage(new Uri(FindResource("IconBlueNext").ToString()));
+			iconPause.Source = new BitmapImage(new Uri(FindResource("IconBlueReplay").ToString()));
 
 			IsPlay = false;
 
@@ -281,36 +292,31 @@ namespace FoodRecipes.CustomView
 
         private void videoProgressSlider_LostMouseCapture(object sender, MouseEventArgs e)
         {
-			if (!_isFirstTimePlay)
-            {
-				var SliderValue = videoProgressSlider.Value;
-				TimeSpan ts = new TimeSpan(0, 0, 0, (int)SliderValue, 0);
-
-				if (IsPlay)
-				{
-					videoContainerFromLocal.Pause();
-					videoContainerFromLocal.Position = ts;
-					videoContainerFromLocal.Play();
-				}
-				else
-				{
-					videoContainerFromLocal.Position = ts;
-				}
+			if (iconPause.Source.ToString() == FindResource("IconBlueReplay").ToString()) {
+				iconPause.Source = new BitmapImage(new Uri(FindResource("IconBlueNext").ToString()));
 			}
-		}
+			else
+            {
+				//Do Nothing
+            }
 
-		public void playUnfinishedVideo()
-		{
-			_isFirstTimePlay = false;
+			var currentTime = (int)Math.Ceiling(videoProgressSlider.Value);
 
-			var SliderValue = videoProgressSlider.Value;
-			TimeSpan ts = new TimeSpan(0, 0, 0, (int)SliderValue, 0);
+			currentTimeTextBlock.Text = $"{currentTime / 60} : {currentTime % 60}";
 
-			videoContainerFromLocal.Position = ts;
+			TimeSpan ts = new TimeSpan(0, 0, 0, (int)currentTime, 0);
 
-			videoContainerFromLocal.Play();
-
-			_loadingTmer.Start();
+			if (IsPlay)
+			{
+				videoContainerFromLocal.Pause();
+				videoContainerFromLocal.Position = ts;
+				videoContainerFromLocal.Play();
+			}
+			else
+			{
+				videoContainerFromLocal.Position = ts;
+			}
+			
 		}
 	}
 }
