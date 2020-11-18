@@ -395,8 +395,29 @@
                         </Button>
                     </Grid>
                 </ListBox>
+
+                <Grid Name="followContainer"
+                  Grid.Row="3">
+                    
+                    <Border Width="165"
+                                Height="100"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Margin="0, 0, 5, 0"
+                                BorderBrush="{DynamicResource MyBlue}">
+
+                        <Border.Effect>
+                            <DropShadowEffect Color="Blue" 
+                                          Direction="0"
+                                          Opacity="0.4"
+                                          BlurRadius="10"/>
+                        </Border.Effect>
+                    </Border>
+                    
+                    
+
+                </Grid>
             </Grid>
-          
         </Grid>
 
         <!-- Tool bar -->
