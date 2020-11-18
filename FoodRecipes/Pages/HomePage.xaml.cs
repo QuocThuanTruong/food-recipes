@@ -357,7 +357,7 @@ namespace FoodRecipes.Pages
 		}
 		private int getTotalRecipePerPage()
         {
-			int[] typeGridCardView = { 12, 16, 30 };
+			int[] typeGridCardView = { 12, 16, 20 };
 
 			var result = typeGridCardView[_typeGridCard];
 
@@ -440,7 +440,7 @@ namespace FoodRecipes.Pages
 
 		private void loadRecipes() {
 			if (!_isSearching)
-            {
+			{
 				_search_text = "";
 				_condition = "";
 
@@ -448,14 +448,21 @@ namespace FoodRecipes.Pages
 
 				_isFirstSearch = true;
 
-				if (_prevCondition != condition) {
+				if (_prevCondition != condition)
+				{
 					_currentPage = 1;
 					_prevCondition = condition;
-				} 
+				}
 				else
-                {
+				{
 					//Do Nothing
-                }
+				}
+
+				if (_currentPage == 4 || _currentPage == 3)
+				{
+					Debug.WriteLine("cc");
+				}
+
 
 				(List<Recipe> recipes, int totalRecipeResult) resultQuery = _dbUtilities.ExecQureyToGetRecipes(condition, _conditionSortedBy[_sortedBy], _currentPage, getTotalRecipePerPage());
 				List<Recipe> recipes = resultQuery.recipes;
@@ -476,7 +483,7 @@ namespace FoodRecipes.Pages
 				currentPageTextBlock.Text = $"{_currentPage} of {_maxPage}";
 
 				if (recipes.Count() > 0)
-                {
+				{
 					for (int i = 0; i < recipes.Count; ++i)
 					{
 						recipes[i] = _appUtilities.getRecipeForBindingInHomePage(recipes[i]);
@@ -487,16 +494,17 @@ namespace FoodRecipes.Pages
 					currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {resultQuery.totalRecipeResult} kết quả";
 				}
 				else
-                {
+				{
 					recipesListView.ItemsSource = null;
 					currentResultTextBlock.Text = "";
 				}
 			}
 
 			else
-            {
+			{
 				searchTextBox_TextChanged(null, null);
 			}
+			
 		}
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)

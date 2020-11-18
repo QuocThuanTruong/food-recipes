@@ -154,18 +154,8 @@ namespace FoodRecipes
             var add_dateParameter = add_date.HasValue ?
                 new ObjectParameter("add_date", add_date) :
                 new ObjectParameter("add_date", typeof(System.DateTime));
-            
-            try
-            {
-                ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertRecipe", id_recipeParameter, nameParameter, descriptionParameter, link_videoParameter, link_avatarParameter, timeParameter, food_groupParameter, food_levelParameter, shopping_flagParameter, favorite_flagParameter, add_dateParameter);
-
-                return 1;
-            }
-            catch
-            {
-                return 0;
-            }
-            
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertRecipe", id_recipeParameter, nameParameter, descriptionParameter, link_videoParameter, link_avatarParameter, timeParameter, food_groupParameter, food_levelParameter, shopping_flagParameter, favorite_flagParameter, add_dateParameter);
         }
     
         public virtual int InsertStep(Nullable<int> id_recipe, Nullable<int> no_step, string detail)

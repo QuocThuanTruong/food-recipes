@@ -295,10 +295,18 @@ namespace FoodRecipes.Pages
 			}
 			else
 			{
+				if (int.Parse(minuteTextBox.Text) >= 60)
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue("Số phút thực hiện phải nhỏ hơn 60", "Cancel", () => { });
+				}
+				else
+                {
+					notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống thời gian hoàn thành", "Cancel", () => { });
+				}
+
 				hourTextBox.Text = "";
 				minuteTextBox.Text = "";
 
-				notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống thời gian hoàn thành", "Cancel", () => { });
 				return;
 			}
 
@@ -461,6 +469,11 @@ namespace FoodRecipes.Pages
 			}
 
 			if (hourTextBox.Text == "0" && minuteTextBox.Text == "0") {
+				result = false;
+			}
+
+			if (int.Parse(minuteTextBox.Text) >= 60)
+            {
 				result = false;
 			}
 

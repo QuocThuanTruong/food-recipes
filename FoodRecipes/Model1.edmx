@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FoodRecipeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FoodRecipeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Igredient">
           <Key>
             <PropertyRef Name="ID_RECIPE" />
@@ -28,7 +28,7 @@
           <Property Name="FOOD_LEVEL" Type="int" />
           <Property Name="SHOPPING_FLAG" Type="bit" />
           <Property Name="FAVORITE_FLAG" Type="bit" />
-          <Property Name="ADD_DATE" Type="date" />
+          <Property Name="ADD_DATE" Type="datetime" />
         </EntityType>
         <EntityType Name="Step">
           <Key>
@@ -101,7 +101,7 @@
                 <Property Name="FOOD_LEVEL" Type="int" />
                 <Property Name="SHOPPING_FLAG" Type="bit" />
                 <Property Name="FAVORITE_FLAG" Type="bit" />
-                <Property Name="ADD_DATE" Type="date" />
+                <Property Name="ADD_DATE" Type="datetime" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -155,7 +155,7 @@
                 <Property Name="FOOD_LEVEL" Type="int" />
                 <Property Name="SHOPPING_FLAG" Type="bit" />
                 <Property Name="FAVORITE_FLAG" Type="bit" />
-                <Property Name="ADD_DATE" Type="date" />
+                <Property Name="ADD_DATE" Type="datetime" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -196,12 +196,15 @@
                 <Property Name="ID_RECIPE" Type="int" />
                 <Property Name="RANK" Type="int" />
                 <Property Name="NAME" Type="nvarchar" MaxLength="200" />
+                <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+                <Property Name="LINK_VIDEO" Type="nvarchar" MaxLength="300" />
+                <Property Name="LINK_AVATAR" Type="nvarchar" MaxLength="300" />
                 <Property Name="TIME" Type="int" />
                 <Property Name="FOOD_GROUP" Type="nvarchar" MaxLength="50" />
                 <Property Name="FOOD_LEVEL" Type="int" />
                 <Property Name="SHOPPING_FLAG" Type="bit" />
                 <Property Name="FAVORITE_FLAG" Type="bit" />
-                <Property Name="ADD_DATE" Type="date" />
+                <Property Name="ADD_DATE" Type="datetime" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -236,8 +239,7 @@
             <End Role="StepImages" EntitySet="StepImages" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FoodRecipeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -313,7 +315,7 @@
           <Property Name="FOOD_LEVEL" Type="Int32" />
           <Property Name="SHOPPING_FLAG" Type="Boolean" />
           <Property Name="FAVORITE_FLAG" Type="Boolean" />
-          <Property Name="ADD_DATE" Type="DateTime" Precision="0" />
+          <Property Name="ADD_DATE" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Igredients" Relationship="Self.FK_Igredient_Recipe" FromRole="Recipe" ToRole="Igredient" />
           <NavigationProperty Name="Steps" Relationship="Self.FK_Step_Recipe" FromRole="Recipe" ToRole="Step" />
         </EntityType>
@@ -396,20 +398,20 @@
           </AssociationSet>
           <FunctionImport Name="GetAllFromRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetAllFromRecipe_Result)" />
           <FunctionImport Name="GetIgredientByIDRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetIgredientByIDRecipe_Result)">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLinkImageSByIDRecipeAndNOStep" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetLinkImageSByIDRecipeAndNOStep_Result)">
             <Parameter Name="id_recipe" Mode="In" Type="Int32" />
             <Parameter Name="NO_step" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetNumericalOrderAndDetailOfStepByIDRecipe" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetNumericalOrderAndDetailOfStepByIDRecipe_Result)">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetRecipeById" IsComposable="true" ReturnType="Collection(FoodRecipeModel.GetRecipeById_Result)">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SearchByName" IsComposable="true" ReturnType="Collection(FoodRecipeModel.SearchByName_Result)">
-            <Parameter Name="search_text" Mode="In" Type="String" />
+          <Parameter Name="search_text" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertIgredient">
             <Parameter Name="id_recipe" Mode="In" Type="Int32" />
@@ -440,16 +442,16 @@
             <Parameter Name="link_images" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TurnFavoriteFlagOff">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TurnFavoriteFlagOn">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TurnShoppingFlagOff">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TurnShoppingFlagOn">
-            <Parameter Name="id_recipe" Mode="In" Type="Int32" />
+          <Parameter Name="id_recipe" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
