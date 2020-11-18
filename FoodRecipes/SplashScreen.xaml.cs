@@ -77,6 +77,60 @@ namespace FoodRecipes
 				var isSplashScreenShow = bool.Parse(appSettingValue);
 				Debug.WriteLine(isSplashScreenShow);
 
+				////Crop image to fit in opacity mask
+				//int cropWidth = 330;
+				//int cropHeight = 384;
+				//CroppedBitmap cb = null;
+				//bool isScale = false;
+
+				//while (recipeAvatarImage.Width < cropWidth || recipeAvatarImage.Height < cropHeight)
+				//{
+				//	cropWidth = (int) (cropWidth / 2);
+				//	cropHeight = (int) (cropHeight / 2);
+
+				//	isScale = true;
+				//}	
+
+				//if (cropWidth == 0 || cropHeight == 0)
+				//{
+				//	cropWidth = 80;
+				//	cropHeight = 93;
+
+				//	isScale = true;
+				//}	
+
+				//int leftTopCoord = ((int)((recipeAvatarImage.Width - cropWidth) / 2) > 0 ? (int)((recipeAvatarImage.Width - cropWidth) / 2) : 0);
+				//int rightBottomCoord = ((int)((recipeAvatarImage.Height - cropHeight) / 2) > 0 ? (int)((recipeAvatarImage.Height - cropHeight) / 2) : 0);
+
+				//try
+				//{
+				//	cb = new CroppedBitmap((BitmapSource)recipeAvatarImage.Source, new Int32Rect(leftTopCoord, rightBottomCoord, cropWidth, cropHeight));
+				//} 
+				//catch (Exception exep)
+				//{
+				//	Debug.WriteLine(exep.Message);
+				//}
+
+				//if (cb != null)
+				//{
+				//	if (isScale)
+				//	{
+				//		BitmapImage source = new BitmapImage();
+				//		source.BeginInit();
+				//		source.UriSource = new Uri(cb.Source.ToString());
+				//		source.DecodePixelHeight = 384;
+				//		source.DecodePixelWidth = 330;
+				//		source.EndInit();
+
+				//		recipeAvatarImage.Source = source;
+				//	}
+				//	else
+				//	{
+				//		recipeAvatarImage.Source = cb;
+				//	}	
+				//}
+						
+
 				if (isSplashScreenShow)
 				{
 					_loadingTmer = new Timer(TIME_LOAD_UNIT);

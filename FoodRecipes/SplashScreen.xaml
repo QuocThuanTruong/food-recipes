@@ -131,7 +131,7 @@
                                Text="{Binding NAME}"/>
 
                     <!-- Binding data -->
-                    <TextBlock Name="descriptionRecipeTextBlock"
+                      <TextBlock Name="descriptionRecipeTextBlock"
                                Style="{StaticResource MediumText}"
                                MaxWidth="400"
                                Margin="0, 10, 0, 0"
@@ -144,38 +144,29 @@
                     Grid.Column="3"
                     Grid.Row="1">
 
-                <Image Name="tornPaperImage"
-                       Source="{DynamicResource TornPaper}"
-                       Width="348"
-                       Height="409"
-                       Panel.ZIndex="1"/>
-
-                <Grid Name="recipeAvtContainer"
-                      Width="{Binding ActualWidth, ElementName=tornPaperImage}"
-                      Panel.ZIndex="2">
+                <materialDesign:Card Name="recipeAvtContainer"
+                                     Background="White"
+                                     Padding="0, -1, 0, 0"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                    Margin="10, 4, 0, 0"
+                                    Width="330"
+                                    Height="384"
+                                    Panel.ZIndex="2">
 
                     <!-- Binding data -->
                     <Image Name="recipeAvatarImage"
-                       Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"
+                           Margin="0, -1, 0, 0"
+                            Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"
                        Width="330"
-                       Height="388"
+                       Height="384"
                        Stretch="UniformToFill">
-                        <Image.OpacityMask>
-                            <ImageBrush ImageSource="{DynamicResource BrushTornPaper}">
-                                <ImageBrush.RelativeTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleY="1" ScaleX="0.86"/>
-                                    </TransformGroup>
-                                </ImageBrush.RelativeTransform>
-                            </ImageBrush>
-                        </Image.OpacityMask>
                     </Image>
 
-                </Grid>
+                </materialDesign:Card>
 
                 <Grid  Name="tapeContainer"
                        Width="{Binding ActualWidth, ElementName=imgContainer}"
-                       Margin="0, -22, 0, 0"
+                       Margin="0, -20, 0, 0"
                        Panel.ZIndex="3">
 
                     <Image Name="tapeImage"

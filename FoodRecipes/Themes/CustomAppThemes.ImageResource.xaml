@@ -61,6 +61,7 @@
     <ImageSource x:Key="Tape">pack://application:,,,/Assets/tape.png</ImageSource>
     <ImageSource x:Key="TopLeftRibbon">pack://application:,,,/Assets/top_left_ribbon.png</ImageSource>
     <ImageSource x:Key="TornPaper">pack://application:,,,/Assets/torn_paper.png</ImageSource>
+    <ImageSource x:Key="TopTornPaper">pack://application:,,,/Assets/top_torn_paper.png</ImageSource>
     
     <ImageSource x:Key="IconFacebook">pack://application:,,,/Assets/facebook.png</ImageSource>
     <ImageSource x:Key="IconIg">pack://application:,,,/Assets/instagram.png</ImageSource>
