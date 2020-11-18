@@ -228,6 +228,9 @@
   <data name="text_breakfast_group" xml:space="preserve">
     <value>Ăn sáng</value>
   </data>
+  <data name="text_clear_select_shopping" xml:space="preserve">
+    <value>CLEAR SELECTED</value>
+  </data>
   <data name="text_contact" xml:space="preserve">
     <value>Mọi thắc mắc về ứng dụng xin vui lòng liên hệ foodrecipes.hcmus@gmail.com.
 Copy right © 2020</value>

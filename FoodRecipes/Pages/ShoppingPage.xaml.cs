@@ -457,5 +457,10 @@ namespace FoodRecipes.Pages
 				notiMessageSnackbar.MessageQueue.Enqueue($"Shopping hoàn tất", "OK", () => { });
 			}
 		}
+
+		private void clearSelectedIgredientsButton_Click(object sender, RoutedEventArgs e)
+		{
+			shoppingIgredientListView.SelectedItems.Clear();
+		}
 	}
 }
