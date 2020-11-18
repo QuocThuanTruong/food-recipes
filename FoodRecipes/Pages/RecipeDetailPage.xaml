@@ -278,7 +278,7 @@
                   Margin="0, 10, 0, 0">
 
                 <Grid Name="statusVideoContainer"
-                      Visibility="Visible">
+                      Visibility="Collapsed">
                     <Border Background="{DynamicResource MyLightGray2}"/>
                     
                     <StackPanel Name="videoStatusContent"

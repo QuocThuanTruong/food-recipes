@@ -168,11 +168,9 @@ namespace FoodRecipes.Pages
 			if (response.StatusCode == HttpStatusCode.OK)
 			{
 				result = true;
-				Debug.WriteLine("OK");
 			}
 			else
 			{
-				Debug.WriteLine("nhu cc");
 				result = false;
 			}
 
@@ -194,19 +192,22 @@ namespace FoodRecipes.Pages
 
         private void favButton_Checked(object sender, RoutedEventArgs e)
         {
-			bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
+			if (this.IsLoaded)
+            {
+				bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
 
-			if (isFavoriteRecipe)
-			{
-				notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm {_recipe.NAME} vào danh sách yêu thích", "OK", () => { });
+				if (isFavoriteRecipe)
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm {_recipe.NAME} vào danh sách yêu thích", "OK", () => { });
 
-				_dbUtilities.TurnFavoriteFlagOn(_recipeID);
-			}
-			else
-			{
-				notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_recipe.NAME} khỏi danh sách yêu thích", "OK", () => { });
+					_dbUtilities.TurnFavoriteFlagOn(_recipeID);
+				}
+				else
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_recipe.NAME} khỏi danh sách yêu thích", "OK", () => { });
 
-				_dbUtilities.TurnFavoriteFlagOff(_recipeID);
+					_dbUtilities.TurnFavoriteFlagOff(_recipeID);
+				}
 			}
 		}
 		private void imageRecipeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

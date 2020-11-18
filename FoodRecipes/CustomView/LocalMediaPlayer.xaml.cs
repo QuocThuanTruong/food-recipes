@@ -222,8 +222,19 @@ namespace FoodRecipes.CustomView
 					++videoProgressSlider.Value; // = CurrentTime;
 
 					var currentTime = (int)Math.Ceiling(videoProgressSlider.Value);
+					var minutes = currentTime / 60;
+					var seconds = currentTime % 60;
 
-					currentTimeTextBlock.Text = $"{currentTime / 60} : {currentTime % 60}";
+					currentTimeTextBlock.Text = $"{minutes} : ";
+
+					if (seconds > 10)
+                    {
+						currentTimeTextBlock.Text += $"{seconds}";
+                    }
+					else
+                    {
+						currentTimeTextBlock.Text += $"0{seconds}";
+					}
 				}
 				else
                 {
@@ -269,11 +280,21 @@ namespace FoodRecipes.CustomView
 		{
 			var maxTime = (int)Math.Ceiling(videoContainerFromLocal.NaturalDuration.TimeSpan.TotalSeconds);
 
-			Debug.WriteLine(maxTime);
-
 			videoProgressSlider.Maximum = maxTime;
 
-			totalTimeTextBlock.Text = $"{maxTime / 60} : {maxTime % 60}";
+			var minutes = maxTime / 60;
+			var seconds = maxTime % 60;
+
+			totalTimeTextBlock.Text = $"{minutes} : ";
+
+			if (seconds > 10)
+			{
+				totalTimeTextBlock.Text += $"{seconds}";
+			}
+			else
+			{
+				totalTimeTextBlock.Text += $"0{seconds}";
+			}
 		}
 
 		// When the media playback is finished. Stop() the media to seek to media start.
@@ -301,8 +322,19 @@ namespace FoodRecipes.CustomView
             }
 
 			var currentTime = (int)Math.Ceiling(videoProgressSlider.Value);
+			var minutes = currentTime / 60;
+			var seconds = currentTime % 60;
 
-			currentTimeTextBlock.Text = $"{currentTime / 60} : {currentTime % 60}";
+			currentTimeTextBlock.Text = $"{minutes} : ";
+
+			if (seconds > 10)
+			{
+				currentTimeTextBlock.Text += $"{seconds}";
+			}
+			else
+			{
+				currentTimeTextBlock.Text += $"0{seconds}";
+			}
 
 			TimeSpan ts = new TimeSpan(0, 0, 0, (int)currentTime, 0);
 
