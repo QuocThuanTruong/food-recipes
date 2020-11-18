@@ -44,6 +44,5 @@
                        Source="{StaticResource IconBlueClose}"/>
             </Button>
         </Grid>
-
     </Grid>
 </UserControl>

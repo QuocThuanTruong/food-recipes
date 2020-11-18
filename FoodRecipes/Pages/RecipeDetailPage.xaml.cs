@@ -21,6 +21,8 @@ using System.Media;
 using System.Windows.Controls.Primitives;
 using System.Security.Policy;
 using System.CodeDom;
+using System.Net.Http;
+using System.Net;
 
 namespace FoodRecipes.Pages
 {
@@ -41,6 +43,7 @@ namespace FoodRecipes.Pages
 		private Recipe _recipe;
 		private bool _isYoutubeWebView = true;
 
+		private readonly HttpClient _client = new HttpClient();
 		public RecipeDetailPage()
 		{
 			InitializeComponent();
@@ -64,65 +67,79 @@ namespace FoodRecipes.Pages
 
 			_recipe = _appUtilities.getRecipeForBindingInRecipeDetail(_recipe, false);
 
-			loadVideoTutorial(_recipe.LINK_VIDEO);
-
 			mainContainer.DataContext = _recipe;
+
+			_ = loadVideoTutorial(_recipe.LINK_VIDEO);
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-
+			
 		}
-		private void loadVideoTutorial(string url)
-        {
+
+		private async Task<bool> loadVideoTutorial(string url)
+		{
 			if (url.IndexOf("http") != -1 || url.IndexOf("https") != -1)
-            {
-				youtubeThumbnail.Visibility = Visibility.Visible;
+			{
+                youtubeThumbnail.Visibility = Visibility.Visible;
 
-				string[] urlParams = url.Split('=');
+                string[] urlParams = url.Split('=');
 
-				string urlID = "";
+                string urlID = "";
 
-				if (url.IndexOf("=") != -1)
-				{
+                if (url.IndexOf("=") != -1)
+                {
 
-					string urlParamsIDAndFeture = urlParams[1];
-					string[] rawUrl = urlParamsIDAndFeture.Split('&');
+                    string urlParamsIDAndFeture = urlParams[1];
+                    string[] rawUrl = urlParamsIDAndFeture.Split('&');
 
-					if (rawUrl.Length > 0)
-					{
-						urlID = rawUrl[0];
-					}
-					else
-					{
-						urlID = urlParams[1];
-					}
+                    if (rawUrl.Length > 0)
+                    {
+                        urlID = rawUrl[0];
+                    }
+                    else
+                    {
+                        urlID = urlParams[1];
+                    }
+                }
+                else
+                {
+                    urlParams = url.Split('/');
+                    urlID = urlParams[3];
+                }
+
+                _isYoutubeWebView = true;
+
+                //bắt ngoại lệ
+                var sourceThumbnail = $"https://img.youtube.com/vi/{urlID}/0.jpg";
+
+				var existThumbnail = await checkExistThumbnailYoutubeVideoFromURL(sourceThumbnail);
+
+				if (existThumbnail)
+                {
+					BitmapImage bitmap = new BitmapImage();
+
+					statusVideoContainer.Visibility = Visibility.Collapsed;
+
+					//nếu không load được thì hiện statusVideoContainer
+					bitmap.BeginInit();
+					bitmap.CacheOption = BitmapCacheOption.OnLoad;
+					bitmap.UriSource = new Uri(sourceThumbnail);
+					bitmap.EndInit();
+
+					youtubeThumbnail.Source = bitmap;
+
+					playVideoButton.Visibility = Visibility.Visible;
+					statusVideoContainer.Visibility = Visibility.Collapsed;
 				}
 				else
-				{
-					urlParams = url.Split('/');
-					urlID = urlParams[3];
+                {
+					statusVideoContainer.Visibility = Visibility.Visible;
+					playVideoButton.Visibility = Visibility.Hidden;
 				}
-
-				//bắt ngoại lệ
-				var sourceThumbnail = $"https://img.youtube.com/vi/{urlID}/0.jpg";
-				BitmapImage bitmap = new BitmapImage();
-
-				statusVideoContainer.Visibility = Visibility.Collapsed;
-				playVideoButton.Visibility = Visibility.Visible;
-
-				_isYoutubeWebView = true;
-				//nếu không load được thì hiện statusVideoContainer
-
-				bitmap.BeginInit();
-				bitmap.CacheOption = BitmapCacheOption.OnLoad;
-				bitmap.UriSource = new Uri(sourceThumbnail);
-				bitmap.EndInit();
-
-				youtubeThumbnail.Source = bitmap;
-			} 
+            }
 			else
-            {
+			{
 				localMediaPlayer.Visibility = Visibility.Visible;
 				statusVideoContainer.Visibility = Visibility.Collapsed;
 				playVideoButton.Visibility = Visibility.Visible;
@@ -134,16 +151,36 @@ namespace FoodRecipes.Pages
 				//không load được thì hiện status video
 				if (!localMediaPlayer.PlayVideoFromUri(url))
 				{
-
-				}	
+					statusVideoContainer.Visibility = Visibility.Visible;
+				}
 
 			}
+
+			return true;
+		}
+
+		private async Task<bool> checkExistThumbnailYoutubeVideoFromURL(string URL)
+        {
+			bool result = false;
+
+			var response = await _client.GetAsync(URL);
+
+			if (response.StatusCode == HttpStatusCode.OK)
+			{
+				result = true;
+			}
+			else
+			{
+				result = false;
+			}
+
+			return result;
 		}
 
 		private void addShoppingButton_Click(object sender, RoutedEventArgs e)
 		{
 			//Test Show snack bar
-			notiMessageSnackbar.MessageQueue.Enqueue("Đã thêm...", "GO SHOPPING", () => { GoShoppingPage(); });
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm {_recipe.NAME} vào danh sách shopping", "GO SHOPPING", () => { GoShoppingPage(); });
 
 			_dbUtilities.TurnShoppingFlagOn(_recipeID);
 		}
@@ -155,15 +192,22 @@ namespace FoodRecipes.Pages
 
         private void favButton_Checked(object sender, RoutedEventArgs e)
         {
-			bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
+			if (this.IsLoaded)
+            {
+				bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
 
-			if (isFavoriteRecipe)
-			{
-				_dbUtilities.TurnFavoriteFlagOn(_recipeID);
-			}
-			else
-			{
-				_dbUtilities.TurnFavoriteFlagOff(_recipeID);
+				if (isFavoriteRecipe)
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm {_recipe.NAME} vào danh sách yêu thích", "OK", () => { });
+
+					_dbUtilities.TurnFavoriteFlagOn(_recipeID);
+				}
+				else
+				{
+					notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_recipe.NAME} khỏi danh sách yêu thích", "OK", () => { });
+
+					_dbUtilities.TurnFavoriteFlagOff(_recipeID);
+				}
 			}
 		}
 		private void imageRecipeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -229,6 +273,7 @@ namespace FoodRecipes.Pages
 			}
 			else
 			{
+				fullScreenVideoDialog.localMediaPlayer.IsFullScreen = true;
 				fullScreenVideoDialog.ShowDialog(_recipe.LINK_VIDEO);
 			}
 		}

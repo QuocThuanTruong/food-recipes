@@ -334,11 +334,17 @@ namespace FoodRecipes.Pages
 
 			bool isFavoriteRecipe = ((ToggleButton)sender).IsChecked.Value;
 
+			var recipe = _dbUtilities.GetRecipeById(ID_RECIPE);
+
 			if (isFavoriteRecipe) {
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm {_appUtilities.getStandardName(recipe.NAME, true)} vào danh sách yêu thích", "OK", () => {});
+
 				_dbUtilities.TurnFavoriteFlagOn(ID_RECIPE);
 			} 
 			else
             {
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã xóa {_appUtilities.getStandardName(recipe.NAME, true)} khỏi danh sách yêu thích", "OK", () => {});
+
 				_dbUtilities.TurnFavoriteFlagOff(ID_RECIPE);
 			}
 		}
@@ -459,10 +465,12 @@ namespace FoodRecipes.Pages
 				{
 					_maxPage = 1;
 					_currentPage = 1;
+
+					messageNotFoundContainer.Visibility = Visibility.Visible;
 				}
 				else
 				{
-					//Do nothing
+					messageNotFoundContainer.Visibility = Visibility.Hidden;
 				}
 
 				currentPageTextBlock.Text = $"{_currentPage} of {_maxPage}";
@@ -476,12 +484,12 @@ namespace FoodRecipes.Pages
 
 					recipesListView.ItemsSource = recipes;
 
-					notiMessageSnackbar.MessageQueue.Enqueue($"Có {resultQuery.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+					currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {resultQuery.totalRecipeResult} kết quả";
 				}
 				else
                 {
 					recipesListView.ItemsSource = null;
-					notiMessageSnackbar.MessageQueue.Enqueue($"Không kết quả phù hợp", "OK", () => { });
+					currentResultTextBlock.Text = "";
 				}
 			}
 
@@ -544,10 +552,12 @@ namespace FoodRecipes.Pages
 			{
 				_maxPage = 1;
 				_currentPage = 1;
+
+				messageNotFoundContainer.Visibility = Visibility.Visible;
 			}
 			else
 			{
-				//Do nothing
+				messageNotFoundContainer.Visibility = Visibility.Hidden;
 			}
 
 			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
@@ -562,11 +572,12 @@ namespace FoodRecipes.Pages
 
 				recipesListView.ItemsSource = recipes;
 
-				notiMessageSnackbar.MessageQueue.Enqueue($"Có {recipesSearchResults.totalRecipeResult} kết quả phù hợp", "OK", () => { });
+				currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {recipesSearchResults.totalRecipeResult} kết quả";
 			}
 			else
 			{
 				recipesListView.ItemsSource = null;
+				currentResultTextBlock.Text = "";
 			}
 
 			_canSearchRequest = false;
