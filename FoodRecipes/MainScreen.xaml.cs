@@ -186,7 +186,26 @@ namespace FoodRecipes
 		private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			this.DragMove();
-			Debug.WriteLine("drag");
+		}
+
+		private void iconFbButton_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://facebook.com");
+		}
+
+		private void iconIgButton_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.instagram.com");
+		}
+
+		private void iconYtButton_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.youtube.com");
+		}
+
+		private void iconTTButton_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://www.tiktok.com");
 		}
 	}
 }

@@ -74,7 +74,7 @@ namespace FoodRecipes.CustomView
             }
 			else
             {
-				_loadFrameTimer = new Timer(200);
+				_loadFrameTimer = new Timer(500);
 				_loadFrameTimer.Elapsed += _loadFrameTimer_Elapsed;
 				_loadFrameTimer.Start();
 
@@ -261,6 +261,15 @@ namespace FoodRecipes.CustomView
 		private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 			videoContainerFromLocal.Volume = (double)volumeSlider.Value;
+
+			if (volumeSlider.Value == 0)
+			{
+				iconMute.Source = new BitmapImage(new Uri(FindResource("IconBlueMute").ToString()));
+			}	
+			else
+			{
+				iconMute.Source = new BitmapImage(new Uri(FindResource("IconBlueSoundOn").ToString()));
+			}	
 
 			Debug.WriteLine(videoContainerFromLocal.Volume);
 		}

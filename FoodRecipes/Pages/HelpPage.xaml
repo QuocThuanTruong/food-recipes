@@ -97,11 +97,13 @@
                    Text="{x:Static loc:Resources.title_link_video}"/>
 
         <TextBlock Name="linkVideoTextBlock"
+                   MouseDown="linkVideoTextBlock_MouseDown"
                    Grid.Column="1"
                    Grid.Row="3"
                    Text="{x:Static loc:Resources.text_link_video_help}"
                    FontSize="14"
-                   Style="{StaticResource DetailTextBlock}"/>
+                   Style="{StaticResource LinkTextBlock}">
+        </TextBlock>
 
     </Grid>
 </Page>

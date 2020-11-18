@@ -88,6 +88,14 @@
         <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="LinkTextBlock" BasedOn="{StaticResource DetailTextBlock}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="TextBlock"
                    x:Key="SmallText">
         <Setter Property="FontSize" Value="12"/>
