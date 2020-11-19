@@ -29,7 +29,7 @@ namespace FoodRecipes.Pages
 
 			_memberDetails.Add(new Tuple<string, string, string, string>("0", "QT", Properties.Resources.text_name_qt, Properties.Resources.text_mssv_qt));
 			_memberDetails.Add(new Tuple<string, string, string, string>("1", "HT", Properties.Resources.text_name_ht, Properties.Resources.text_mssv_ht));
-			_memberDetails.Add(new Tuple<string, string, string, string>("2", "NT", Properties.Resources.text_name_nt, Properties.Resources.text_name_nt));
+			_memberDetails.Add(new Tuple<string, string, string, string>("2", "NT", Properties.Resources.text_name_nt, Properties.Resources.text_mssv_nt));
 
 			membersListview.ItemsSource = _memberDetails;
 		}

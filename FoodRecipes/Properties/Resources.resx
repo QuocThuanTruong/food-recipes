@@ -373,11 +373,17 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
   <data name="tip_first_page" xml:space="preserve">
     <value>First page</value>
   </data>
+  <data name="tip_group" xml:space="preserve">
+    <value>Food group</value>
+  </data>
   <data name="tip_ig" xml:space="preserve">
     <value>Instagram</value>
   </data>
   <data name="tip_last_page" xml:space="preserve">
     <value>Last page</value>
+  </data>
+  <data name="tip_level" xml:space="preserve">
+    <value>Level</value>
   </data>
   <data name="tip_maximize_window_button" xml:space="preserve">
     <value>Maximize</value>
@@ -402,6 +408,9 @@ Sau khi tìm được món ăn bạn có thể click vào để xem chi tiết m
   </data>
   <data name="tip_restore_window_button" xml:space="preserve">
     <value>Restore down</value>
+  </data>
+  <data name="tip_time" xml:space="preserve">
+    <value>Making time</value>
   </data>
   <data name="tip_tt" xml:space="preserve">
     <value>Tiktok</value>

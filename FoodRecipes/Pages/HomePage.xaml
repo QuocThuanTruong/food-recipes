@@ -821,6 +821,7 @@
                                                VerticalAlignment="Center"
                                                Width="10"
                                                Height="10"
+                                               ToolTip="{x:Static loc:Resources.tip_time}"
                                                Source="{StaticResource IconGrayClock}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -840,6 +841,7 @@
                                                VerticalAlignment="Center"                                              
                                                Width="10"
                                                Height="10"
+                                               ToolTip="{x:Static loc:Resources.tip_group}"
                                                Source="{StaticResource IconGrayGroup}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -867,6 +869,7 @@
                                            Margin="0, 0, 4, 0"
                                            Width="6"
                                            Height="12"
+                                           ToolTip="{x:Static loc:Resources.tip_level}"
                                            Source="{StaticResource IconGrayLevel}"/>
 
                                     <!-- Binding data -->

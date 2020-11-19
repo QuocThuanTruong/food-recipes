@@ -821,6 +821,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Food group.
+        /// </summary>
+        public static string tip_group {
+            get {
+                return ResourceManager.GetString("tip_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instagram.
         /// </summary>
         public static string tip_ig {
@@ -835,6 +844,15 @@ namespace FoodRecipes.Properties {
         public static string tip_last_page {
             get {
                 return ResourceManager.GetString("tip_last_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string tip_level {
+            get {
+                return ResourceManager.GetString("tip_level", resourceCulture);
             }
         }
         
@@ -907,6 +925,15 @@ namespace FoodRecipes.Properties {
         public static string tip_restore_window_button {
             get {
                 return ResourceManager.GetString("tip_restore_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Making time.
+        /// </summary>
+        public static string tip_time {
+            get {
+                return ResourceManager.GetString("tip_time", resourceCulture);
             }
         }
         
