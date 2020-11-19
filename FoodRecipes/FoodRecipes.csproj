@@ -447,8 +447,8 @@
     <Content Include="Assets\youtube.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icon\food_recipe_logo.ico" />
     <Resource Include="food_recipe_logo.ico" />
-    <Resource Include="Icon\food_recipe_logo.ico.ico" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
