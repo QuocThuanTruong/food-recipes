@@ -482,6 +482,8 @@ namespace FoodRecipes.Pages
 
 		private void clearForm()
         {
+			recipe = new Recipe();
+
 			messageNotFoundContainer.Visibility = Visibility.Visible;
 
 			recipeNameTextBox.Text = "";
