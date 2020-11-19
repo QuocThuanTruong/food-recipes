@@ -174,7 +174,7 @@ namespace FoodRecipes.Pages
 				_sortedBy = sortTypeComboBox.SelectedIndex;
 
 				_configuration.AppSettings.Settings["SortedByShoppingPage"].Value = _sortedBy.ToString();
-				_configuration.Save(ConfigurationSaveMode.Minimal);
+				_configuration.Save(ConfigurationSaveMode.Modified);
 
 				loadRecipes();
 			}

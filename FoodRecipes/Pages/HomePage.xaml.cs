@@ -238,7 +238,7 @@ namespace FoodRecipes.Pages
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
 
 				_configuration.AppSettings.Settings["GridType"].Value = _typeGridCard.ToString();
-				_configuration.Save(ConfigurationSaveMode.Minimal);
+				_configuration.Save(ConfigurationSaveMode.Modified);
 
 
 				_currentPage = 1;
@@ -261,7 +261,7 @@ namespace FoodRecipes.Pages
 				_sortedBy = sortTypeComboBox.SelectedIndex;
 
 				_configuration.AppSettings.Settings["SortedByHomePage"].Value = _sortedBy.ToString();
-				_configuration.Save(ConfigurationSaveMode.Minimal);
+				_configuration.Save(ConfigurationSaveMode.Modified);
 
 				if (_isSearching)
 				{

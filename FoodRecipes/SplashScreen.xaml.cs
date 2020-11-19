@@ -179,13 +179,13 @@ namespace FoodRecipes
 		private void turnOffSplashCheckBox_Checked(object sender, RoutedEventArgs e)
 		{
 			_configuration.AppSettings.Settings["ShowSplashScreen"].Value = "False";
-			_configuration.Save(ConfigurationSaveMode.Minimal);
+			_configuration.Save(ConfigurationSaveMode.Modified);
 		}
 
 		private void turnOffSplashCheckBox_Unchecked(object sender, RoutedEventArgs e)
 		{
 			_configuration.AppSettings.Settings["ShowSplashScreen"].Value = "True";
-			_configuration.Save(ConfigurationSaveMode.Minimal);
+			_configuration.Save(ConfigurationSaveMode.Modified);
 		}
 
 	}
