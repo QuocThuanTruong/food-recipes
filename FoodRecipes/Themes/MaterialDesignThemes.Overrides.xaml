@@ -807,7 +807,7 @@
                 <RowDefinition Height="0.00001*"/>
                 <RowDefinition MaxHeight="0"/>
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="3" CornerRadius="4" Background="{DynamicResource MyLightGray2}" />
+            <Border Grid.RowSpan="3" CornerRadius="4" Background="Transparent" />
             <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyLightGray3}" BorderBrush="Transparent"/>
@@ -823,7 +823,7 @@
                 <ColumnDefinition Width="0.00001*"/>
                 <ColumnDefinition MaxWidth="0"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="3" CornerRadius="4" Background="{DynamicResource MyLightGray2}"/>
+            <Border Grid.ColumnSpan="3" CornerRadius="4" Background="Transparent"/>
             <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0" Background="{DynamicResource MyLightGray3}" BorderBrush="Transparent" />

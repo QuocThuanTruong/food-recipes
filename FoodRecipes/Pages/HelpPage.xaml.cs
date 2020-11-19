@@ -38,5 +38,10 @@ namespace FoodRecipes.Pages
 			helpDetailListView.ItemsSource = _howToUsePages;
 
 		}
+
+		private void linkVideoTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/QuocThuanTruong/FoodRecipes");
+		}
 	}
 }

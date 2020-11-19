@@ -61,6 +61,7 @@
 
                     <!-- Binding ischecked -->
                     <ToggleButton Name="favButton"
+                                  ToolTip="{x:Static loc:Resources.tip_add_fav}"
                               Click="favButton_Checked"
                               VerticalAlignment="Center"
                               Width="35"
@@ -99,6 +100,7 @@
                 <Image Name="iconClock"
                    Width="12"
                    Height="12"
+                   ToolTip="{x:Static loc:Resources.tip_time}"
                    Source="{StaticResource IconOrangeClock}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -113,6 +115,7 @@
                    Margin="8, -1, 0, 0"
                    Width="12"
                    Height="12"
+                       ToolTip="{x:Static loc:Resources.tip_group}"
                    Source="{StaticResource IconOrangeGroup}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -127,6 +130,7 @@
                    Margin="8, 0, 0, 0"
                    Width="12"
                    Height="12"
+                       ToolTip="{x:Static loc:Resources.tip_level}"
                    Source="{StaticResource IconOrangeLevel}"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -157,7 +161,7 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <TextBlock Name="igredientTitleTextBlock"
                        VerticalAlignment="Center"
                        Style="{StaticResource MediumHeaderText}"
@@ -322,17 +326,7 @@
 
             </Grid>
 
-            <!-- Post mesage to notification to user here (active = true) -->
-            <materialDesign:Snackbar Name="notiMessageSnackbar"
-                                 HorizontalAlignment="Left"
-                                 MessageQueue="{materialDesign:MessageQueue}"
-                                 Margin="0, 0, 0, 8"
-                                 Width="370"
-                                 IsActive="False"
-                                 Grid.Column="1"
-                                 Grid.Row="7"
-                                 Grid.RowSpan="3">
-            </materialDesign:Snackbar>
+   
 
             <TextBlock Name="tutorialTitleTextBlock"
                    VerticalAlignment="Center"
@@ -445,7 +439,21 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <!-- Post mesage to notification to user here (active = true) -->
+            <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="0, 0, 0, 8"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="7"
+                                     Grid.ColumnSpan="3"
+                                 Grid.RowSpan="3">
+            </materialDesign:Snackbar>
         </Grid>
+        
 
         <custom:CarouselDialog x:Name="carouselDialog"
                                CloseCarouselDialog="CarouselDialog_CloseCarouselDialog"

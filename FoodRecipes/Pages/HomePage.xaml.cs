@@ -498,7 +498,7 @@ namespace FoodRecipes.Pages
 
 					recipesListView.ItemsSource = recipes;
 
-					currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {resultQuery.totalRecipeResult} kết quả";
+					currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {resultQuery.totalRecipeResult} món ăn";
 				}
 				else
 				{
@@ -587,12 +587,12 @@ namespace FoodRecipes.Pages
 
 				recipesListView.ItemsSource = recipes;
 
-				currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {recipesSearchResults.totalRecipeResult} kết quả";
+				currentResultTextBlock.Text = $"Hiển thị {recipes.Count} trong tổng số {recipesSearchResults.totalRecipeResult} món ăn";
 			}
 			else
 			{
 				recipesListView.ItemsSource = null;
-				currentResultTextBlock.Text = "";
+				currentResultTextBlock.Text = "Không tìm thấy món ăn thỏa yêu cầu";
 			}
 
 			_canSearchRequest = false;

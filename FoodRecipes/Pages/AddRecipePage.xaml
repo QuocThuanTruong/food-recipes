@@ -98,6 +98,7 @@
             </materialDesign:ColorZone.Effect>
 
             <Button Name="openLocalVideoButton"
+                    ToolTip="{x:Static loc:Resources.tip_open_file}"
                     Click="openLocalVideoButton_Click"
                         Width="Auto"
                         Style="{StaticResource StepButton}"
@@ -155,6 +156,7 @@
 
                 <!-- Click here to get avt-->
                 <Button Name="avatarPickerFrameButton"
+                         ToolTip="{x:Static loc:Resources.tip_pick_avt}"
                         Click="avatarPickerFrameButton_Click"
                         Opacity="0"
                         Style="{StaticResource ImagePickerFrameButton}"
@@ -411,6 +413,7 @@
                 </materialDesign:ColorZone.Effect>
 
                 <Button Name="addShoppingButton"
+                         ToolTip="{x:Static loc:Resources.tip_add_igredient}"
                         Click="addShoppingButton_Click"
                         Width="Auto"
                         Style="{StaticResource StepButton}"
@@ -544,6 +547,7 @@
             </ListView>
 
             <Button Name="relativeImagePickerButton"
+                     ToolTip="{x:Static loc:Resources.tip_pick_image}"
                     Style="{StaticResource ImagePickerButton}"
                     Background="{DynamicResource MyLightGray2}"
                     VerticalAlignment="Top"

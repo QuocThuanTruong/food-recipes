@@ -4,11 +4,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:loc="clr-namespace:FoodRecipes.Properties"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+          Background="Transparent"
+          BorderBrush="{StaticResource MyLightGray2}"
+          BorderThickness="1"
         Title="HomeScreen" Height="768" Width="1366" WindowStyle="None" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
       
-    <!-- Main container--> 
-    <Grid Name="mainContainer">
+    <!-- Main container-->
+    <Grid Name="mainContainer" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Name="navigationDrawer" Width="240*"/>
             <ColumnDefinition Name="pageContent" Width="1126*"/>
@@ -36,9 +40,9 @@
                                           Opacity="1"
                                           BlurRadius="15"/>
                     </Border.Effect>
-                    
+
                 </Border>
-                
+
                 <Border Name="drawerShape"
                         Margin="0, 0, 6, 0"
                         CornerRadius="0, 40, 40, 0"
@@ -50,7 +54,9 @@
                     <RowDefinition Height="40*"/>
                     <RowDefinition Height="60*"/>
                     <RowDefinition Height="380*"/>
-                    <RowDefinition Height="288*"/>
+                    <RowDefinition Height="140*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="68*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Name="appLogoContainer"
@@ -75,7 +81,7 @@
                                Style="{StaticResource LargeTitleText}"/>
                 </StackPanel>
 
-                <Rectangle Name="separateLine"
+                <Rectangle Name="separateLine1"
                            Grid.Column="0"
                            Grid.Row="1"
                            Width="168"
@@ -395,8 +401,122 @@
                         </Button>
                     </Grid>
                 </ListBox>
+
+                <Grid Name="followContainer"
+                  Grid.Row="4">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Name="socialMedia"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.text_social_media}"/>
+
+                    <StackPanel Name="socialIconContainer"
+                                    Margin="0, 8, 0, 0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Grid.Row="1"
+                                Orientation="Horizontal">
+
+                        <Button Name="iconFbButton"
+                                Click="iconFbButton_Click"
+                                ToolTip="{x:Static loc:Resources.tip_fb}"
+                                Width="26"
+                                Height="26"
+                                Style="{StaticResource GroupButton}"
+                                materialDesign:ButtonAssist.CornerRadius="0"
+                                Background="Transparent">
+
+                            <Image Name="iconFb"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource IconFacebook}"
+                               Width="26"
+                               Height="26"/>
+
+                        </Button>
+
+
+                        <Button Name="iconIgButton"
+                                Click="iconIgButton_Click"
+                                ToolTip="{x:Static loc:Resources.tip_ig}"
+                                 Margin="12, 0, 0, 0"
+                                Width="26"
+                                Height="26"
+                                Style="{StaticResource GroupButton}"
+                                materialDesign:ButtonAssist.CornerRadius="0"
+                                Background="Transparent">
+
+                            <Image Name="iconIg"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource IconIg}"
+                               Width="26"
+                               Height="26"/>
+
+                        </Button>
+
+                        <Button Name="iconTTButton"
+                                Click="iconTTButton_Click"
+                                ToolTip="{x:Static loc:Resources.tip_tt}"
+                                 Margin="12, 0, 0, 0"
+                                Width="26"
+                                Height="26"
+                                Style="{StaticResource GroupButton}"
+                                materialDesign:ButtonAssist.CornerRadius="0"
+                                Background="Transparent">
+
+                            <Image Name="iconTT"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource IconTiktok}"
+                               Width="26"
+                               Height="26"/>
+
+                        </Button>
+
+                        <Button Name="iconYtButton"
+                                Click="iconYtButton_Click"
+                                ToolTip="{x:Static loc:Resources.tip_yt}"
+                                Margin="12, 0, 0, 0"
+                                Width="26"
+                                Height="26"
+                                Style="{StaticResource GroupButton}"
+                                materialDesign:ButtonAssist.CornerRadius="0"
+                                Background="Transparent">
+
+                            <Image Name="iconYt"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource IconYoutube}"
+                               Width="26"
+                               Height="26"/>
+
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Rectangle Name="separateLine2"
+                           Grid.Column="0"
+                           Grid.Row="5"
+                           Width="168"
+                           Height="2"
+                           Fill="{DynamicResource MyOrange}"
+                           VerticalAlignment="Top"/>
+
+                <TextBlock Name="appVersion"
+                                       Grid.Row="5"
+                                       HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="0, 0, 0, 12"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.app_version}"/>
             </Grid>
-          
         </Grid>
 
         <!-- Tool bar -->
@@ -405,7 +525,7 @@
                    MouseDown="Rectangle_MouseDown"
                    Height="{Binding ActualHeight, ElementName=windowOptionsContainer}"
                    Grid.Row="0"/>
-        
+
         <StackPanel Name="windowOptionsContainer"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"

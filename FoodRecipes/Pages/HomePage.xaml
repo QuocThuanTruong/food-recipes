@@ -89,6 +89,7 @@
                                  Grid.Column="1" TextChanged="searchTextBox_TextChanged"/>
 
                         <Button Name="filterButton"
+                                ToolTip="{x:Static loc:Resources.tip_filter}"
                                      Grid.Column="2"
                                     Click="filterButton_Click"
                                     materialDesign:ButtonAssist.CornerRadius="20"
@@ -760,6 +761,7 @@
 
                                     <!-- Binding ischecked -->
                                     <ToggleButton Name="favButton"
+                                                  ToolTip="{x:Static loc:Resources.tip_add_fav}"
                                                   Click="favButton_Click"
                                                   Tag="{Binding ID_RECIPE}"
                                                   VerticalAlignment="Center"
@@ -819,6 +821,7 @@
                                                VerticalAlignment="Center"
                                                Width="10"
                                                Height="10"
+                                               ToolTip="{x:Static loc:Resources.tip_time}"
                                                Source="{StaticResource IconGrayClock}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -838,6 +841,7 @@
                                                VerticalAlignment="Center"                                              
                                                Width="10"
                                                Height="10"
+                                               ToolTip="{x:Static loc:Resources.tip_group}"
                                                Source="{StaticResource IconGrayGroup}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -865,6 +869,7 @@
                                            Margin="0, 0, 4, 0"
                                            Width="6"
                                            Height="12"
+                                           ToolTip="{x:Static loc:Resources.tip_level}"
                                            Source="{StaticResource IconGrayLevel}"/>
 
                                     <!-- Binding data -->
@@ -925,6 +930,7 @@
                         FlowDirection="RightToLeft">
 
                 <Button Name="lastPageButton"
+                        ToolTip="{x:Static loc:Resources.tip_last_page}"
                         Click="lastPageButton_Click"
                         Width="27"
                         Height="40"
@@ -939,6 +945,7 @@
                 </Button>
 
                 <Button Name="nextPageButton"
+                        ToolTip="{x:Static loc:Resources.tip_next_page}"
                         Click="nextPageButton_Click"
                         Width="27"
                         Height="40"
@@ -985,6 +992,7 @@
                 </materialDesign:ColorZone>
 
                 <Button Name="prevPageButton"
+                        ToolTip="{x:Static loc:Resources.tip_previous_page}"
                         Click="prevPageButton_Click"
                         Width="27"
                         Height="40"
@@ -999,6 +1007,7 @@
                 </Button>
 
                 <Button Name="firstPageButton"
+                        ToolTip="{x:Static loc:Resources.tip_first_page}"
                         Click="firstPageButton_Click"
                         Width="27"
                         Height="40"
@@ -1019,7 +1028,7 @@
                    Grid.Row="3"
                    Margin="8, 0, 200, 0"
                    VerticalAlignment="Center"
-                   Text="Hiển thị 12 trong tổng số 72 kết quả"
+                   Text="Hiển thị 12 trong tổng số 72 món ăn"
                    Foreground="{StaticResource MyLightGray4}"
                    Style="{StaticResource RegularText}"/>
         

@@ -629,6 +629,7 @@
                                                VerticalAlignment="Center"                                              
                                                Width="11"
                                                Height="11"
+                                                       ToolTip="{x:Static loc:Resources.tip_group}"
                                                Source="{StaticResource IconGrayGroup}"
                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -648,6 +649,7 @@
                                     </StackPanel>
 
                                     <Button Name="deleteShoppingRecipeButton"
+                                            ToolTip="{x:Static loc:Resources.tip_delete_shopping}"
                                             Click="deleteShoppingRecipeButton_Click"
                                             Tag="{Binding ID_RECIPE}"
                                             Grid.Column="1"
@@ -749,7 +751,6 @@
                    Grid.Row="3"
                    Margin="8, 0, 0, 0"
                    VerticalAlignment="Center"
-                   Text="Hiển thị 12 trong tổng số 72 kết quả"
                    Foreground="{StaticResource MyLightGray4}"
                    Style="{StaticResource RegularText}"/>
 

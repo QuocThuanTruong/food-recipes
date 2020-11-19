@@ -106,6 +106,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version 1.0.0.
+        /// </summary>
+        public static string app_version {
+            get {
+                return ResourceManager.GetString("app_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Favorite.
         /// </summary>
         public static string fav_page_name {
@@ -404,7 +413,8 @@ namespace FoodRecipes.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Mọi thắc mắc về ứng dụng xin vui lòng liên hệ foodrecipes.hcmus@gmail.com.
-        ///Copy right © 2020.
+        ///The MIT License (MIT).
+        ///Copy right © 2020 Quoc Thuan Truong, Le Nhat Tuan, Hoang Thi Thuy Trang..
         /// </summary>
         public static string text_contact {
             get {
@@ -431,7 +441,7 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/.
+        ///   Looks up a localized string similar to https://github.com/QuocThuanTruong/FoodRecipes.
         /// </summary>
         public static string text_github {
             get {
@@ -703,11 +713,38 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Social media.
+        /// </summary>
+        public static string text_social_media {
+            get {
+                return ResourceManager.GetString("text_social_media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Món chay.
         /// </summary>
         public static string text_vegetarian_group {
             get {
                 return ResourceManager.GetString("text_vegetarian_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to your favorite food recipes.
+        /// </summary>
+        public static string tip_add_fav {
+            get {
+                return ResourceManager.GetString("tip_add_fav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add igredients.
+        /// </summary>
+        public static string tip_add_igredient {
+            get {
+                return ResourceManager.GetString("tip_add_igredient", resourceCulture);
             }
         }
         
@@ -721,6 +758,24 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string tip_cancel {
+            get {
+                return ResourceManager.GetString("tip_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear all filter.
+        /// </summary>
+        public static string tip_clear_filter {
+            get {
+                return ResourceManager.GetString("tip_clear_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string tip_close_window_button {
@@ -730,11 +785,83 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete your shopping item.
+        /// </summary>
+        public static string tip_delete_shopping {
+            get {
+                return ResourceManager.GetString("tip_delete_shopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eraser all selected filter.
         /// </summary>
         public static string tip_eraser_all_filter {
             get {
                 return ResourceManager.GetString("tip_eraser_all_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facebook.
+        /// </summary>
+        public static string tip_fb {
+            get {
+                return ResourceManager.GetString("tip_fb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter food recipes.
+        /// </summary>
+        public static string tip_filter {
+            get {
+                return ResourceManager.GetString("tip_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First page.
+        /// </summary>
+        public static string tip_first_page {
+            get {
+                return ResourceManager.GetString("tip_first_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Food group.
+        /// </summary>
+        public static string tip_group {
+            get {
+                return ResourceManager.GetString("tip_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instagram.
+        /// </summary>
+        public static string tip_ig {
+            get {
+                return ResourceManager.GetString("tip_ig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last page.
+        /// </summary>
+        public static string tip_last_page {
+            get {
+                return ResourceManager.GetString("tip_last_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string tip_level {
+            get {
+                return ResourceManager.GetString("tip_level", resourceCulture);
             }
         }
         
@@ -757,11 +884,83 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next page.
+        /// </summary>
+        public static string tip_next_page {
+            get {
+                return ResourceManager.GetString("tip_next_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open your file.
+        /// </summary>
+        public static string tip_open_file {
+            get {
+                return ResourceManager.GetString("tip_open_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick up recipe avatar.
+        /// </summary>
+        public static string tip_pick_avt {
+            get {
+                return ResourceManager.GetString("tip_pick_avt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick up step images.
+        /// </summary>
+        public static string tip_pick_image {
+            get {
+                return ResourceManager.GetString("tip_pick_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous page.
+        /// </summary>
+        public static string tip_previous_page {
+            get {
+                return ResourceManager.GetString("tip_previous_page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore down.
         /// </summary>
         public static string tip_restore_window_button {
             get {
                 return ResourceManager.GetString("tip_restore_window_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Making time.
+        /// </summary>
+        public static string tip_time {
+            get {
+                return ResourceManager.GetString("tip_time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiktok.
+        /// </summary>
+        public static string tip_tt {
+            get {
+                return ResourceManager.GetString("tip_tt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Youtube.
+        /// </summary>
+        public static string tip_yt {
+            get {
+                return ResourceManager.GetString("tip_yt", resourceCulture);
             }
         }
         

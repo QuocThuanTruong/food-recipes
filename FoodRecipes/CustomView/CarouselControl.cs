@@ -7,6 +7,11 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Collections;
 
+/// <summary>
+/// This custom carousel dialog originate from Code project
+/// Ref: https://www.codeproject.com/Articles/4051491/A-Custom-WPF-Carousel-Control
+/// </summary>
+/// 
 namespace FoodRecipes.CustomView
 {
     public class CarouselControl : Canvas, ICarouselControl
