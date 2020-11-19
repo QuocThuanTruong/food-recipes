@@ -148,7 +148,14 @@ namespace FoodRecipes.Pages
 			if (this.IsLoaded)
 			{
 				_typeGridCard = gridTypeComboBox.SelectedIndex;
-				loadRecipes();
+				if (_isSearching)
+				{
+					loadRecipesSearch();
+				}
+				else
+				{
+					loadRecipes();
+				}
 			}
 		}
 
@@ -213,7 +220,14 @@ namespace FoodRecipes.Pages
 
 				_prevCondition = "init";
 
-				loadRecipes();
+				if (_isSearching)
+				{
+					loadRecipesSearch();
+				}
+				else
+				{
+					loadRecipes();
+				}
 			}
 		}
 
@@ -226,7 +240,16 @@ namespace FoodRecipes.Pages
 				_configuration.AppSettings.Settings["GridType"].Value = _typeGridCard.ToString();
 				_configuration.Save(ConfigurationSaveMode.Minimal);
 
-				loadRecipes();
+
+				_currentPage = 1;
+				if (_isSearching)
+                {
+					loadRecipesSearch();
+                }
+				else
+                {
+					loadRecipes();
+				}
 			}
 		}
 
@@ -240,7 +263,14 @@ namespace FoodRecipes.Pages
 				_configuration.AppSettings.Settings["SortedByHomePage"].Value = _sortedBy.ToString();
 				_configuration.Save(ConfigurationSaveMode.Minimal);
 
-				loadRecipes();
+				if (_isSearching)
+				{
+					loadRecipesSearch();
+				}
+				else
+				{
+					loadRecipes();
+				}
 			}
 			
 		}
