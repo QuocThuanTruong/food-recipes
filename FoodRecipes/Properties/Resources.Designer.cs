@@ -106,6 +106,15 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version 1.0.0.
+        /// </summary>
+        public static string app_version {
+            get {
+                return ResourceManager.GetString("app_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Favorite.
         /// </summary>
         public static string fav_page_name {

@@ -58,8 +58,9 @@
                         <RowDefinition Height="40*"/>
                         <RowDefinition Height="60*"/>
                         <RowDefinition Height="380*"/>
-                        <RowDefinition Height="188*"/>
-                        <RowDefinition Height="100*"/>
+                        <RowDefinition Height="140*"/>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="68*"/>
                     </Grid.RowDefinitions>
 
                     <StackPanel Name="appLogoContainer"
@@ -84,7 +85,7 @@
                                Style="{StaticResource LargeTitleText}"/>
                     </StackPanel>
 
-                    <Rectangle Name="separateLine"
+                    <Rectangle Name="separateLine1"
                            Grid.Column="0"
                            Grid.Row="1"
                            Width="168"
@@ -422,6 +423,7 @@
                                        Text="{x:Static loc:Resources.text_social_media}"/>
 
                         <StackPanel Name="socialIconContainer"
+                                    Margin="0, 8, 0, 0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Grid.Row="1"
@@ -502,6 +504,22 @@
                         </StackPanel>
 
                     </Grid>
+
+                    <Rectangle Name="separateLine2"
+                           Grid.Column="0"
+                           Grid.Row="5"
+                           Width="168"
+                           Height="2"
+                           Fill="{DynamicResource MyOrange}"
+                           VerticalAlignment="Top"/>
+                    
+                    <TextBlock Name="appVersion"
+                                       Grid.Row="5"
+                                       HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="0, 0, 0, 12"
+                                       Style="{DynamicResource RegularText}"
+                                       Text="{x:Static loc:Resources.app_version}"/>
                 </Grid>
             </Grid>
 
