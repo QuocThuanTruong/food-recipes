@@ -623,7 +623,7 @@ namespace FoodRecipes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://youtu.be/tSE2PCmnCTE.
+        ///   Looks up a localized string similar to https://youtu.be/Rzg9LGXxTtI.
         /// </summary>
         public static string text_link_video_help {
             get {
