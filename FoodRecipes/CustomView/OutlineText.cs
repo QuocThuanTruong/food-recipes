@@ -5,7 +5,9 @@ using System.Windows;
 
 /// <summary>
 /// This custom Outlined Text originate from Microsoft
+/// Ref: https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/how-to-create-outlined-text?view=netframeworkdesktop-4.8
 /// </summary>
+/// 
 namespace FoodRecipes.CustomView
 {
     /// <summary>
