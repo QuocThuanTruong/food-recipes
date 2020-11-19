@@ -132,6 +132,9 @@
   <data name="app_name" xml:space="preserve">
     <value>FOOD RECIPES</value>
   </data>
+  <data name="app_version" xml:space="preserve">
+    <value>Version 1.0.0</value>
+  </data>
   <data name="fav_page_name" xml:space="preserve">
     <value>Favorite</value>
   </data>
