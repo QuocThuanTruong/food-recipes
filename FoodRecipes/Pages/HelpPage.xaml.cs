@@ -41,7 +41,7 @@ namespace FoodRecipes.Pages
 
 		private void linkVideoTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			System.Diagnostics.Process.Start("https://github.com/QuocThuanTruong/FoodRecipes");
+			System.Diagnostics.Process.Start("https://youtu.be/tSE2PCmnCTE");
 		}
 	}
 }
