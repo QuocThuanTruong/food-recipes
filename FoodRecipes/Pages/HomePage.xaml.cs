@@ -226,7 +226,14 @@ namespace FoodRecipes.Pages
 				_configuration.AppSettings.Settings["GridType"].Value = _typeGridCard.ToString();
 				_configuration.Save(ConfigurationSaveMode.Minimal);
 
-				loadRecipes();
+				if (_isSearching)
+                {
+					loadRecipesSearch();
+                }
+				else
+                {
+					loadRecipes();
+				}
 			}
 		}
 
