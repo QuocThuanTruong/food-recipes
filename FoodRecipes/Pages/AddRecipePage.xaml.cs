@@ -422,7 +422,6 @@ namespace FoodRecipes.Pages
 
 			clearForm();
 
-			recipe = new Recipe();
 			totalStep = 0;
 		}
 
