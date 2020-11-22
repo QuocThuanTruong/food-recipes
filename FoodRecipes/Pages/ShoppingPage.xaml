@@ -589,6 +589,7 @@
                                     <Image Name="recipeImage"
                                            Width="59"
                                            Height="59"
+                                           Stretch="UniformToFill"
                                            RenderOptions.BitmapScalingMode="HighQuality"
                                            Source="{Binding LINK_AVATAR, Converter={StaticResource PathConverter}}"/>
                                 </materialDesign:Card>
