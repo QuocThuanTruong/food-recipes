@@ -2,6 +2,11 @@
 
 # ĐỒ ÁN 1: FOOD RECIPES
 
+<p align="left">
+<img src="https://img.shields.io/badge/version-1.0.0-blue">
+<img src="https://img.shields.io/badge/platforms-Windows-orange.svg">
+</p>
+
 ### Thông tin nhóm
 
 |       Họ và tên      |   MSSV   | Email                           | 
@@ -110,4 +115,3 @@ Có danh sách hh dạng carousel, có thể xem video (cục bộ hoặc online
 ### Link backup
 - https://drive.google.com/drive/folders/12Epr40R-3YqCJABx7qLZxBFgYhelPiU2?usp=sharing
 
-***Toàn bộ source code và tài nguyên (bao gồm hình ảnh và videos) nhóm tụi em mong thầy có thể sử dụng cho các em khóa sau ạ.***
