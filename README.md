@@ -116,5 +116,5 @@ Có danh sách hh dạng carousel, có thể xem video (cục bộ hoặc online
 > ***https://drive.google.com/drive/folders/12Epr40R-3YqCJABx7qLZxBFgYhelPiU2?usp=sharing
 
 ### License
-Food Recipes is available under the [MIT license](https://opensource.org/licenses/MIT) . See [LICENSE](https://github.com/QuocThuanTruong/Pizzone/blob/master/LICENSE) for the full license text.
+Food Recipes is available under the [MIT license](https://opensource.org/licenses/MIT) . See [LICENSE](https://github.com/QuocThuanTruong/FoodRecipes/blob/master/LICENSE) for the full license text.
 
