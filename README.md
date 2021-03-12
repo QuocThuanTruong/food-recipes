@@ -104,14 +104,17 @@ Có danh sách hh dạng carousel, có thể xem video (cục bộ hoặc online
 - **Điểm cộng đề nghị: 1đ.**
 
 ### Link youtube demo
-- https://youtu.be/Rzg9LGXxTtI
+> ***https://youtu.be/Rzg9LGXxTtI
 
 ### Link file FoodRecipes.msi và hướng dẫn cài đặt
-- https://drive.google.com/drive/folders/1VcDxOtp1tqQcl755fOMquZ4mQOeIkNrr?usp=sharing
+> ***https://drive.google.com/drive/folders/1VcDxOtp1tqQcl755fOMquZ4mQOeIkNrr?usp=sharing
 
 ### Link github
-- https://github.com/QuocThuanTruong/FoodRecipes
+> ***https://github.com/QuocThuanTruong/FoodRecipes
 
 ### Link backup
-- https://drive.google.com/drive/folders/12Epr40R-3YqCJABx7qLZxBFgYhelPiU2?usp=sharing
+> ***https://drive.google.com/drive/folders/12Epr40R-3YqCJABx7qLZxBFgYhelPiU2?usp=sharing
+
+### License
+Food Recipes is available under the [MIT license](https://opensource.org/licenses/MIT) . See [LICENSE](https://github.com/QuocThuanTruong/Pizzone/blob/master/LICENSE) for the full license text.
 
